@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { MapPin, Phone, Mail, Clock } from "lucide-react";
+import { MapPin, Phone, Mail } from "lucide-react";
 import livingKitchen from "@/assets/living-kitchen.jpg";
 import laVitaHouse from "@/assets/la-vita-house.png";
+import collageInterior from "@/assets/collage-interior.png";
 
 export const AboutSection = () => {
   const ref = useRef(null);
@@ -29,15 +30,22 @@ export const AboutSection = () => {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-foreground/30 to-transparent" />
             </div>
-            {/* Floating Card */}
+            {/* Floating Card with Image */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="absolute -bottom-6 -right-6 bg-accent text-accent-foreground p-6 rounded-2xl shadow-lg max-w-[200px]"
+              className="absolute -bottom-6 -right-6 rounded-2xl shadow-lg max-w-[200px] overflow-hidden"
             >
-              <span className="text-3xl font-display font-bold">100%</span>
-              <p className="text-sm font-medium mt-1">Domačnost, Sprostitev, Oddih</p>
+              <img
+                src={collageInterior}
+                alt="100% Domačnost, Sprostitev, Oddih"
+                className="w-full h-auto object-cover"
+              />
+              <div className="absolute bottom-0 left-0 right-0 bg-accent/90 text-accent-foreground p-3 text-center">
+                <span className="text-2xl font-display font-bold">100%</span>
+                <p className="text-xs font-medium">Domačnost, Sprostitev, Oddih</p>
+              </div>
             </motion.div>
           </motion.div>
 
@@ -69,7 +77,7 @@ export const AboutSection = () => {
                 alt="La Vita Hiška"
                 className="w-48 h-auto object-contain"
               />
-              <span className="text-xs text-foreground font-medium mt-1">Travel - Enjoy - Explore</span>
+              <span className="text-xs text-foreground font-medium mt-1">Travel-Enjoy-Explore</span>
             </div>
 
             {/* Contact Info */}

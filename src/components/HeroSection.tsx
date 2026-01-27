@@ -14,10 +14,38 @@ const rotatingTexts = [
   { icon: "🎵", text: "HI-FI sistem za sproščeno in zabavno vzdušje" },
   { icon: "🛏️", text: "DORMEO vrhunska ležišča" },
   { icon: "🚲", text: "3x BREZPLAČNA KOLESA" },
+  { icon: "📺", text: "TV + Videorekorder s Filmi in Risankami" },
+  { icon: "💑", text: "Primerno za pare, družine, prijatelje" },
+  { icon: "⛺", text: "Možnost kampiranja prijateljev takoj ob hiški" },
+  { icon: "🤝", text: "Team Buildingi" },
+  { icon: "✨", text: "Kreativen Prostor" },
+  { icon: "🌳", text: "Urejena Okolica" },
+  { icon: "🏠", text: "Domačnost in Toplina" },
+  { icon: "🪵", text: "Toplina Lesa" },
+  { icon: "🎨", text: "Unikatno preurejeni prostori" },
+];
+
+const promoBanners = [
+  {
+    icon: "❄️",
+    text: "ZIMSKA AKCIJA 80€ na noč z dvema kopalnima kartama + možnost eno dnevne nočitve",
+    color: "bg-accent/90",
+  },
+  {
+    icon: "☀️",
+    text: "POLETNA AKCIJA 110€ na noč z dvema kopalnima kartama + 3x Kolesi + Športni Rekviziti",
+    color: "bg-primary/90",
+  },
+  {
+    icon: "🎁",
+    text: "Pri bivanju 5+ več dni vam odobrimo poseben popust",
+    color: "bg-accent/90",
+  },
 ];
 
 export const HeroSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [currentBanner, setCurrentBanner] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -26,12 +54,32 @@ export const HeroSection = () => {
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    const bannerInterval = setInterval(() => {
+      setCurrentBanner((prev) => (prev + 1) % promoBanners.length);
+    }, 5000);
+    return () => clearInterval(bannerInterval);
+  }, []);
+
   return (
     <section id="domov" className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background Pattern */}
-      <div className="absolute inset-0 bg-hero-gradient" />
+      {/* Video Background */}
+      <div className="absolute inset-0 z-0">
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className="w-full h-full object-cover"
+        >
+          <source src="/videos/la-vita-hero.mp4" type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-background/70 backdrop-blur-[2px]" />
+      </div>
+
+      {/* Background Pattern Overlay */}
       <div 
-        className="absolute inset-0 opacity-5"
+        className="absolute inset-0 opacity-5 z-[1]"
         style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%2322c55e' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
         }}
@@ -41,21 +89,21 @@ export const HeroSection = () => {
       <motion.div
         animate={{ y: [-10, 10, -10] }}
         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-32 left-10 text-4xl opacity-30"
+        className="absolute top-32 left-10 text-4xl opacity-30 z-[2]"
       >
         🌿
       </motion.div>
       <motion.div
         animate={{ y: [10, -10, 10] }}
         transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute top-40 right-16 text-3xl opacity-30"
+        className="absolute top-40 right-16 text-3xl opacity-30 z-[2]"
       >
         🌲
       </motion.div>
       <motion.div
         animate={{ y: [-5, 15, -5] }}
         transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-        className="absolute bottom-40 left-20 text-2xl opacity-20"
+        className="absolute bottom-40 left-20 text-2xl opacity-20 z-[2]"
       >
         🍃
       </motion.div>
@@ -64,19 +112,43 @@ export const HeroSection = () => {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left side - Text content */}
           <div className="text-center lg:text-left">
-            {/* Winter Promo Banner */}
+            {/* Rotating Promo Banners */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6 }}
               className="mb-8"
             >
-              <div className="inline-flex items-center gap-3 bg-accent/90 text-accent-foreground px-6 py-3 rounded-full shadow-glow-accent">
-                <Sparkles className="w-5 h-5 animate-pulse" />
-                <span className="font-display text-lg md:text-xl font-semibold">
-                  ZIMSKA AKCIJA 80€ na noč z dvema kopalnima kartama
-                </span>
-                <Sparkles className="w-5 h-5 animate-pulse" />
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentBanner}
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 20 }}
+                  transition={{ duration: 0.5 }}
+                  className={`inline-flex items-center gap-3 ${promoBanners[currentBanner].color} text-accent-foreground px-6 py-3 rounded-full shadow-glow-accent`}
+                >
+                  <Sparkles className="w-5 h-5 animate-pulse" />
+                  <span className="font-display text-base md:text-lg font-semibold">
+                    {promoBanners[currentBanner].icon} {promoBanners[currentBanner].text}
+                  </span>
+                  <Sparkles className="w-5 h-5 animate-pulse" />
+                </motion.div>
+              </AnimatePresence>
+              
+              {/* Banner Dots */}
+              <div className="flex justify-center lg:justify-start gap-2 mt-3">
+                {promoBanners.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => setCurrentBanner(index)}
+                    className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                      index === currentBanner
+                        ? "w-6 bg-accent"
+                        : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
+                    }`}
+                  />
+                ))}
               </div>
             </motion.div>
 
@@ -110,14 +182,14 @@ export const HeroSection = () => {
             </div>
 
             {/* Progress Dots */}
-            <div className="flex justify-center lg:justify-start gap-2 mb-10">
+            <div className="flex justify-center lg:justify-start gap-1.5 mb-10 flex-wrap max-w-md">
               {rotatingTexts.map((_, index) => (
                 <button
                   key={index}
                   onClick={() => setCurrentIndex(index)}
                   className={`w-2 h-2 rounded-full transition-all duration-300 ${
                     index === currentIndex
-                      ? "w-8 bg-primary"
+                      ? "w-6 bg-primary"
                       : "bg-muted-foreground/30 hover:bg-muted-foreground/50"
                   }`}
                 />
@@ -171,7 +243,7 @@ export const HeroSection = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10"
       >
         <motion.div
           animate={{ y: [0, 10, 0] }}

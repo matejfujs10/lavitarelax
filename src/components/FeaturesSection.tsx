@@ -44,6 +44,11 @@ const features = [
     title: "2x Kopalni Karti",
     description: "Vključen vstop v termalni kompleks",
   },
+  {
+    icon: Maximize,
+    title: "Urejena Okolica",
+    description: "Lepo vzdrževan prostor za sproščanje in uživanje",
+  },
 ];
 
 const FeatureCard = ({ feature, index }: { feature: typeof features[0]; index: number }) => {

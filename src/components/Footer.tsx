@@ -36,6 +36,11 @@ export const Footer = () => {
                 </a>
               </li>
               <li>
+                <a href="#mnenja" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors">
+                  Mnenja gostov
+                </a>
+              </li>
+              <li>
                 <a href="#faq" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors">
                   Pogosta vprašanja
                 </a>

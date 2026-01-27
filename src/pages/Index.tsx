@@ -8,6 +8,7 @@ import { PromoBannerSection } from "@/components/PromoBannerSection";
 import { FAQSection } from "@/components/FAQSection";
 import { AboutSection } from "@/components/AboutSection";
 import { Footer } from "@/components/Footer";
+import { ActivitiesSection } from "@/components/ActivitiesSection";
 
 const Index = () => {
   return (
@@ -15,6 +16,7 @@ const Index = () => {
       <Navbar />
       <HeroSection />
       <FeaturesSection />
+      <ActivitiesSection />
       <GallerySection />
       <TestimonialsSection />
       <BookingSection />

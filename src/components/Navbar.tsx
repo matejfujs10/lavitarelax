@@ -91,7 +91,7 @@ export const Navbar = () => {
                 className="h-14 md:h-16 w-auto object-contain"
               />
               <span className="text-[10px] md:text-xs text-foreground font-body tracking-wide mt-0.5">
-                🌿 Travel - Enjoy - Explore
+                Travel-Enjoy-Explore
               </span>
             </motion.div>
           </a>

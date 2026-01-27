@@ -10,6 +10,9 @@ import slide5 from "@/assets/slide-5.jpg";
 import slide6 from "@/assets/slide-6.jpg";
 import slide7 from "@/assets/slide-7.jpg";
 import slide8 from "@/assets/slide-8.jpg";
+import collageMain from "@/assets/collage-main.jpg";
+import interiorDining from "@/assets/interior-dining.jpg";
+import bedroomLed from "@/assets/bedroom-led.jpg";
 
 const slides = [
   { src: slide1, alt: "La Vita Hiška - zunanjost poleti" },
@@ -20,6 +23,9 @@ const slides = [
   { src: slide6, alt: "La Vita Hiška - otroške igrače" },
   { src: slide7, alt: "La Vita Hiška - večerna atmosfera" },
   { src: slide8, alt: "La Vita Hiška - spalnica" },
+  { src: collageMain, alt: "La Vita Hiška - kolaž" },
+  { src: interiorDining, alt: "La Vita Hiška - jedilnica" },
+  { src: bedroomLed, alt: "La Vita Hiška - spalnica z LED" },
 ];
 
 export const HeroSlideshow = () => {
@@ -72,14 +78,14 @@ export const HeroSlideshow = () => {
       </button>
 
       {/* Dots */}
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-1.5">
         {slides.map((_, index) => (
           <button
             key={index}
             onClick={() => setCurrentSlide(index)}
             className={`w-2 h-2 rounded-full transition-all ${
               index === currentSlide
-                ? "w-6 bg-primary"
+                ? "w-5 bg-primary"
                 : "bg-background/60 hover:bg-background"
             }`}
             aria-label={`Pojdi na sliko ${index + 1}`}

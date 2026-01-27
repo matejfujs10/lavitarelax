@@ -4,7 +4,6 @@ import { useRef } from "react";
 import { MapPin, Phone, Mail } from "lucide-react";
 import livingKitchen from "@/assets/living-kitchen.jpg";
 import laVitaHouse from "@/assets/la-vita-house.png";
-import collageInterior from "@/assets/collage-interior.png";
 
 export const AboutSection = () => {
   const ref = useRef(null);
@@ -30,21 +29,16 @@ export const AboutSection = () => {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-foreground/30 to-transparent" />
             </div>
-            {/* Floating Card with Image */}
+            {/* Floating Card */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.3 }}
-              className="absolute -bottom-6 -right-6 rounded-2xl shadow-lg max-w-[200px] overflow-hidden"
+              className="absolute -bottom-6 -right-6 rounded-2xl shadow-lg max-w-[180px] overflow-hidden bg-accent/90"
             >
-              <img
-                src={collageInterior}
-                alt="100% Domačnost, Sprostitev, Oddih"
-                className="w-full h-auto object-cover"
-              />
-              <div className="absolute bottom-0 left-0 right-0 bg-accent/90 text-accent-foreground p-3 text-center">
-                <span className="text-2xl font-display font-bold">100%</span>
-                <p className="text-xs font-medium">Domačnost, Sprostitev, Oddih</p>
+              <div className="p-4 text-center text-accent-foreground">
+                <span className="text-3xl font-display font-bold">100%</span>
+                <p className="text-xs font-medium mt-1">Domačnost, Sprostitev, Oddih</p>
               </div>
             </motion.div>
           </motion.div>

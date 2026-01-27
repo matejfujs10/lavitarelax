@@ -11,7 +11,8 @@ import {
 const faqs = [
   {
     question: "Kaj je vključeno v ceno nočitve?",
-    answer: "V ceno nočitve sta vključeni 2 kopalni karti za termalni kompleks Terme 3000, uporaba 3 koles, popolnoma opremljena kuhinja, LED ambientna osvetlitev, HI-FI sistem, vrhunska DORMEO ležišča ter dostop do obeh teras. WiFi je na voljo brezplačno.",
+    answer: "V ceno nočitve sta vključeni 2 kopalni karti za termalni kompleks Terme 3000, uporaba 3 koles, otroške igrače, športni rekviziti, popolnoma opremljena kuhinja, LED ambientna osvetlitev, HI-FI sistem, vrhunska DORMEO ležišča. WiFi je na voljo brezplačno. V zimsko ponudbo so dodatno vključene otroške igrače ter videorekorder s filmi in risankami.",
+    highlight: true,
   },
   {
     question: "Koliko oseb lahko prenočuje v La Vita Hiški?",
@@ -23,15 +24,15 @@ const faqs = [
   },
   {
     question: "Ali je dovoljeno prinesti hišne ljubljenčke?",
-    answer: "Žal hišnih ljubljenčkov ne sprejemamo, saj želimo ohraniti čistočo in udobje za vse goste.",
+    answer: "Hišni ljubljenčki so dobrodošli! Lahko bivajo na veliki pokriti terasi za hiško. V kolikor morajo bivati v hiški, vas prosimo, da ne hodijo po posteljah. Doplačilo za hišne ljubljenčke je 5€ na noč.",
   },
   {
     question: "Kakšni so pogoji za rezervacijo in odpoved?",
-    answer: "Ob rezervaciji je potrebna kapara v višini 30% skupne cene. Brezplačna odpoved je možna do 7 dni pred prihodom. V primeru kasnejše odpovedi kapara ni povračljiva.",
+    answer: "Ob rezervaciji je potrebno nakazati aro v višini 30% skupne cene. Brezplačna odpoved je možna do 3 dni pred prihodom. V primeru odpovedi vam izdamo darilni bon v vrednosti vplačane are.",
   },
   {
     question: "Kdaj je možen prihod in odhod?",
-    answer: "Prihod je možen od 15:00 naprej, odhod pa do 10:00. Po dogovoru je možna tudi prilagoditev urnika.",
+    answer: "Prihod je možen od 14:00 naprej, odhod pa do 10:00. Po dogovoru je možna tudi prilagoditev urnika.",
   },
   {
     question: "Kako daleč so Terme 3000?",
@@ -39,7 +40,7 @@ const faqs = [
   },
   {
     question: "Ali je kuhinja polno opremljena?",
-    answer: "Da! Kuhinja vsebuje hladilnik, štedilnik, mikrovalovno pečico, toaster, kuhalnik za vodo, kavni aparat ter vso potrebno posodo in pribor za pripravo obrokov.",
+    answer: "Da! Posoda, pribor, hladilnik z zamrzovalnikom, kuhalna plošča, mikrovalovna pečica, toaster.",
   },
 ];
 
@@ -79,10 +80,17 @@ export const FAQSection = () => {
               <AccordionItem
                 key={index}
                 value={`item-${index}`}
-                className="bg-card border border-border/50 rounded-xl px-6 shadow-lavita hover:shadow-lavita-card transition-shadow"
+                className={`bg-card border rounded-xl px-6 shadow-lavita hover:shadow-lavita-card transition-shadow ${
+                  (faq as any).highlight ? 'border-primary/50 ring-2 ring-primary/20' : 'border-border/50'
+                }`}
               >
                 <AccordionTrigger className="text-left font-display text-lg font-semibold hover:text-primary transition-colors py-5">
                   {faq.question}
+                  {(faq as any).highlight && (
+                    <span className="ml-2 text-xs bg-primary/20 text-primary px-2 py-1 rounded-full font-body">
+                      🎄 Zimska ponudba
+                    </span>
+                  )}
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground font-body leading-relaxed pb-5">
                   {faq.answer}

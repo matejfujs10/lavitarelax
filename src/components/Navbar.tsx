@@ -80,21 +80,19 @@ export const Navbar = () => {
       >
         <div className="container mx-auto px-4 flex items-center justify-between">
           {/* Logo */}
-          <a href="#domov" className="flex items-center gap-2 group">
+          <a href="#domov" className="flex flex-col items-start group">
             <motion.div
               whileHover={{ scale: 1.05 }}
-              className="relative"
+              className="flex flex-col items-center"
             >
               <img 
                 src={logo} 
                 alt="La Vita" 
-                className="h-16 md:h-20 w-auto object-contain"
+                className="h-14 md:h-16 w-auto object-contain"
               />
-              <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 text-center whitespace-nowrap">
-                <span className="text-xs md:text-sm text-muted-foreground font-body tracking-wide">
-                  🌿Travel - Enjoy - Explore
-                </span>
-              </div>
+              <span className="text-[10px] md:text-xs text-foreground font-body tracking-wide mt-0.5">
+                🌿 Travel - Enjoy - Explore
+              </span>
             </motion.div>
           </a>
 

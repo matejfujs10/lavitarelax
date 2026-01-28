@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Facebook, Instagram } from "lucide-react";
-import logo from "@/assets/la-vita-logo.png";
+import { Menu, X, Facebook, Instagram, ArrowRight } from "lucide-react";
 
 const navItems = [
   { label: "DOMOV", href: "#domov" },
@@ -79,20 +78,27 @@ export const Navbar = () => {
         }`}
       >
         <div className="container mx-auto px-4 flex items-center justify-between">
-          {/* Logo */}
-          <a href="#domov" className="flex flex-col items-start group">
+          {/* Logo - Text Based with Energy Arrow */}
+          <a href="#domov" className="flex items-center gap-2 group">
             <motion.div
-              whileHover={{ scale: 1.05 }}
-              className="flex flex-col items-center"
+              whileHover={{ scale: 1.02 }}
+              className="flex items-center gap-2"
             >
-              <img 
-                src={logo} 
-                alt="La Vita" 
-                className="h-14 md:h-16 w-auto object-contain"
-              />
-              <span className="text-[10px] md:text-xs text-foreground font-body tracking-wide mt-0.5">
-                Travel-Enjoy-Explore
-              </span>
+              <motion.span
+                animate={{ x: [0, 5, 0] }}
+                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+                className="text-accent text-2xl md:text-3xl"
+              >
+                <ArrowRight className="w-8 h-8 md:w-10 md:h-10 stroke-[2.5]" />
+              </motion.span>
+              <div className="flex flex-col">
+                <span className="font-display text-xl md:text-2xl lg:text-3xl font-bold text-foreground">
+                  Hiška La Vita
+                </span>
+                <span className="text-[10px] md:text-xs text-muted-foreground font-body tracking-widest">
+                  Travel·Enjoy·Explore
+                </span>
+              </div>
             </motion.div>
           </a>
 

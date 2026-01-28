@@ -1,5 +1,4 @@
 import { MapPin, Phone, Mail, Heart, ArrowRight } from "lucide-react";
-import logoNew from "@/assets/la-vita-logo-new.png";
 
 export const Footer = () => {
   return (
@@ -8,9 +7,6 @@ export const Footer = () => {
         <div className="grid md:grid-cols-3 gap-12 mb-12">
           {/* Logo & About */}
           <div>
-            <div className="flex items-center gap-3 mb-4">
-              <img src={logoNew} alt="La Vita" className="h-16 w-auto brightness-0 invert opacity-90" />
-            </div>
             <div className="flex items-center gap-2 mb-4">
               <ArrowRight className="w-6 h-6 text-accent" />
               <span className="font-display text-xl font-bold">Hiška La Vita</span>

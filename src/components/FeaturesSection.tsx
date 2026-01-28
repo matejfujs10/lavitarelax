@@ -83,7 +83,7 @@ export const FeaturesSection = () => {
   const isHeaderInView = useInView(headerRef, { once: true });
 
   return (
-    <section id="aktivnosti" className="py-20 bg-lavita-cream">
+    <section className="py-20 bg-lavita-cream">
       <div className="container mx-auto px-4">
         <motion.div
           ref={headerRef}

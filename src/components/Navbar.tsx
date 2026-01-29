@@ -1,14 +1,16 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Facebook, Instagram, ArrowRight } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
 
 const navItems = [
-  { label: "DOMOV", href: "#domov" },
-  { label: "REZERVIRAJ ODDIH", href: "#rezervacija" },
-  { label: "AKTIVNOSTI", href: "#aktivnosti" },
-  { label: "MNENJA GOSTOV", href: "#mnenja" },
-  { label: "POGOSTA VPRAŠANJA", href: "#faq" },
-  { label: "O NAS", href: "#onas" },
+  { label: "DOMOV", href: "#domov", isExternal: false },
+  { label: "REZERVIRAJ ODDIH", href: "#rezervacija", isExternal: false },
+  { label: "DARILNI BONI", href: "/gift-voucher", isExternal: true },
+  { label: "AKTIVNOSTI", href: "#aktivnosti", isExternal: false },
+  { label: "MNENJA GOSTOV", href: "#mnenja", isExternal: false },
+  { label: "POGOSTA VPRAŠANJA", href: "#faq", isExternal: false },
+  { label: "O NAS", href: "#onas", isExternal: false },
 ];
 
 const languages = ["SL", "EN", "DE"];
@@ -105,17 +107,29 @@ export const Navbar = () => {
           {/* Desktop Navigation */}
           <div className="hidden lg:flex items-center gap-1">
             {navItems.map((item, index) => (
-              <motion.a
-                key={item.href}
-                href={item.href}
-                initial={{ opacity: 0, y: -20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className="px-3 py-2 text-sm font-medium text-foreground/80 hover:text-primary transition-colors relative group"
-              >
-                {item.label}
-                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-primary group-hover:w-3/4 transition-all duration-300 rounded-full" />
-              </motion.a>
+              item.isExternal ? (
+                <motion.div key={item.href}>
+                  <Link
+                    to={item.href}
+                    className="px-3 py-2 text-sm font-medium text-foreground/80 hover:text-primary transition-colors relative group"
+                  >
+                    {item.label}
+                    <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-primary group-hover:w-3/4 transition-all duration-300 rounded-full" />
+                  </Link>
+                </motion.div>
+              ) : (
+                <motion.a
+                  key={item.href}
+                  href={item.href}
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.1 }}
+                  className="px-3 py-2 text-sm font-medium text-foreground/80 hover:text-primary transition-colors relative group"
+                >
+                  {item.label}
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-primary group-hover:w-3/4 transition-all duration-300 rounded-full" />
+                </motion.a>
+              )
             ))}
           </div>
 
@@ -139,14 +153,25 @@ export const Navbar = () => {
           >
             <div className="container mx-auto px-4 py-4 flex flex-col gap-2">
               {navItems.map((item) => (
-                <a
-                  key={item.href}
-                  href={item.href}
-                  onClick={() => setIsMobileMenuOpen(false)}
-                  className="px-4 py-3 text-sm font-medium text-foreground/80 hover:text-primary hover:bg-muted rounded-lg transition-all"
-                >
-                  {item.label}
-                </a>
+                item.isExternal ? (
+                  <Link
+                    key={item.href}
+                    to={item.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="px-4 py-3 text-sm font-medium text-foreground/80 hover:text-primary hover:bg-muted rounded-lg transition-all"
+                  >
+                    {item.label}
+                  </Link>
+                ) : (
+                  <a
+                    key={item.href}
+                    href={item.href}
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="px-4 py-3 text-sm font-medium text-foreground/80 hover:text-primary hover:bg-muted rounded-lg transition-all"
+                  >
+                    {item.label}
+                  </a>
+                )
               ))}
             </div>
           </motion.div>

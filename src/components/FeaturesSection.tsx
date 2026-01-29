@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { Home, Users, UtensilsCrossed, Lightbulb, Music, Bed, Bike, Ticket, Maximize, Dumbbell } from "lucide-react";
+import { Home, Users, UtensilsCrossed, Lightbulb, Music, Bed, Bike, Ticket, Maximize, Dumbbell, BedDouble, LayoutGrid } from "lucide-react";
 
 const features = [
   {
@@ -53,6 +53,16 @@ const features = [
     icon: Dumbbell,
     title: "Športni Rekviziti",
     description: "Oprema za aktivno preživljanje prostega časa",
+  },
+  {
+    icon: BedDouble,
+    title: "Posteljnina Vključena",
+    description: "Sveža posteljnina in brisače za vaše udobje",
+  },
+  {
+    icon: LayoutGrid,
+    title: "2x Terasa",
+    description: "Ena majhna spredaj in ena velika zasebna za hiško",
   },
 ];
 

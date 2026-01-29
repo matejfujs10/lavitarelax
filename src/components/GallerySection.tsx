@@ -2,22 +2,26 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef, useState } from "react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
-import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight } from "lucide-react";
 
-import interiorDining from "@/assets/interior-dining.jpg";
-import bedroom from "@/assets/bedroom.jpg";
-import livingKitchen from "@/assets/living-kitchen.jpg";
-import kitchenView from "@/assets/kitchen-view.jpg";
-import kitchenDetail from "@/assets/kitchen-detail.jpg";
-import entrance from "@/assets/entrance.jpg";
+import slide1 from "@/assets/slide-1.jpg";
+import slide2 from "@/assets/slide-2.jpg";
+import slide3 from "@/assets/slide-3.jpg";
+import slide4 from "@/assets/slide-4.jpg";
+import slide5 from "@/assets/slide-5.jpg";
+import slide6 from "@/assets/slide-6.jpg";
+import slide7 from "@/assets/slide-7.jpg";
+import slide8 from "@/assets/slide-8.jpg";
 
 const images = [
-  { src: livingKitchen, alt: "Dnevni prostor s kuhinjo", title: "Odprt dnevni prostor" },
-  { src: kitchenView, alt: "Pogled na kuhinjo", title: "Udobna jedilnica" },
-  { src: bedroom, alt: "Spalnica", title: "Udobna spalnica" },
-  { src: kitchenDetail, alt: "Detajl kuhinje", title: "Opremljena kuhinja" },
-  { src: interiorDining, alt: "Jedilnica", title: "Prijetna atmosfera" },
-  { src: entrance, alt: "Vhod", title: "Praktičen vhod" },
+  { src: slide1, alt: "Zunanjost hiške", title: "Zunanjost La Vita" },
+  { src: slide2, alt: "Hiška v snegu", title: "Zimska pravljica" },
+  { src: slide3, alt: "Dnevni prostor", title: "Udoben dnevni prostor" },
+  { src: slide4, alt: "Jedilnica in kuhinja", title: "Jedilnica s kuhinjo" },
+  { src: slide5, alt: "Kuhinja", title: "Opremljena kuhinja" },
+  { src: slide6, alt: "Notranjost", title: "Prijetna notranjost" },
+  { src: slide7, alt: "Terasa", title: "Sončna terasa" },
+  { src: slide8, alt: "Detajl", title: "Topel ambient" },
 ];
 
 export const GallerySection = () => {
@@ -58,7 +62,7 @@ export const GallerySection = () => {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {images.map((image, index) => (
             <motion.div
               key={index}

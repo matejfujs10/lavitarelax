@@ -1,4 +1,8 @@
 import { MapPin, Phone, Mail, Heart, ArrowRight } from "lucide-react";
+import { TermsModal } from "./TermsModal";
+import { PrivacyModal } from "./PrivacyModal";
+import { CookiesModal } from "./CookiesModal";
+import { openCookieSettings } from "./CookieConsent";
 
 export const Footer = () => {
   return (
@@ -78,6 +82,39 @@ export const Footer = () => {
                 </a>
               </li>
             </ul>
+          </div>
+        </div>
+
+        {/* Legal Links */}
+        <div className="border-t border-primary-foreground/20 pt-8 mb-8">
+          <div className="flex flex-wrap justify-center gap-6 text-sm">
+            <TermsModal
+              trigger={
+                <button className="text-primary-foreground/70 hover:text-primary-foreground transition-colors underline-offset-4 hover:underline">
+                  Splošni pogoji poslovanja
+                </button>
+              }
+            />
+            <PrivacyModal
+              trigger={
+                <button className="text-primary-foreground/70 hover:text-primary-foreground transition-colors underline-offset-4 hover:underline">
+                  Pravilnik o zasebnosti
+                </button>
+              }
+            />
+            <CookiesModal
+              trigger={
+                <button className="text-primary-foreground/70 hover:text-primary-foreground transition-colors underline-offset-4 hover:underline">
+                  Politika piškotkov
+                </button>
+              }
+            />
+            <button 
+              onClick={openCookieSettings}
+              className="text-primary-foreground/70 hover:text-primary-foreground transition-colors underline-offset-4 hover:underline"
+            >
+              Nastavitve piškotkov
+            </button>
           </div>
         </div>
 

@@ -9,6 +9,7 @@ import { FAQSection } from "@/components/FAQSection";
 import { AboutSection } from "@/components/AboutSection";
 import { Footer } from "@/components/Footer";
 import { ActivitiesSection } from "@/components/ActivitiesSection";
+import { CookieConsent } from "@/components/CookieConsent";
 
 const Index = () => {
   return (
@@ -24,6 +25,7 @@ const Index = () => {
       <FAQSection />
       <AboutSection />
       <Footer />
+      <CookieConsent />
     </div>
   );
 };

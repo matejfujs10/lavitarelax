@@ -2,7 +2,6 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { MapPin, Phone, Mail } from "lucide-react";
-import livingKitchen from "@/assets/living-kitchen.jpg";
 import laVitaHouse from "@/assets/la-vita-house.png";
 
 export const AboutSection = () => {
@@ -13,7 +12,7 @@ export const AboutSection = () => {
     <section id="onas" className="py-20 bg-background">
       <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
-          {/* Image */}
+          {/* Video */}
           <motion.div
             ref={ref}
             initial={{ opacity: 0, x: -50 }}
@@ -22,12 +21,15 @@ export const AboutSection = () => {
             className="relative"
           >
             <div className="relative rounded-2xl overflow-hidden shadow-lavita-card">
-              <img
-                src={livingKitchen}
-                alt="La Vita notranjost"
+              <video
+                src="/videos/la-vita-about.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
                 className="w-full h-[400px] lg:h-[500px] object-cover"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-foreground/30 to-transparent" />
+              <div className="absolute inset-0 bg-gradient-to-t from-foreground/30 to-transparent pointer-events-none" />
             </div>
             {/* Floating Card */}
             <motion.div

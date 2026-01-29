@@ -15,9 +15,11 @@ import slide8 from "@/assets/slide-8.jpg";
 import slide9 from "@/assets/slide-9.jpg";
 import slide10 from "@/assets/slide-10.jpg";
 import slide11 from "@/assets/slide-11.jpg";
+import kitchenDetail from "@/assets/kitchen-detail.jpg";
 
 const images = [
   { src: slide8, alt: "Spalnica z LED lučkami", title: "Topel ambient z LED lučkami" },
+  { src: kitchenDetail, alt: "Kuhinja z detajli", title: "Kuhinja z ljubkimi detajli" },
   { src: slide1, alt: "HI-FI sistem", title: "Kakovosten zvočni sistem" },
   { src: slide2, alt: "Otroške igrače", title: "Zabava za najmlajše" },
   { src: slide3, alt: "Kuhinja", title: "Opremljena kuhinja" },

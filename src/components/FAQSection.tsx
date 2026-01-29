@@ -28,11 +28,11 @@ const faqs = [
   },
   {
     question: "Kakšni so pogoji za rezervacijo in odpoved?",
-    answer: "Ob rezervaciji je potrebno nakazati aro v višini 30% skupne cene. Brezplačna odpoved je možna do 3 dni pred prihodom. V primeru odpovedi vam izdamo darilni bon v vrednosti vplačane are.",
+    answer: "Ob rezervaciji je potrebno nakazati aro v višini 30% skupne cene ali po dogovoru. Brezplačna odpoved je možna do 3 dni pred prihodom. V primeru odpovedi vam izdamo darilni bon v vrednosti vplačane are.",
   },
   {
     question: "Kdaj je možen prihod in odhod?",
-    answer: "Prihod je možen od 14:00 naprej, odhod pa do 10:00. Po dogovoru je možna tudi prilagoditev urnika.",
+    answer: "Prihod je možen že ob 9. uri, ko lahko že koristite kopanje v termalnem kompleksu. Namestitev v hiški je možna od 13:30 naprej, odhod pa do 11:00. V primeru, da je hiška naslednji dan prosta, je možno podaljšanje bivanja.",
   },
   {
     question: "Kako daleč so Terme 3000?",

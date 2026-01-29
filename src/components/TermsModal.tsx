@@ -92,9 +92,12 @@ export const TermsModal = ({ trigger }: TermsModalProps) => {
             </ul>
 
             <h3 className="text-lg font-semibold text-foreground mt-6 mb-3">5. Prijava in odjava (Check-in / Check-out)</h3>
+            <p className="mb-3">
+              Prihod je možen že ob 9. uri, ko lahko že koristite kopanje v termalnem kompleksu. Namestitev v hiški je možna od 13:30 naprej, odhod pa do 11:00. V primeru, da je hiška naslednji dan prosta, je možno podaljšanje bivanja.
+            </p>
             <ul className="list-disc pl-6 mb-4 space-y-1">
               <li><strong>prijava (check-in):</strong> od 13:30 dalje</li>
-              <li><strong>odjava (check-out):</strong> do 11:00 ali po dogovoru. V primeru, da je hiška prosta je možno podaljšanja bivanja.</li>
+              <li><strong>odjava (check-out):</strong> do 11:00 ali po dogovoru</li>
             </ul>
             <p className="mb-4">
               Ob prihodu na recepciji Kampa Terme 3000 ob predložitvi izpolnjene napotnice prejmete ključe hiške in zapestnice.
@@ -133,7 +136,7 @@ export const TermsModal = ({ trigger }: TermsModalProps) => {
               <p className="font-medium text-foreground">Camp Terme 3000</p>
               <p>9226 Moravske Toplice</p>
               <p>Telefon: +386 (0) 68 169 430</p>
-              <p>E-pošta: lavitarelax@gmail.com</p>
+              <p>E-pošta: rent@lavitaterme3000.com</p>
             </div>
           </div>
         </ScrollArea>

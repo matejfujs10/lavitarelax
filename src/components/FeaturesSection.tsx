@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { Home, Users, UtensilsCrossed, Lightbulb, Music, Bed, Bike, Ticket, Maximize } from "lucide-react";
+import { Home, Users, UtensilsCrossed, Lightbulb, Music, Bed, Bike, Ticket, Maximize, Dumbbell } from "lucide-react";
 
 const features = [
   {
@@ -48,6 +48,11 @@ const features = [
     icon: Maximize,
     title: "Urejena Okolica",
     description: "Lepo vzdrževan prostor za sproščanje in uživanje",
+  },
+  {
+    icon: Dumbbell,
+    title: "Športni Rekviziti",
+    description: "Oprema za aktivno preživljanje prostega časa",
   },
 ];
 

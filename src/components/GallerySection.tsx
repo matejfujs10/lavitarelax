@@ -12,16 +12,22 @@ import slide5 from "@/assets/slide-5.jpg";
 import slide6 from "@/assets/slide-6.jpg";
 import slide7 from "@/assets/slide-7.jpg";
 import slide8 from "@/assets/slide-8.jpg";
+import slide9 from "@/assets/slide-9.jpg";
+import slide10 from "@/assets/slide-10.jpg";
+import slide11 from "@/assets/slide-11.jpg";
 
 const images = [
-  { src: slide1, alt: "Zunanjost hiške", title: "Zunanjost La Vita" },
-  { src: slide2, alt: "Hiška v snegu", title: "Zimska pravljica" },
-  { src: slide3, alt: "Dnevni prostor", title: "Udoben dnevni prostor" },
-  { src: slide4, alt: "Jedilnica in kuhinja", title: "Jedilnica s kuhinjo" },
-  { src: slide5, alt: "Kuhinja", title: "Opremljena kuhinja" },
-  { src: slide6, alt: "Notranjost", title: "Prijetna notranjost" },
-  { src: slide7, alt: "Terasa", title: "Sončna terasa" },
-  { src: slide8, alt: "Detajl", title: "Topel ambient" },
+  { src: slide8, alt: "Spalnica z LED lučkami", title: "Topel ambient z LED lučkami" },
+  { src: slide1, alt: "HI-FI sistem", title: "Kakovosten zvočni sistem" },
+  { src: slide2, alt: "Otroške igrače", title: "Zabava za najmlajše" },
+  { src: slide3, alt: "Kuhinja", title: "Opremljena kuhinja" },
+  { src: slide4, alt: "Spalnica", title: "Udobna spalnica" },
+  { src: slide5, alt: "Spalnice", title: "Prostorne spalnice" },
+  { src: slide6, alt: "Kuhinja s kuhalnimi površinami", title: "Polno opremljena kuhinja" },
+  { src: slide7, alt: "Vhodni prostor", title: "Urejen vhod" },
+  { src: slide9, alt: "Jedilnica z LED osvetlitvijo", title: "Prijetna jedilnica" },
+  { src: slide10, alt: "Spalnica z LED lučkami", title: "Spalnica z ambient osvetlitvijo" },
+  { src: slide11, alt: "Dnevni prostor s kuhinjo", title: "Odprt bivalni prostor" },
 ];
 
 export const GallerySection = () => {

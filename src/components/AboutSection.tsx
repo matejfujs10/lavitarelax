@@ -2,7 +2,6 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { MapPin, Phone, Mail } from "lucide-react";
-import laVitaHouse from "@/assets/la-vita-house.png";
 
 export const AboutSection = () => {
   const ref = useRef(null);
@@ -71,15 +70,6 @@ export const AboutSection = () => {
               </p>
             </div>
 
-            {/* La Vita House Image with Text */}
-            <div className="flex flex-col items-start">
-              <img
-                src={laVitaHouse}
-                alt="La Vita Hiška"
-                className="w-48 h-auto object-contain"
-              />
-              <span className="text-xs text-foreground font-medium mt-1">Travel-Enjoy-Explore</span>
-            </div>
           </motion.div>
 
           {/* Contact Info */}
@@ -127,7 +117,7 @@ export const AboutSection = () => {
                 </div>
                 <div>
                   <span className="text-sm text-muted-foreground">Email</span>
-                  <p className="font-medium text-foreground">lavitarelax@gmail.com</p>
+                  <p className="font-medium text-foreground">rent@lavitaterme3000.com</p>
                 </div>
               </div>
             </div>

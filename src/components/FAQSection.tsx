@@ -15,6 +15,10 @@ const faqs = [
     highlight: true,
   },
   {
+    question: "Ali je posteljnina vključena?",
+    answer: "Da. Posteljnina je vključena, pripravljena, da oblečete postelje, kjer boste spali. V nekaterih primerih bomo postelje že oblekli in pripravili za vas.",
+  },
+  {
     question: "Koliko oseb lahko prenočuje v La Vita Hiški?",
     answer: "Hiška je zasnovana za udobno nastanitev do 6 oseb. Idealna je za družine z otroki, pare ali manjše skupine prijateljev, ki iščejo sproščen oddih v naravi.",
   },
@@ -24,11 +28,11 @@ const faqs = [
   },
   {
     question: "Ali je dovoljeno prinesti hišne ljubljenčke?",
-    answer: "Hišni ljubljenčki so dobrodošli! Lahko bivajo na veliki pokriti terasi za hiško. V kolikor morajo bivati v hiški, vas prosimo, da ne hodijo po posteljah. Doplačilo za hišne ljubljenčke je 5€ na noč.",
+    answer: "Hišni ljubljenčki so dobrodošli! Lahko bivajo na veliki pokriti terasi za hiško. V kolikor morajo bivati v hiški, vas prosimo, da ne hodijo po posteljah. Doplačilo za hišne ljubljenčke je 5 € na noč.",
   },
   {
     question: "Kakšni so pogoji za rezervacijo in odpoved?",
-    answer: "Ob rezervaciji je potrebno nakazati aro v višini 30% skupne cene ali po dogovoru. Brezplačna odpoved je možna do 3 dni pred prihodom. V primeru odpovedi vam izdamo darilni bon v vrednosti vplačane are.",
+    answer: "Ob rezervaciji je potrebno nakazati aro v višini 30 % skupne cene ali po dogovoru. Brezplačna odpoved je možna do 3 dni pred prihodom. V primeru odpovedi vam izdamo darilni bon v vrednosti vplačane are.",
   },
   {
     question: "Kdaj je možen prihod in odhod?",
@@ -41,6 +45,10 @@ const faqs = [
   {
     question: "Ali je kuhinja polno opremljena?",
     answer: "Da! Posoda, pribor, hladilnik z zamrzovalnikom, kuhalna plošča, mikrovalovna pečica, toaster.",
+  },
+  {
+    question: "Ali nudite popust za daljša bivanja?",
+    answer: "Da, za večdnevna bivanja (7 dni ali več) odobrimo poseben popust. Pišite nam na rent@lavitaterme3000.com za več informacij.",
   },
 ];
 

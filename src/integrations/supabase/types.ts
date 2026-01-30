@@ -14,7 +14,78 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      gift_vouchers: {
+        Row: {
+          amount_cents: number
+          code: string
+          created_at: string
+          currency: string | null
+          giver_address: string
+          giver_city: string
+          giver_email: string
+          giver_first_name: string
+          giver_last_name: string
+          giver_postal_code: string
+          id: string
+          issued_at: string | null
+          nights: number
+          recipient_email: string
+          recipient_message: string | null
+          redeemed_at: string | null
+          status: string | null
+          stripe_payment_intent_id: string | null
+          stripe_session_id: string | null
+          updated_at: string
+          valid_until: string | null
+        }
+        Insert: {
+          amount_cents: number
+          code: string
+          created_at?: string
+          currency?: string | null
+          giver_address: string
+          giver_city: string
+          giver_email: string
+          giver_first_name: string
+          giver_last_name: string
+          giver_postal_code: string
+          id?: string
+          issued_at?: string | null
+          nights: number
+          recipient_email: string
+          recipient_message?: string | null
+          redeemed_at?: string | null
+          status?: string | null
+          stripe_payment_intent_id?: string | null
+          stripe_session_id?: string | null
+          updated_at?: string
+          valid_until?: string | null
+        }
+        Update: {
+          amount_cents?: number
+          code?: string
+          created_at?: string
+          currency?: string | null
+          giver_address?: string
+          giver_city?: string
+          giver_email?: string
+          giver_first_name?: string
+          giver_last_name?: string
+          giver_postal_code?: string
+          id?: string
+          issued_at?: string | null
+          nights?: number
+          recipient_email?: string
+          recipient_message?: string | null
+          redeemed_at?: string | null
+          status?: string | null
+          stripe_payment_intent_id?: string | null
+          stripe_session_id?: string | null
+          updated_at?: string
+          valid_until?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never

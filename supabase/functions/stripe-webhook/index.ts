@@ -383,10 +383,10 @@ serve(async (req) => {
       JSON.stringify({ received: true }),
       { status: 200, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
-  } catch (error: any) {
-    console.error("[STRIPE-WEBHOOK] Error:", error.message);
+  } catch (error: unknown) {
+    console.error("[STRIPE-WEBHOOK] Error:", error);
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ error: "Napaka pri obdelavi webhook dogodka. Stripe bo poskusil znova." }),
       { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
     );
   }

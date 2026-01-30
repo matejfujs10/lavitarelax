@@ -160,16 +160,6 @@ export const HeroSection = () => {
               </AnimatePresence>
             </motion.div>
 
-            {/* "Vaš Dom Stran od Doma" tagline */}
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.15 }}
-              className="text-lg md:text-xl text-card/90 font-display font-medium mb-4 drop-shadow-md"
-            >
-              {t('banner.yourHome')}
-            </motion.p>
-
             {/* Main Title */}
             <motion.h1
               initial={{ opacity: 0, y: 30 }}

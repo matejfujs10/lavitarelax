@@ -28,9 +28,9 @@
     --muted: 130 20% 95%;
     --muted-foreground: 150 15% 40%;
 
-    /* Warm Sunny Yellow */
-    --accent: 48 95% 58%;
-    --accent-foreground: 45 90% 12%;
+    /* Warm Sunny Yellow - Lighter */
+    --accent: 48 95% 72%;
+    --accent-foreground: 45 90% 15%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 100%;
@@ -45,8 +45,8 @@
     --lavita-mint: 145 55% 52%;
     --lavita-mint-light: 145 50% 95%;
     --lavita-cream: 48 60% 98%;
-    --lavita-sun: 48 95% 58%;
-    --lavita-sun-glow: 45 100% 70%;
+    --lavita-sun: 48 95% 72%;
+    --lavita-sun-glow: 45 100% 80%;
     --lavita-forest: 155 40% 28%;
     --lavita-wood: 30 35% 30%;
 

@@ -7,6 +7,7 @@ import { LanguageProvider } from "@/contexts/LanguageContext";
 import Index from "./pages/Index";
 import GiftVoucher from "./pages/GiftVoucher";
 import GiftVoucherSuccess from "./pages/GiftVoucherSuccess";
+import VoucherPreview from "./pages/VoucherPreview";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -22,6 +23,7 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/gift-voucher" element={<GiftVoucher />} />
             <Route path="/gift-voucher/success" element={<GiftVoucherSuccess />} />
+            <Route path="/voucher-preview" element={<VoucherPreview />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

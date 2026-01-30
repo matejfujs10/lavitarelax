@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { Gift, ArrowLeft, CreditCard, Mail, User } from "lucide-react";
+import { Gift, ArrowLeft, CreditCard, Mail, User, Eye } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -361,6 +361,12 @@ const GiftVoucher = () => {
                         {t('voucher.valueTitle')}
                       </h2>
                     </div>
+                    
+                    {/* Info text about voucher */}
+                    <div className="bg-lavita-mint-light/30 rounded-lg p-3 text-sm text-muted-foreground">
+                      <p className="font-medium text-foreground mb-1">{t('voucher.voucherIncludes')}</p>
+                      <p>{t('voucher.priceInfo')}</p>
+                    </div>
 
                     <FormField
                       control={form.control}
@@ -400,6 +406,19 @@ const GiftVoucher = () => {
                         </p>
                       </motion.div>
                     )}
+                    
+                    {/* Preview Button */}
+                    <Button
+                      type="button"
+                      variant="outline"
+                      className="w-full"
+                      onClick={() => {
+                        window.open('/voucher-preview', '_blank', 'noopener,noreferrer');
+                      }}
+                    >
+                      <Eye className="w-4 h-4 mr-2" />
+                      {t('voucher.previewButton')}
+                    </Button>
                   </div>
 
                   {/* Payment Info - with uploaded images */}

@@ -2,10 +2,12 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { MapPin, Phone, Mail } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export const AboutSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
+  const { t } = useLanguage();
 
   return (
     <section id="onas" className="py-20 bg-background">
@@ -30,7 +32,7 @@ export const AboutSection = () => {
           </div>
         </motion.div>
 
-        <div className="grid lg:grid-cols-2 gap-12 items-start">
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start">
           {/* Content */}
           <motion.div
             initial={{ opacity: 0, x: -50 }}
@@ -38,35 +40,38 @@ export const AboutSection = () => {
             transition={{ duration: 0.6, delay: 0.2 }}
           >
             <span className="inline-block text-primary font-medium text-sm tracking-wide uppercase mb-4">
-              🏡 O nas
+              {t('about.label')}
             </span>
-            <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-6">
-              Vaš Dom Stran od Doma
+            <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
+              {t('about.title')}
             </h2>
             
-            <div className="space-y-4 text-muted-foreground text-lg leading-relaxed mb-8">
+            <div className="space-y-4 text-muted-foreground text-base md:text-lg leading-relaxed mb-8">
               <p>
-                La Vita Hiška je skrbno zasnovana počitniška nastanitev v srcu Kampa Terme 3000, kjer se udobje doma prepleta z naravno sproščenostjo kampiranja. Obdana je z lepo urejeno okolico, ki nudi mir, zasebnost in občutek pravega oddiha v naravi.
+                {t('about.text1')}
               </p>
               <p>
-                Naša 50 m² velika hiška ponuja vrhunsko opremo, dve prijetni terasi ter veliko zasebno teraso, idealno za jutranjo kavo, sončenje ali večerne trenutke ob dobri družbi. Neposreden dostop do termalnega kompleksa pa poskrbi za popolno sprostitev v vsakem letnem času.
+                {t('about.text2')}
               </p>
               <p>
-                Posebna prednost La Vita Hiške je izjemno ugodna cena – pri bivanju do 6 oseb znaša manj kot 19 € na osebo na noč, v ceno pa sta že vključeni dve kopalni karti za terme.
+                {t('about.text3')}
               </p>
               <div className="bg-lavita-mint-light/50 rounded-xl p-4 my-4">
-                <p className="font-medium text-foreground mb-2">Za ostale osebe veljajo znižane cene vstopnic:</p>
-                <ul className="space-y-1 text-base">
-                  <li>• odrasli: 21,90 € na osebo na noč</li>
-                  <li>• otroci od 6 do 14,99 let: 17,90 € na osebo na noč</li>
-                  <li>• otroci do 5,99 let: brezplačno</li>
+                <p className="font-medium text-foreground mb-2">{t('about.priceTitle')}</p>
+                <ul className="space-y-1 text-sm md:text-base">
+                  <li>• {t('about.priceAdult')}</li>
+                  <li>• {t('about.priceChild')}</li>
+                  <li>• {t('about.priceFree')}</li>
                 </ul>
               </div>
               <p>
-                Privoščite si ugoden oddih brez kompromisov – več udobja, več sprostitve in več nepozabnih trenutkov.
+                {t('about.text4')}
+              </p>
+              <p>
+                {t('about.text5')}
               </p>
               <p className="text-primary font-medium italic">
-                ✨ Pobegnite od vsakdana in si ustvarite spomine, ki bodo trajali. Vljudno vabljeni v La Vita Hiško! ✨
+                {t('about.cta')}
               </p>
             </div>
 
@@ -88,36 +93,36 @@ export const AboutSection = () => {
             >
               <div className="p-6 text-center text-accent-foreground">
                 <span className="text-4xl font-display font-bold">100%</span>
-                <p className="text-sm font-medium mt-2">Domačnost, Sprostitev, Oddih</p>
+                <p className="text-sm font-medium mt-2">{t('about.stats')}</p>
               </div>
             </motion.div>
 
             <div className="space-y-4">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-lavita-mint-light rounded-xl flex items-center justify-center">
+                <div className="w-12 h-12 bg-lavita-mint-light rounded-xl flex items-center justify-center flex-shrink-0">
                   <MapPin className="w-5 h-5 text-primary" />
                 </div>
-                <div>
-                  <span className="text-sm text-muted-foreground">Lokacija</span>
-                  <p className="font-medium text-foreground">Kamp Terme 3000, Moravske Toplice</p>
+                <div className="min-w-0">
+                  <span className="text-sm text-muted-foreground">{t('about.location')}</span>
+                  <p className="font-medium text-foreground break-words">{t('about.locationValue')}</p>
                 </div>
               </div>
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-lavita-mint-light rounded-xl flex items-center justify-center">
+                <div className="w-12 h-12 bg-lavita-mint-light rounded-xl flex items-center justify-center flex-shrink-0">
                   <Phone className="w-5 h-5 text-primary" />
                 </div>
-                <div>
-                  <span className="text-sm text-muted-foreground">Telefon</span>
+                <div className="min-w-0">
+                  <span className="text-sm text-muted-foreground">{t('about.phone')}</span>
                   <p className="font-medium text-foreground">+386 68 169 430</p>
                 </div>
               </div>
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-lavita-mint-light rounded-xl flex items-center justify-center">
+                <div className="w-12 h-12 bg-lavita-mint-light rounded-xl flex items-center justify-center flex-shrink-0">
                   <Mail className="w-5 h-5 text-primary" />
                 </div>
-                <div>
-                  <span className="text-sm text-muted-foreground">Email</span>
-                  <p className="font-medium text-foreground">rent@lavitaterme3000.com</p>
+                <div className="min-w-0">
+                  <span className="text-sm text-muted-foreground">{t('about.email')}</span>
+                  <p className="font-medium text-foreground break-all">rent@lavitaterme3000.com</p>
                 </div>
               </div>
             </div>

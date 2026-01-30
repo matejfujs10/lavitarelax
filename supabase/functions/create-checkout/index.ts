@@ -11,6 +11,28 @@ const corsHeaders = {
 // Price per night in cents (110 EUR = 11000 cents)
 const PRICE_PER_NIGHT_CENTS = 11000;
 
+// Rate limiting: simple in-memory store (resets on function cold start)
+const rateLimitStore = new Map<string, { count: number; resetTime: number }>();
+const RATE_LIMIT_MAX = 10; // 10 attempts per hour
+const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000; // 1 hour
+
+function isRateLimited(clientIp: string): boolean {
+  const now = Date.now();
+  const record = rateLimitStore.get(clientIp);
+  
+  if (!record || now > record.resetTime) {
+    rateLimitStore.set(clientIp, { count: 1, resetTime: now + RATE_LIMIT_WINDOW_MS });
+    return false;
+  }
+  
+  if (record.count >= RATE_LIMIT_MAX) {
+    return true;
+  }
+  
+  record.count++;
+  return false;
+}
+
 // Input validation schema
 const checkoutSchema = z.object({
   nights: z.number().int().min(1, "Število noči mora biti vsaj 1").max(7, "Največ 7 noči"),
@@ -33,6 +55,22 @@ serve(async (req) => {
   }
 
   try {
+    // Rate limiting check
+    const clientIp = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || 
+                     req.headers.get("cf-connecting-ip") || 
+                     "unknown";
+    
+    if (isRateLimited(clientIp)) {
+      console.warn("[CREATE-CHECKOUT] Rate limit exceeded for IP:", clientIp);
+      return new Response(
+        JSON.stringify({ error: "Preveč zahtevkov. Prosimo, poskusite čez nekaj časa." }),
+        {
+          status: 429,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        }
+      );
+    }
+
     console.log("[CREATE-CHECKOUT] Function started");
 
     const stripeKey = Deno.env.get("STRIPE_SECRET_KEY");

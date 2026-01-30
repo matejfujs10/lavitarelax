@@ -1,6 +1,7 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
 import Stripe from "https://esm.sh/stripe@18.5.0";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.57.2";
+import { z } from "https://deno.land/x/zod@v3.22.4/mod.ts";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
@@ -10,17 +11,20 @@ const corsHeaders = {
 // Price per night in cents (110 EUR = 11000 cents)
 const PRICE_PER_NIGHT_CENTS = 11000;
 
-interface CheckoutRequest {
-  nights: number;
-  giverFirstName: string;
-  giverLastName: string;
-  giverAddress: string;
-  giverPostalCode: string;
-  giverCity: string;
-  giverEmail: string;
-  recipientEmail: string;
-  recipientMessage: string;
-}
+// Input validation schema
+const checkoutSchema = z.object({
+  nights: z.number().int().min(1, "Število noči mora biti vsaj 1").max(7, "Največ 7 noči"),
+  giverFirstName: z.string().min(2, "Ime mora imeti vsaj 2 znaka").max(100, "Ime je predolgo").trim(),
+  giverLastName: z.string().min(2, "Priimek mora imeti vsaj 2 znaka").max(100, "Priimek je predolg").trim(),
+  giverAddress: z.string().min(5, "Naslov mora imeti vsaj 5 znakov").max(255, "Naslov je predolg").trim(),
+  giverPostalCode: z.string().min(4, "Poštna številka mora imeti vsaj 4 znake").max(20, "Poštna številka je predolga").trim(),
+  giverCity: z.string().min(2, "Mesto mora imeti vsaj 2 znaka").max(100, "Mesto je predolgo").trim(),
+  giverEmail: z.string().email("Neveljaven e-mail naslov").max(254, "E-mail je predolg"),
+  recipientEmail: z.string().email("Neveljaven e-mail naslov prejemnika").max(254, "E-mail je predolg"),
+  recipientMessage: z.string().min(10, "Sporočilo mora imeti vsaj 10 znakov").max(500, "Sporočilo je predolgo (max 500 znakov)").trim(),
+});
+
+type CheckoutRequest = z.infer<typeof checkoutSchema>;
 
 serve(async (req) => {
   // Handle CORS preflight requests
@@ -46,17 +50,28 @@ serve(async (req) => {
     const supabase = createClient(supabaseUrl, supabaseServiceKey);
     const stripe = new Stripe(stripeKey, { apiVersion: "2025-08-27.basil" });
 
-    const data: CheckoutRequest = await req.json();
-    console.log("[CREATE-CHECKOUT] Received data:", { 
+    // Parse and validate input
+    const rawData = await req.json();
+    const parseResult = checkoutSchema.safeParse(rawData);
+    
+    if (!parseResult.success) {
+      const errors = parseResult.error.errors.map(e => e.message).join(", ");
+      console.warn("[CREATE-CHECKOUT] Validation failed:", errors);
+      return new Response(
+        JSON.stringify({ error: errors }),
+        {
+          status: 400,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        }
+      );
+    }
+
+    const data = parseResult.data;
+    console.log("[CREATE-CHECKOUT] Validated data:", { 
       nights: data.nights, 
       giverEmail: data.giverEmail,
       recipientEmail: data.recipientEmail 
     });
-
-    // Validate nights (1-7)
-    if (data.nights < 1 || data.nights > 7) {
-      throw new Error("Invalid number of nights. Must be between 1 and 7.");
-    }
 
     // Calculate total amount
     const amountCents = data.nights * PRICE_PER_NIGHT_CENTS;
@@ -138,10 +153,10 @@ serve(async (req) => {
         headers: { ...corsHeaders, "Content-Type": "application/json" },
       }
     );
-  } catch (error: any) {
-    console.error("[CREATE-CHECKOUT] Error:", error.message);
+  } catch (error: unknown) {
+    console.error("[CREATE-CHECKOUT] Error:", error);
     return new Response(
-      JSON.stringify({ error: error.message }),
+      JSON.stringify({ error: "Prišlo je do napake pri ustvarjanju plačila. Prosimo, poskusite znova." }),
       {
         status: 500,
         headers: { ...corsHeaders, "Content-Type": "application/json" },

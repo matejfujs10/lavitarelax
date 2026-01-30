@@ -2,22 +2,24 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Facebook, Instagram, ArrowRight } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
+import { useLanguage, Language } from "@/contexts/LanguageContext";
 
-const navItems = [
-  { label: "DOMOV", href: "#domov", isExternal: false },
-  { label: "REZERVIRAJ ODDIH", href: "#rezervacija", isExternal: false },
-  { label: "DARILNI BONI", href: "/gift-voucher", isExternal: true },
-  { label: "AKTIVNOSTI", href: "#aktivnosti", isExternal: false },
-  { label: "MNENJA GOSTOV", href: "#mnenja", isExternal: false },
-  { label: "POGOSTA VPRAŠANJA", href: "#faq", isExternal: false },
-  { label: "O NAS", href: "#onas", isExternal: false },
-];
-
-const languages = ["SL", "EN", "DE"];
+const languages: Language[] = ["sl", "en", "de"];
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const { language, setLanguage, t } = useLanguage();
+
+  const navItems = [
+    { label: t('nav.home'), href: "#domov", isExternal: false },
+    { label: t('nav.booking'), href: "#rezervacija", isExternal: false },
+    { label: t('nav.vouchers'), href: "/gift-voucher", isExternal: true },
+    { label: t('nav.activities'), href: "#aktivnosti", isExternal: false },
+    { label: t('nav.reviews'), href: "#mnenja", isExternal: false },
+    { label: t('nav.faq'), href: "#faq", isExternal: false },
+    { label: t('nav.about'), href: "#onas", isExternal: false },
+  ];
 
   useEffect(() => {
     const handleScroll = () => {
@@ -39,9 +41,14 @@ export const Navbar = () => {
             {languages.map((lang) => (
               <button
                 key={lang}
-                className="px-3 py-1 text-xs font-medium hover:bg-white/20 rounded transition-colors"
+                onClick={() => setLanguage(lang)}
+                className={`px-3 py-1 text-xs font-medium rounded transition-colors ${
+                  language === lang 
+                    ? "bg-white/30 text-white" 
+                    : "hover:bg-white/20"
+                }`}
               >
-                {lang}
+                {lang.toUpperCase()}
               </button>
             ))}
           </div>
@@ -98,7 +105,7 @@ export const Navbar = () => {
                   Hiška La Vita
                 </span>
                 <span className="text-[10px] md:text-xs text-muted-foreground font-body tracking-widest">
-                  Travel·Enjoy·Explore
+                  {t('nav.tagline')}
                 </span>
               </div>
             </motion.div>
@@ -152,6 +159,22 @@ export const Navbar = () => {
             className="lg:hidden glass-effect border-t border-border"
           >
             <div className="container mx-auto px-4 py-4 flex flex-col gap-2">
+              {/* Mobile Language Buttons */}
+              <div className="flex items-center gap-2 mb-2 pb-2 border-b border-border">
+                {languages.map((lang) => (
+                  <button
+                    key={lang}
+                    onClick={() => setLanguage(lang)}
+                    className={`px-4 py-2 text-sm font-medium rounded transition-colors ${
+                      language === lang 
+                        ? "bg-primary text-primary-foreground" 
+                        : "bg-muted hover:bg-muted/80"
+                    }`}
+                  >
+                    {lang.toUpperCase()}
+                  </button>
+                ))}
+              </div>
               {navItems.map((item) => (
                 item.isExternal ? (
                   <Link

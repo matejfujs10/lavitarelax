@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Ticket, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 import slide1 from "@/assets/slide-1.jpg";
 import slide2 from "@/assets/slide-2.jpg";
@@ -23,20 +24,21 @@ const heroSlides = [
   { src: slide8, alt: "La Vita Hiška - LED spalnica" },
 ];
 
-const features = [
-  "🎫 2x Kopalni karti vključeni",
-  "🚲 3x Brezplačna kolesa",
-  "📺 TV + Videorekorder",
-  "🏡 50m² prostora",
-  "⛺ Kampiranje ob hiški",
-  "🤝 Team Buildingi",
-  "✨ Unikatni prostori",
-  "🌳 Urejena okolica",
-];
-
 export const HeroSection = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [currentFeature, setCurrentFeature] = useState(0);
+  const { t } = useLanguage();
+
+  const features = [
+    t('hero.badge.tickets'),
+    t('hero.badge.bikes'),
+    t('hero.badge.tv'),
+    t('hero.badge.space'),
+    t('hero.badge.camping'),
+    t('hero.badge.teambuilding'),
+    t('hero.badge.unique'),
+    t('hero.badge.nature'),
+  ];
 
   useEffect(() => {
     const slideInterval = setInterval(() => {
@@ -50,7 +52,7 @@ export const HeroSection = () => {
       setCurrentFeature((prev) => (prev + 1) % features.length);
     }, 3000);
     return () => clearInterval(featureInterval);
-  }, []);
+  }, [features.length]);
 
   const goToPrevious = () => {
     setCurrentSlide((prev) => (prev - 1 + heroSlides.length) % heroSlides.length);
@@ -121,12 +123,26 @@ export const HeroSection = () => {
       <div className="relative z-10 min-h-screen flex items-center justify-center pt-24 pb-20">
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center">
+            {/* Prominent "2x KOPALNI KARTI VKLJUČENI" Badge */}
+            <motion.div
+              initial={{ opacity: 0, y: -30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6 }}
+              className="mb-4"
+            >
+              <div className="inline-block bg-primary text-primary-foreground px-6 py-3 rounded-full shadow-lavita-card">
+                <span className="font-display text-base md:text-lg font-bold tracking-wide">
+                  🎫 {t('banner.ticketsIncluded')} 🎫
+                </span>
+              </div>
+            </motion.div>
+
             {/* Rotating Feature Badge */}
             <motion.div
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="mb-8"
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="mb-6"
             >
               <AnimatePresence mode="wait">
                 <motion.div
@@ -144,6 +160,16 @@ export const HeroSection = () => {
               </AnimatePresence>
             </motion.div>
 
+            {/* "Vaš Dom Stran od Doma" tagline */}
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.15 }}
+              className="text-lg md:text-xl text-card/90 font-display font-medium mb-4 drop-shadow-md"
+            >
+              {t('banner.yourHome')}
+            </motion.p>
+
             {/* Main Title */}
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
@@ -151,8 +177,8 @@ export const HeroSection = () => {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="font-display text-5xl md:text-7xl lg:text-8xl font-bold mb-6"
             >
-              <span className="text-card drop-shadow-lg">Hiška</span>{" "}
-              <span className="text-gradient-primary drop-shadow-lg">La Vita</span>
+              <span className="text-card drop-shadow-lg">{t('hero.title1')}</span>{" "}
+              <span className="text-gradient-primary drop-shadow-lg">{t('hero.title2')}</span>
             </motion.h1>
 
             {/* Subtitle */}
@@ -162,7 +188,7 @@ export const HeroSection = () => {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="text-xl md:text-2xl lg:text-3xl text-card/90 font-body font-medium mb-8 drop-shadow-md"
             >
-              Vaš kotiček sprostitve in narave v Termah 3000
+              {t('hero.subtitle')}
             </motion.p>
 
             {/* Price Badges */}
@@ -176,8 +202,8 @@ export const HeroSection = () => {
                 <div className="flex items-center gap-2">
                   <span className="text-2xl">❄️</span>
                   <div className="text-left">
-                    <p className="text-sm text-muted-foreground font-medium">Zimska akcija</p>
-                    <p className="text-2xl font-display font-bold text-primary">80€<span className="text-base font-normal text-muted-foreground">/noč</span></p>
+                    <p className="text-sm text-muted-foreground font-medium">{t('hero.winterAction')}</p>
+                    <p className="text-2xl font-display font-bold text-primary">80€<span className="text-base font-normal text-muted-foreground">{t('hero.perNight')}</span></p>
                   </div>
                 </div>
               </div>
@@ -185,8 +211,8 @@ export const HeroSection = () => {
                 <div className="flex items-center gap-2">
                   <span className="text-2xl">☀️</span>
                   <div className="text-left">
-                    <p className="text-sm text-primary-foreground/80 font-medium">Poletna akcija</p>
-                    <p className="text-2xl font-display font-bold text-primary-foreground">110€<span className="text-base font-normal text-primary-foreground/80">/noč</span></p>
+                    <p className="text-sm text-primary-foreground/80 font-medium">{t('hero.summerAction')}</p>
+                    <p className="text-2xl font-display font-bold text-primary-foreground">110€<span className="text-base font-normal text-primary-foreground/80">{t('hero.perNight')}</span></p>
                   </div>
                 </div>
               </div>
@@ -201,22 +227,22 @@ export const HeroSection = () => {
             >
               <Button
                 size="lg"
-                className="bg-primary hover:bg-primary/90 text-primary-foreground px-10 py-7 text-xl font-semibold rounded-full shadow-lavita-card hover:shadow-lg hover:scale-105 transition-all"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 md:px-10 py-6 md:py-7 text-lg md:text-xl font-semibold rounded-full shadow-lavita-card hover:shadow-lg hover:scale-105 transition-all w-full sm:w-auto"
                 asChild
               >
                 <a href="#rezervacija">
-                  <Ticket className="w-6 h-6 mr-2" />
-                  Rezerviraj zdaj
+                  <Ticket className="w-5 h-5 md:w-6 md:h-6 mr-2" />
+                  {t('hero.bookNow')}
                 </a>
               </Button>
               <Button
                 size="lg"
                 variant="outline"
-                className="bg-card/90 backdrop-blur-sm border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground px-10 py-7 text-xl font-semibold rounded-full transition-all"
+                className="bg-card/90 backdrop-blur-sm border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground px-8 md:px-10 py-6 md:py-7 text-lg md:text-xl font-semibold rounded-full transition-all w-full sm:w-auto"
                 asChild
               >
                 <a href="#aktivnosti">
-                  Odkrijte aktivnosti
+                  {t('hero.discoverActivities')}
                 </a>
               </Button>
             </motion.div>
@@ -229,14 +255,14 @@ export const HeroSection = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5 }}
-        className="absolute bottom-24 left-1/2 -translate-x-1/2 z-10"
+        className="absolute bottom-24 left-1/2 -translate-x-1/2 z-10 hidden md:block"
       >
         <motion.div
           animate={{ y: [0, 10, 0] }}
           transition={{ duration: 2, repeat: Infinity }}
           className="flex flex-col items-center gap-2 text-card/80"
         >
-          <span className="text-sm font-medium">Odkrijte več</span>
+          <span className="text-sm font-medium">{t('hero.discoverMore')}</span>
           <div className="w-6 h-10 border-2 border-card/50 rounded-full flex justify-center pt-2">
             <motion.div
               animate={{ y: [0, 12, 0] }}

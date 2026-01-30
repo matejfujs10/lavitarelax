@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { Gift, ArrowLeft, CreditCard, Mail, User, MapPin } from "lucide-react";
+import { Gift, ArrowLeft, CreditCard, Mail, User } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -25,21 +25,13 @@ import {
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
-import paymentCardsImage from "@/assets/payment-cards.png";
+import { useLanguage } from "@/contexts/LanguageContext";
 
-const voucherSchema = z.object({
-  giverFirstName: z.string().min(2, "Ime mora imeti vsaj 2 znaka"),
-  giverLastName: z.string().min(2, "Priimek mora imeti vsaj 2 znaka"),
-  giverAddress: z.string().min(5, "Vnesite veljaven naslov"),
-  giverPostalCode: z.string().min(4, "Vnesite veljavno poštno številko"),
-  giverCity: z.string().min(2, "Vnesite veljavno mesto"),
-  giverEmail: z.string().email("Vnesite veljaven e-naslov"),
-  recipientEmail: z.string().email("Vnesite veljaven e-naslov prejemnika"),
-  recipientMessage: z.string().min(10, "Sporočilo mora imeti vsaj 10 znakov").max(500, "Sporočilo je predolgo"),
-  nights: z.string().min(1, "Izberite število noči"),
-});
-
-type VoucherFormData = z.infer<typeof voucherSchema>;
+import visaLogo from "@/assets/visa-logo.png";
+import mastercardLogo from "@/assets/mastercard-logo.png";
+import maestroLogo from "@/assets/maestro-logo.png";
+import securePayment from "@/assets/secure-payment.png";
+import trustedSeller from "@/assets/trusted-seller.jpg";
 
 // Fixed pricing: 110 EUR per night
 const PRICE_PER_NIGHT = 110;
@@ -57,6 +49,21 @@ const nightOptions = [
 const GiftVoucher = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const { toast } = useToast();
+  const { t, language } = useLanguage();
+
+  const voucherSchema = z.object({
+    giverFirstName: z.string().min(2, t('validation.nameMin')),
+    giverLastName: z.string().min(2, t('validation.surnameMin')),
+    giverAddress: z.string().min(5, t('validation.addressMin')),
+    giverPostalCode: z.string().min(4, t('validation.postalMin')),
+    giverCity: z.string().min(2, t('validation.cityMin')),
+    giverEmail: z.string().email(t('validation.emailInvalid')),
+    recipientEmail: z.string().email(t('validation.recipientEmailInvalid')),
+    recipientMessage: z.string().min(10, t('validation.messageMin')).max(500, t('validation.messageMax')),
+    nights: z.string().min(1, t('validation.selectNights')),
+  });
+
+  type VoucherFormData = z.infer<typeof voucherSchema>;
 
   const form = useForm<VoucherFormData>({
     resolver: zodResolver(voucherSchema),
@@ -128,19 +135,19 @@ const GiftVoucher = () => {
           className="bg-card rounded-3xl shadow-lavita-card p-8 md:p-12 max-w-lg text-center"
         >
           <h1 className="font-display text-3xl font-bold text-foreground mb-4">
-            Plačilo preklicano
+            {t('voucher.cancelled')}
           </h1>
           <p className="text-muted-foreground mb-6">
-            Plačilo je bilo preklicano. Lahko poskusite znova ali se vrnete na domačo stran.
+            {t('voucher.cancelledText')}
           </p>
-          <div className="flex gap-4 justify-center">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button variant="outline" onClick={() => window.location.href = '/gift-voucher'}>
-              Poskusi znova
+              {t('voucher.tryAgain')}
             </Button>
             <Link to="/">
-              <Button className="bg-primary hover:bg-primary/90">
+              <Button className="bg-primary hover:bg-primary/90 w-full">
                 <ArrowLeft className="w-4 h-4 mr-2" />
-                Domov
+                {t('voucher.home')}
               </Button>
             </Link>
           </div>
@@ -149,6 +156,16 @@ const GiftVoucher = () => {
     );
   }
 
+  const getNightsLabel = (nights: number) => {
+    if (language === 'sl') {
+      return nights === 1 ? t('voucher.night') : t('voucher.nights');
+    } else if (language === 'de') {
+      return nights === 1 ? t('voucher.night') : t('voucher.nights');
+    } else {
+      return nights === 1 ? t('voucher.night') : t('voucher.nights');
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-lavita-cream to-background">
       {/* Header */}
@@ -156,33 +173,33 @@ const GiftVoucher = () => {
         <div className="container mx-auto px-4">
           <Link to="/" className="inline-flex items-center gap-2 text-white/80 hover:text-white transition-colors">
             <ArrowLeft className="w-5 h-5" />
-            <span>Nazaj na domačo stran</span>
+            <span>{t('voucher.backHome')}</span>
           </Link>
         </div>
       </div>
 
       {/* Hero Section */}
-      <section className="py-16 md:py-24">
+      <section className="py-12 md:py-24">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-center max-w-3xl mx-auto mb-12"
+            className="text-center max-w-3xl mx-auto mb-8 md:mb-12"
           >
             <div className="inline-flex items-center gap-3 mb-6">
               <div className="w-16 h-16 bg-lavita-mint-light rounded-2xl flex items-center justify-center">
                 <Gift className="w-8 h-8 text-primary" />
               </div>
             </div>
-            <h1 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6">
-              Podari Dopust v Termah 3000
+            <h1 className="font-display text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-foreground mb-6">
+              {t('voucher.title')}
             </h1>
-            <p className="text-xl text-muted-foreground mb-4">
-              Izpolni obrazec in pošlji darilni bon zdaj!
+            <p className="text-lg md:text-xl text-muted-foreground mb-4">
+              {t('voucher.subtitle')}
             </p>
             <p className="text-muted-foreground">
-              Najboljše darilo za prijatelje in družino - nepozabni trenutki v La Vita Hiški
+              {t('voucher.description')}
             </p>
           </motion.div>
 
@@ -201,7 +218,7 @@ const GiftVoucher = () => {
                     <div className="flex items-center gap-2 mb-4">
                       <User className="w-5 h-5 text-primary" />
                       <h2 className="font-display text-xl font-semibold text-foreground">
-                        Darilni bon podarja
+                        {t('voucher.giverTitle')}
                       </h2>
                     </div>
 
@@ -211,9 +228,9 @@ const GiftVoucher = () => {
                         name="giverFirstName"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Ime *</FormLabel>
+                            <FormLabel>{t('voucher.firstName')} *</FormLabel>
                             <FormControl>
-                              <Input placeholder="Vaše ime" {...field} />
+                              <Input placeholder={t('voucher.firstName')} {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -225,9 +242,9 @@ const GiftVoucher = () => {
                         name="giverLastName"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Priimek *</FormLabel>
+                            <FormLabel>{t('voucher.lastName')} *</FormLabel>
                             <FormControl>
-                              <Input placeholder="Vaš priimek" {...field} />
+                              <Input placeholder={t('voucher.lastName')} {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -240,9 +257,9 @@ const GiftVoucher = () => {
                       name="giverAddress"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Naslov *</FormLabel>
+                          <FormLabel>{t('voucher.address')} *</FormLabel>
                           <FormControl>
-                            <Input placeholder="Ulica in hišna številka" {...field} />
+                            <Input placeholder={t('voucher.address')} {...field} />
                           </FormControl>
                           <FormMessage />
                         </FormItem>
@@ -255,7 +272,7 @@ const GiftVoucher = () => {
                         name="giverPostalCode"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Poštna številka *</FormLabel>
+                            <FormLabel>{t('voucher.postalCode')} *</FormLabel>
                             <FormControl>
                               <Input placeholder="1000" {...field} />
                             </FormControl>
@@ -269,9 +286,9 @@ const GiftVoucher = () => {
                         name="giverCity"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Kraj *</FormLabel>
+                            <FormLabel>{t('voucher.city')} *</FormLabel>
                             <FormControl>
-                              <Input placeholder="Ljubljana" {...field} />
+                              <Input placeholder={t('voucher.city')} {...field} />
                             </FormControl>
                             <FormMessage />
                           </FormItem>
@@ -284,7 +301,7 @@ const GiftVoucher = () => {
                       name="giverEmail"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Vaš e-naslov *</FormLabel>
+                          <FormLabel>{t('voucher.yourEmail')} *</FormLabel>
                           <FormControl>
                             <Input type="email" placeholder="vas@email.com" {...field} />
                           </FormControl>
@@ -299,7 +316,7 @@ const GiftVoucher = () => {
                     <div className="flex items-center gap-2 mb-4">
                       <Mail className="w-5 h-5 text-primary" />
                       <h2 className="font-display text-xl font-semibold text-foreground">
-                        Prejemnik bona
+                        {t('voucher.recipientTitle')}
                       </h2>
                     </div>
 
@@ -308,7 +325,7 @@ const GiftVoucher = () => {
                       name="recipientEmail"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>E-naslov prejemnika *</FormLabel>
+                          <FormLabel>{t('voucher.recipientEmail')} *</FormLabel>
                           <FormControl>
                             <Input type="email" placeholder="prejemnik@email.com" {...field} />
                           </FormControl>
@@ -322,10 +339,10 @@ const GiftVoucher = () => {
                       name="recipientMessage"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Sporočilo prejemniku *</FormLabel>
+                          <FormLabel>{t('voucher.message')} *</FormLabel>
                           <FormControl>
                             <Textarea
-                              placeholder="Napišite osebno sporočilo za prejemnika darilnega bona..."
+                              placeholder={t('voucher.messagePlaceholder')}
                               className="min-h-[120px]"
                               {...field}
                             />
@@ -341,7 +358,7 @@ const GiftVoucher = () => {
                     <div className="flex items-center gap-2 mb-4">
                       <CreditCard className="w-5 h-5 text-primary" />
                       <h2 className="font-display text-xl font-semibold text-foreground">
-                        Vrednost bona
+                        {t('voucher.valueTitle')}
                       </h2>
                     </div>
 
@@ -350,17 +367,17 @@ const GiftVoucher = () => {
                       name="nights"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Izberite število noči *</FormLabel>
+                          <FormLabel>{t('voucher.selectNights')} *</FormLabel>
                           <Select onValueChange={field.onChange} defaultValue={field.value}>
                             <FormControl>
                               <SelectTrigger>
-                                <SelectValue placeholder="Izberite število noči" />
+                                <SelectValue placeholder={t('voucher.selectNights')} />
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
                               {nightOptions.map((option) => (
                                 <SelectItem key={option.value} value={option.value}>
-                                  {option.nights} {option.nights === 1 ? "noč" : option.nights < 5 ? "noči" : "noči"} – {option.price} €
+                                  {option.nights} {getNightsLabel(option.nights)} – {option.price} €
                                 </SelectItem>
                               ))}
                             </SelectContent>
@@ -376,46 +393,67 @@ const GiftVoucher = () => {
                         animate={{ opacity: 1, y: 0 }}
                         className="bg-lavita-mint-light/50 rounded-xl p-4 text-center"
                       >
-                        <p className="text-sm text-muted-foreground mb-1">Skupna vrednost bona</p>
+                        <p className="text-sm text-muted-foreground mb-1">{t('voucher.totalValue')}</p>
                         <p className="text-3xl font-bold text-primary">{selectedOption.price} €</p>
                         <p className="text-sm text-muted-foreground mt-1">
-                          ({selectedOption.nights} × {PRICE_PER_NIGHT} € na noč)
+                          ({selectedOption.nights} × {PRICE_PER_NIGHT} € {t('voucher.perNight')})
                         </p>
                       </motion.div>
                     )}
                   </div>
 
-                  {/* Payment Info */}
-                  <div className="bg-muted/50 rounded-xl p-4">
-                    <div className="flex items-center justify-center gap-4 mb-3">
+                  {/* Payment Info - with uploaded images */}
+                  <div className="bg-muted/50 rounded-xl p-4 space-y-4">
+                    {/* Trust Badges */}
+                    <div className="flex flex-wrap items-center justify-center gap-4">
                       <img 
-                        src={paymentCardsImage} 
-                        alt="Visa, Mastercard, Maestro" 
-                        className="h-8 object-contain"
+                        src={securePayment} 
+                        alt="Secure Payment" 
+                        className="h-12 md:h-16 object-contain"
+                      />
+                      <img 
+                        src={trustedSeller} 
+                        alt="Trusted Seller" 
+                        className="h-12 md:h-16 object-contain"
                       />
                     </div>
+                    
+                    {/* Card Logos */}
+                    <div className="flex items-center justify-center gap-3">
+                      <img 
+                        src={visaLogo} 
+                        alt="Visa" 
+                        className="h-8 md:h-10 object-contain"
+                      />
+                      <img 
+                        src={mastercardLogo} 
+                        alt="Mastercard" 
+                        className="h-8 md:h-10 object-contain"
+                      />
+                      <img 
+                        src={maestroLogo} 
+                        alt="Maestro" 
+                        className="h-8 md:h-10 object-contain"
+                      />
+                    </div>
+                    
                     <p className="text-sm text-muted-foreground text-center">
-                      Varno kartično plačilo prek Stripe. Podprte kartice: Visa, Mastercard, Maestro.
+                      {t('voucher.securePayment')}. {t('voucher.supportedCards')}.
                     </p>
                   </div>
 
                   {/* Submit Button */}
                   <Button
                     type="submit"
-                    className="w-full h-14 text-lg font-semibold bg-primary hover:bg-primary/90"
+                    className="w-full h-14 text-base md:text-lg font-semibold bg-primary hover:bg-primary/90"
                     disabled={isProcessing || !selectedNights}
                   >
                     {isProcessing ? (
-                      "Obdelava..."
+                      t('voucher.processing')
                     ) : (
                       <span className="flex items-center justify-center gap-3">
                         <CreditCard className="w-5 h-5" />
-                        Plačaj s kartico in pošlji bon
-                        <img 
-                          src={paymentCardsImage} 
-                          alt="" 
-                          className="h-5 object-contain ml-2"
-                        />
+                        {t('voucher.payButton')}
                       </span>
                     )}
                   </Button>

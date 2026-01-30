@@ -3,12 +3,11 @@ import { motion } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import { Gift, ArrowLeft, CreditCard, Mail, User, MapPin, MessageSquare } from "lucide-react";
+import { Gift, ArrowLeft, CreditCard, Mail, User, MapPin } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Label } from "@/components/ui/label";
 import {
   Form,
   FormControl,
@@ -25,6 +24,8 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
+import paymentCardsImage from "@/assets/payment-cards.png";
 
 const voucherSchema = z.object({
   giverFirstName: z.string().min(2, "Ime mora imeti vsaj 2 znaka"),
@@ -35,18 +36,22 @@ const voucherSchema = z.object({
   giverEmail: z.string().email("Vnesite veljaven e-naslov"),
   recipientEmail: z.string().email("Vnesite veljaven e-naslov prejemnika"),
   recipientMessage: z.string().min(10, "Sporočilo mora imeti vsaj 10 znakov").max(500, "Sporočilo je predolgo"),
-  voucherAmount: z.string().min(1, "Izberite vrednost bona"),
+  nights: z.string().min(1, "Izberite število noči"),
 });
 
 type VoucherFormData = z.infer<typeof voucherSchema>;
 
-const voucherAmounts = [
-  { value: "50", label: "50 €" },
-  { value: "100", label: "100 €" },
-  { value: "150", label: "150 €" },
-  { value: "200", label: "200 €" },
-  { value: "250", label: "250 €" },
-  { value: "300", label: "300 €" },
+// Fixed pricing: 110 EUR per night
+const PRICE_PER_NIGHT = 110;
+
+const nightOptions = [
+  { value: "1", nights: 1, price: 110 },
+  { value: "2", nights: 2, price: 220 },
+  { value: "3", nights: 3, price: 330 },
+  { value: "4", nights: 4, price: 440 },
+  { value: "5", nights: 5, price: 550 },
+  { value: "6", nights: 6, price: 660 },
+  { value: "7", nights: 7, price: 770 },
 ];
 
 const GiftVoucher = () => {
@@ -64,71 +69,55 @@ const GiftVoucher = () => {
       giverEmail: "",
       recipientEmail: "",
       recipientMessage: "",
-      voucherAmount: "",
+      nights: "",
     },
   });
+
+  const selectedNights = form.watch("nights");
+  const selectedOption = nightOptions.find(opt => opt.value === selectedNights);
 
   const onSubmit = async (data: VoucherFormData) => {
     setIsProcessing(true);
     
     try {
-      // Create PayPal order URL
-      const paypalClientId = "YOUR_PAYPAL_CLIENT_ID"; // This should be configured
-      const amount = data.voucherAmount;
-      
-      // For now, redirect to PayPal with the order details
-      // In production, you would create an order via PayPal API
-      const paypalUrl = `https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=rent@lavitaterme3000.com&item_name=Darilni%20Bon%20La%20Vita%20Hiška&amount=${amount}&currency_code=EUR&return=${encodeURIComponent(window.location.origin + '/gift-voucher?success=true')}&cancel_return=${encodeURIComponent(window.location.origin + '/gift-voucher?cancelled=true')}`;
-      
-      // Store form data in sessionStorage for after payment
-      sessionStorage.setItem('voucherData', JSON.stringify(data));
-      
-      // Redirect to PayPal
-      window.location.href = paypalUrl;
-      
-    } catch (error) {
+      const { data: responseData, error } = await supabase.functions.invoke("create-checkout", {
+        body: {
+          nights: parseInt(data.nights),
+          giverFirstName: data.giverFirstName,
+          giverLastName: data.giverLastName,
+          giverAddress: data.giverAddress,
+          giverPostalCode: data.giverPostalCode,
+          giverCity: data.giverCity,
+          giverEmail: data.giverEmail,
+          recipientEmail: data.recipientEmail,
+          recipientMessage: data.recipientMessage,
+        },
+      });
+
+      if (error) {
+        throw new Error(error.message || "Napaka pri ustvarjanju plačilne seje");
+      }
+
+      if (responseData?.url) {
+        // Redirect to Stripe Checkout
+        window.location.href = responseData.url;
+      } else {
+        throw new Error("Ni prejete URL za plačilo");
+      }
+    } catch (error: any) {
       console.error("Error processing payment:", error);
       toast({
         title: "Napaka",
-        description: "Prišlo je do napake pri obdelavi plačila. Prosimo, poskusite znova.",
+        description: error.message || "Prišlo je do napake pri obdelavi plačila. Prosimo, poskusite znova.",
         variant: "destructive",
       });
       setIsProcessing(false);
     }
   };
 
-  // Check for return from PayPal
+  // Check for cancelled payment return
   const urlParams = new URLSearchParams(window.location.search);
-  const paymentSuccess = urlParams.get('success') === 'true';
   const paymentCancelled = urlParams.get('cancelled') === 'true';
-
-  if (paymentSuccess) {
-    return (
-      <div className="min-h-screen bg-gradient-to-b from-lavita-cream to-background flex items-center justify-center p-4">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="bg-card rounded-3xl shadow-lavita-card p-8 md:p-12 max-w-lg text-center"
-        >
-          <div className="w-20 h-20 bg-lavita-mint-light rounded-full flex items-center justify-center mx-auto mb-6">
-            <Gift className="w-10 h-10 text-primary" />
-          </div>
-          <h1 className="font-display text-3xl font-bold text-foreground mb-4">
-            Hvala za nakup! 🎉
-          </h1>
-          <p className="text-muted-foreground mb-6">
-            Vaš darilni bon je bil uspešno obdelan. Prejemnik bo kmalu prejel e-pošto z darilnim bonom.
-          </p>
-          <Link to="/">
-            <Button className="bg-primary hover:bg-primary/90">
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Nazaj na domačo stran
-            </Button>
-          </Link>
-        </motion.div>
-      </div>
-    );
-  }
 
   if (paymentCancelled) {
     return (
@@ -145,11 +134,9 @@ const GiftVoucher = () => {
             Plačilo je bilo preklicano. Lahko poskusite znova ali se vrnete na domačo stran.
           </p>
           <div className="flex gap-4 justify-center">
-            <Link to="/gift-voucher">
-              <Button variant="outline" onClick={() => window.location.href = '/gift-voucher'}>
-                Poskusi znova
-              </Button>
-            </Link>
+            <Button variant="outline" onClick={() => window.location.href = '/gift-voucher'}>
+              Poskusi znova
+            </Button>
             <Link to="/">
               <Button className="bg-primary hover:bg-primary/90">
                 <ArrowLeft className="w-4 h-4 mr-2" />
@@ -349,7 +336,7 @@ const GiftVoucher = () => {
                     />
                   </div>
 
-                  {/* Voucher Amount Section */}
+                  {/* Nights Selection Section */}
                   <div className="space-y-4 pt-6 border-t border-border">
                     <div className="flex items-center gap-2 mb-4">
                       <CreditCard className="w-5 h-5 text-primary" />
@@ -360,20 +347,20 @@ const GiftVoucher = () => {
 
                     <FormField
                       control={form.control}
-                      name="voucherAmount"
+                      name="nights"
                       render={({ field }) => (
                         <FormItem>
-                          <FormLabel>Izberite vrednost darilnega bona *</FormLabel>
+                          <FormLabel>Izberite število noči *</FormLabel>
                           <Select onValueChange={field.onChange} defaultValue={field.value}>
                             <FormControl>
                               <SelectTrigger>
-                                <SelectValue placeholder="Izberite vrednost" />
+                                <SelectValue placeholder="Izberite število noči" />
                               </SelectTrigger>
                             </FormControl>
                             <SelectContent>
-                              {voucherAmounts.map((amount) => (
-                                <SelectItem key={amount.value} value={amount.value}>
-                                  {amount.label}
+                              {nightOptions.map((option) => (
+                                <SelectItem key={option.value} value={option.value}>
+                                  {option.nights} {option.nights === 1 ? "noč" : option.nights < 5 ? "noči" : "noči"} – {option.price} €
                                 </SelectItem>
                               ))}
                             </SelectContent>
@@ -382,35 +369,54 @@ const GiftVoucher = () => {
                         </FormItem>
                       )}
                     />
+
+                    {selectedOption && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        className="bg-lavita-mint-light/50 rounded-xl p-4 text-center"
+                      >
+                        <p className="text-sm text-muted-foreground mb-1">Skupna vrednost bona</p>
+                        <p className="text-3xl font-bold text-primary">{selectedOption.price} €</p>
+                        <p className="text-sm text-muted-foreground mt-1">
+                          ({selectedOption.nights} × {PRICE_PER_NIGHT} € na noč)
+                        </p>
+                      </motion.div>
+                    )}
                   </div>
 
-                  {/* PayPal Info */}
-                  <div className="bg-lavita-mint-light/50 rounded-xl p-4 flex items-start gap-3">
-                    <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <CreditCard className="w-5 h-5 text-primary" />
+                  {/* Payment Info */}
+                  <div className="bg-muted/50 rounded-xl p-4">
+                    <div className="flex items-center justify-center gap-4 mb-3">
+                      <img 
+                        src={paymentCardsImage} 
+                        alt="Visa, Mastercard, Maestro" 
+                        className="h-8 object-contain"
+                      />
                     </div>
-                    <div>
-                      <p className="font-medium text-foreground">Varno plačilo prek PayPal</p>
-                      <p className="text-sm text-muted-foreground">
-                        Po kliku na gumb boste preusmerjeni na PayPal za varno izvedbo plačila.
-                        Po uspešnem plačilu bo prejemnik avtomatsko prejel darilni bon na svoj e-naslov.
-                      </p>
-                    </div>
+                    <p className="text-sm text-muted-foreground text-center">
+                      Varno kartično plačilo prek Stripe. Podprte kartice: Visa, Mastercard, Maestro.
+                    </p>
                   </div>
 
                   {/* Submit Button */}
                   <Button
                     type="submit"
                     className="w-full h-14 text-lg font-semibold bg-primary hover:bg-primary/90"
-                    disabled={isProcessing}
+                    disabled={isProcessing || !selectedNights}
                   >
                     {isProcessing ? (
                       "Obdelava..."
                     ) : (
-                      <>
-                        <Gift className="w-5 h-5 mr-2" />
-                        Plačaj z PayPal in pošlji bon
-                      </>
+                      <span className="flex items-center justify-center gap-3">
+                        <CreditCard className="w-5 h-5" />
+                        Plačaj s kartico in pošlji bon
+                        <img 
+                          src={paymentCardsImage} 
+                          alt="" 
+                          className="h-5 object-contain ml-2"
+                        />
+                      </span>
                     )}
                   </Button>
                 </form>

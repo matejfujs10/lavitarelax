@@ -43,6 +43,9 @@ const bookingSchema = z.object({
   guests: z.array(guestSchema).max(20, "Preveč gostov (max 20)").default([]),
   hasPets: z.boolean(),
   agreeTerms: z.boolean().refine(val => val === true, "Morate se strinjati s pogoji"),
+  // Honeypot fields for bot detection (should be empty)
+  website: z.string().max(0, "Invalid submission").optional().default(""),
+  phone_confirm: z.string().max(0, "Invalid submission").optional().default(""),
 });
 
 type BookingRequest = z.infer<typeof bookingSchema>;
@@ -99,6 +102,20 @@ const handler = async (req: Request): Promise<Response> => {
     }
 
     const bookingData = parseResult.data;
+    
+    // Bot detection: honeypot fields should be empty
+    if (bookingData.website || bookingData.phone_confirm) {
+      console.warn("Bot detected via honeypot fields from IP:", clientIp);
+      // Return success to not alert bots, but don't process
+      return new Response(
+        JSON.stringify({ success: true, message: "Rezervacija uspešno poslana!" }),
+        {
+          status: 200,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        }
+      );
+    }
+    
     console.log("Received valid booking request for:", bookingData.email);
 
     // Escape all user inputs for safe template interpolation

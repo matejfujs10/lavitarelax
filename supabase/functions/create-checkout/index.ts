@@ -44,6 +44,9 @@ const checkoutSchema = z.object({
   giverEmail: z.string().email("Neveljaven e-mail naslov").max(254, "E-mail je predolg"),
   recipientEmail: z.string().email("Neveljaven e-mail naslov prejemnika").max(254, "E-mail je predolg"),
   recipientMessage: z.string().min(10, "Sporočilo mora imeti vsaj 10 znakov").max(500, "Sporočilo je predolgo (max 500 znakov)").trim(),
+  // Honeypot fields for bot detection (should be empty)
+  company_name: z.string().max(0, "Invalid submission").optional().default(""),
+  fax_number: z.string().max(0, "Invalid submission").optional().default(""),
 });
 
 type CheckoutRequest = z.infer<typeof checkoutSchema>;
@@ -105,6 +108,20 @@ serve(async (req) => {
     }
 
     const data = parseResult.data;
+    
+    // Bot detection: honeypot fields should be empty
+    if (data.company_name || data.fax_number) {
+      console.warn("[CREATE-CHECKOUT] Bot detected via honeypot fields from IP:", clientIp);
+      // Return a fake success to not alert bots
+      return new Response(
+        JSON.stringify({ url: "https://lavitarelax.lovable.app/gift-voucher?error=session" }),
+        {
+          status: 200,
+          headers: { ...corsHeaders, "Content-Type": "application/json" },
+        }
+      );
+    }
+    
     console.log("[CREATE-CHECKOUT] Validated data:", { 
       nights: data.nights, 
       giverEmail: data.giverEmail,

@@ -10,6 +10,8 @@ const corsHeaders = {
 
 // Price per night in cents (110 EUR = 11000 cents)
 const PRICE_PER_NIGHT_CENTS = 11000;
+// Price for bath cards in cents (22 EUR = 2200 cents)
+const BATH_CARDS_PRICE_CENTS = 2200;
 
 // Rate limiting: simple in-memory store (resets on function cold start)
 const rateLimitStore = new Map<string, { count: number; resetTime: number }>();
@@ -35,7 +37,7 @@ function isRateLimited(clientIp: string): boolean {
 
 // Input validation schema
 const checkoutSchema = z.object({
-  nights: z.number().int().min(1, "Število noči mora biti vsaj 1").max(7, "Največ 7 noči"),
+  nights: z.number().int().min(0, "Izberi veljavno možnost").max(7, "Največ 7 noči"),
   giverFirstName: z.string().min(2, "Ime mora imeti vsaj 2 znaka").max(100, "Ime je predolgo").trim(),
   giverLastName: z.string().min(2, "Priimek mora imeti vsaj 2 znaka").max(100, "Priimek je predolg").trim(),
   giverAddress: z.string().min(5, "Naslov mora imeti vsaj 5 znakov").max(255, "Naslov je predolg").trim(),
@@ -128,9 +130,10 @@ serve(async (req) => {
       recipientEmail: data.recipientEmail 
     });
 
-    // Calculate total amount
-    const amountCents = data.nights * PRICE_PER_NIGHT_CENTS;
-    console.log("[CREATE-CHECKOUT] Amount:", amountCents, "cents for", data.nights, "nights");
+    // Calculate total amount based on product type
+    const isBathCards = data.nights === 0;
+    const amountCents = isBathCards ? BATH_CARDS_PRICE_CENTS : data.nights * PRICE_PER_NIGHT_CENTS;
+    console.log("[CREATE-CHECKOUT] Amount:", amountCents, "cents for", isBathCards ? "bath cards" : `${data.nights} nights`);
 
     // Generate a unique voucher code
     const voucherCode = `LV-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).substring(2, 6).toUpperCase()}`;
@@ -166,6 +169,15 @@ serve(async (req) => {
     // Create Stripe Checkout session
     const origin = req.headers.get("origin") || "https://lavitarelax.lovable.app";
     
+    // Product name based on type
+    const productName = isBathCards 
+      ? "2x kopalne karte - La Vita Hiška"
+      : `Darilni bon La Vita Hiška - ${data.nights} ${data.nights === 1 ? "noč" : data.nights < 5 ? "noči" : "noči"}`;
+    
+    const productDescription = isBathCards
+      ? "2x Celodnevne karte za neomejen vstop v Termalni Kompleks Terme 3000"
+      : `Darilni bon za ${data.nights} ${data.nights === 1 ? "nočitev" : "nočitev"} v La Vita Hiški v Termah 3000`;
+    
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ["card"],
       line_items: [
@@ -173,8 +185,8 @@ serve(async (req) => {
           price_data: {
             currency: "eur",
             product_data: {
-              name: `Darilni bon La Vita Hiška - ${data.nights} ${data.nights === 1 ? "noč" : data.nights < 5 ? "noči" : "noči"}`,
-              description: `Darilni bon za ${data.nights} ${data.nights === 1 ? "nočitev" : "nočitev"} v La Vita Hiški v Termah 3000`,
+              name: productName,
+              description: productDescription,
             },
             unit_amount: amountCents,
           },

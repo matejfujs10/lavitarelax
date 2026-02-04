@@ -21,7 +21,10 @@ function generateVoucherPDF(voucher: any): string {
   };
 
   const amountEur = voucher.amount_cents / 100;
-  const nightsText = voucher.nights === 1 ? "noč" : voucher.nights < 5 ? "noči" : "noči";
+  const isBathCards = voucher.nights === 0;
+  const productText = isBathCards 
+    ? "2x kopalne karte" 
+    : `${voucher.nights} ${voucher.nights === 1 ? "noč" : voucher.nights < 5 ? "noči" : "noči"}`;
 
   // Simple HTML template that will be converted to PDF-like content
   const html = `
@@ -129,7 +132,7 @@ function generateVoucherPDF(voucher: any): string {
     </div>
     
     <div class="amount">
-      ${voucher.nights} ${nightsText} • ${amountEur.toFixed(0)} €
+      ${productText} • ${amountEur.toFixed(0)} €
     </div>
     
     <div class="content">
@@ -161,8 +164,8 @@ function generateVoucherPDF(voucher: any): string {
     </div>
     
     <div class="footer">
-      <p>Ta bon je veljaven za nočitev v La Vita Hiški v Termah 3000.</p>
-      <p>Za rezervacijo kontaktirajte: lavitarelax@gmail.com | rent@lavitaterme3000.com</p>
+      <p>${isBathCards ? 'Ta bon je veljaven za 2x celodnevne kopalne karte v Termalnem Kompleksu Term 3000. Prevzem na Recepciji Kampa (doplačilo 6,50€).' : 'Ta bon je veljaven za nočitev v La Vita Hiški v Termah 3000.'}</p>
+      <p>Za rezervacijo kontaktirajte: rent@lavitaterme3000.com</p>
     </div>
   </div>
 </body>
@@ -177,7 +180,7 @@ function generateVoucherPDF(voucher: any): string {
 // Send email with voucher
 async function sendVoucherEmail(voucher: any, toEmail: string, isRecipient: boolean): Promise<void> {
   const amountEur = voucher.amount_cents / 100;
-  const nightsText = voucher.nights === 1 ? "noč" : voucher.nights < 5 ? "noči" : "noči";
+  const nightsText = voucher.nights === 0 ? "2x kopalni karti" : voucher.nights === 1 ? "noč" : voucher.nights < 5 ? "noči" : "noči";
   
   const validUntil = new Date(voucher.valid_until);
   const formatDate = (date: Date) => date.toLocaleDateString("sl-SI");
@@ -188,46 +191,61 @@ async function sendVoucherEmail(voucher: any, toEmail: string, isRecipient: bool
 
   const recipientName = isRecipient ? "Spoštovani" : `${voucher.giver_first_name} ${voucher.giver_last_name}`;
   
+  const productDescription = voucher.nights === 0 
+    ? `2x kopalne karte (${amountEur.toFixed(0)} €)`
+    : `${voucher.nights} ${nightsText} (${amountEur.toFixed(0)} €)`;
+
   const bodyText = isRecipient
-    ? `
-${recipientName},
+    ? `Hvala za vaš nakup 💚
 
-Prejeli ste čudovit darilni bon za oddih v La Vita Hiški v Termah 3000!
+Iskrena hvala, ker ste izbrali darilni bon La Vita Hiška – Terme 3000.
+Z vašo izbiro ste nekomu podarili več kot le bivanje – podarili ste čas za sprostitev, razvajanje in nepozabne trenutke v objemu narave 🌿♨️
 
+Prepričani smo, da bo obdarjena oseba uživala v miru, udobju in termalnih doživetjih, ki jih ponuja naš košček Pomurja.
+
+📦 Podatki o bonu:
+━━━━━━━━━━━━━━━━━━━━━
 Podarja: ${voucher.giver_first_name} ${voucher.giver_last_name}
-
-Vrednost bona: ${voucher.nights} ${nightsText} (${amountEur.toFixed(0)} €)
+Vrednost bona: ${productDescription}
 Koda bona: ${voucher.code}
 Veljavnost: do ${formatDate(validUntil)}
+━━━━━━━━━━━━━━━━━━━━━
 
-${voucher.recipient_message ? `\nOsebno sporočilo:\n"${voucher.recipient_message}"\n` : ''}
+${voucher.recipient_message ? `💌 Osebno sporočilo:\n"${voucher.recipient_message}"\n\n` : ''}
 
-Za rezervacijo termina nas kontaktirajte na:
-📧 lavitarelax@gmail.com
+Če imate kakršnakoli vprašanja ali potrebujete dodatne informacije, smo vam z veseljem na voljo:
 📧 rent@lavitaterme3000.com
 
-Veselimo se vašega obiska!
+🌐 www.lavitaterme3000.com
 
-Lep pozdrav,
-Ekipa La Vita Hiška
+Želimo vam lep dan in upamo, da se kmalu vidimo tudi v živo!
+
+Topel pozdrav,
+Ekipa La Vita Hiška – Terme 3000
     `
-    : `
-Spoštovani ${recipientName},
+    : `Spoštovani ${recipientName},
 
 Zahvaljujemo se vam za nakup darilnega bona za La Vita Hiško!
 
-Podatki o bonu:
-- Vrednost: ${voucher.nights} ${nightsText} (${amountEur.toFixed(0)} €)
-- Koda bona: ${voucher.code}
-- Veljavnost: do ${formatDate(validUntil)}
-- Prejemnik: ${voucher.recipient_email}
+📦 Podatki o bonu:
+━━━━━━━━━━━━━━━━━━━━━
+Vrednost: ${productDescription}
+Koda bona: ${voucher.code}
+Veljavnost: do ${formatDate(validUntil)}
+Prejemnik: ${voucher.recipient_email}
+━━━━━━━━━━━━━━━━━━━━━
 
 Bon je bil poslan prejemniku na naslov ${voucher.recipient_email}.
 
+Če imate kakršnakoli vprašanja ali potrebujete dodatne informacije, smo vam z veseljem na voljo:
+📧 rent@lavitaterme3000.com
+
+🌐 www.lavitaterme3000.com
+
 Hvala za zaupanje!
 
-Lep pozdrav,
-Ekipa La Vita Hiška
+Topel pozdrav,
+Ekipa La Vita Hiška – Terme 3000
     `;
 
   // Use Resend API if available, otherwise log

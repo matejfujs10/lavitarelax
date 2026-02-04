@@ -37,6 +37,7 @@ import trustedSeller from "@/assets/trusted-seller.jpg";
 const PRICE_PER_NIGHT = 110;
 
 const nightOptions = [
+  { value: "0", nights: 0, price: 22, label: "0 - Nakup 2x kopalne karte", description: "Prejmete Celodnevne Karte za neomejen vstop v Termalni Kompleks, prevzem na Recepciji Kampa kjer doplačate 6,50€. Za več info nam pišite na rent@lavitaterme3000.com" },
   { value: "1", nights: 1, price: 110 },
   { value: "2", nights: 2, price: 220 },
   { value: "3", nights: 3, price: 330 },
@@ -383,7 +384,7 @@ const GiftVoucher = () => {
                             <SelectContent>
                               {nightOptions.map((option) => (
                                 <SelectItem key={option.value} value={option.value}>
-                                  {option.nights} {getNightsLabel(option.nights)} – {option.price} €
+                                  {option.label || `${option.nights} ${getNightsLabel(option.nights)}`} – {option.price} €
                                 </SelectItem>
                               ))}
                             </SelectContent>
@@ -401,9 +402,15 @@ const GiftVoucher = () => {
                       >
                         <p className="text-sm text-muted-foreground mb-1">{t('voucher.totalValue')}</p>
                         <p className="text-3xl font-bold text-primary">{selectedOption.price} €</p>
-                        <p className="text-sm text-muted-foreground mt-1">
-                          ({selectedOption.nights} × {PRICE_PER_NIGHT} € {t('voucher.perNight')})
-                        </p>
+                        {selectedOption.nights > 0 ? (
+                          <p className="text-sm text-muted-foreground mt-1">
+                            ({selectedOption.nights} × {PRICE_PER_NIGHT} € {t('voucher.perNight')})
+                          </p>
+                        ) : (
+                          <p className="text-sm text-muted-foreground mt-2 text-left">
+                            {selectedOption.description}
+                          </p>
+                        )}
                       </motion.div>
                     )}
                     

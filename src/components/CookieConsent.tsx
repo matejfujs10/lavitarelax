@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { X, Settings, Cookie } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface CookiePreferences {
   necessary: boolean;
@@ -22,6 +23,7 @@ export const CookieConsent = () => {
     marketing: false,
     timestamp: "",
   });
+  const { t } = useLanguage();
 
   useEffect(() => {
     const savedConsent = localStorage.getItem(COOKIE_CONSENT_KEY);
@@ -92,11 +94,10 @@ export const CookieConsent = () => {
                     <Cookie className="w-6 h-6 text-primary flex-shrink-0 mt-0.5" />
                     <div>
                       <h3 className="font-display text-lg font-semibold text-foreground mb-2">
-                        Uporaba piškotkov
+                        {t('cookie.title')}
                       </h3>
                       <p className="text-muted-foreground text-sm">
-                        Na spletni strani uporabljamo nujne piškotke za zagotavljanje pravilnega delovanja spletne strani ter analitične in oglaševalske piškotke za izboljšanje uporabniške izkušnje in prikaz prilagojenih vsebin.
-                        Več informacij je na voljo v Pravilniku o zasebnosti in Politiki piškotkov.
+                        {t('cookie.description')}
                       </p>
                     </div>
                   </div>
@@ -107,19 +108,19 @@ export const CookieConsent = () => {
                       className="gap-2"
                     >
                       <Settings className="w-4 h-4" />
-                      Nastavitve
+                      {t('cookie.settings')}
                     </Button>
                     <Button
                       variant="outline"
                       onClick={handleRejectNonEssential}
                     >
-                      Zavrni nenujne
+                      {t('cookie.rejectNonEssential')}
                     </Button>
                     <Button
                       onClick={handleAcceptAll}
                       className="bg-primary hover:bg-primary/90"
                     >
-                      Sprejmi vse
+                      {t('cookie.acceptAll')}
                     </Button>
                   </div>
                 </div>
@@ -128,7 +129,7 @@ export const CookieConsent = () => {
                 <div className="space-y-6">
                   <div className="flex items-center justify-between">
                     <h3 className="font-display text-lg font-semibold text-foreground">
-                      Nastavitve piškotkov
+                      {t('cookie.settingsTitle')}
                     </h3>
                     <Button
                       variant="ghost"
@@ -139,16 +140,16 @@ export const CookieConsent = () => {
                     </Button>
                   </div>
                   <p className="text-muted-foreground text-sm">
-                    Izberite, katere vrste piškotkov dovolite. Nujni piškotki so vedno omogočeni, saj so potrebni za delovanje spletne strani.
+                    {t('cookie.settingsDescription')}
                   </p>
                   
                   <div className="space-y-4">
                     {/* Necessary cookies */}
                     <div className="flex items-start justify-between gap-4 p-4 bg-muted/50 rounded-xl">
                       <div>
-                        <p className="font-medium text-foreground">Nujni piškotki</p>
+                        <p className="font-medium text-foreground">{t('cookie.essential')}</p>
                         <p className="text-sm text-muted-foreground">
-                          Omogočajo osnovno delovanje spletne strani in varno uporabo storitev. Ti piškotki so vedno aktivni.
+                          {t('cookie.essentialDesc')}
                         </p>
                       </div>
                       <Switch checked={true} disabled className="opacity-50" />
@@ -157,9 +158,9 @@ export const CookieConsent = () => {
                     {/* Analytics cookies */}
                     <div className="flex items-start justify-between gap-4 p-4 bg-muted/50 rounded-xl">
                       <div>
-                        <p className="font-medium text-foreground">Analitični piškotki</p>
+                        <p className="font-medium text-foreground">{t('cookie.analytics')}</p>
                         <p className="text-sm text-muted-foreground">
-                          Omogočajo zbiranje anonimnih statističnih podatkov o uporabi spletne strani z namenom izboljšanja njene vsebine in delovanja.
+                          {t('cookie.analyticsDesc')}
                         </p>
                       </div>
                       <Switch
@@ -173,9 +174,9 @@ export const CookieConsent = () => {
                     {/* Marketing cookies */}
                     <div className="flex items-start justify-between gap-4 p-4 bg-muted/50 rounded-xl">
                       <div>
-                        <p className="font-medium text-foreground">Oglaševalski piškotki</p>
+                        <p className="font-medium text-foreground">{t('cookie.marketing')}</p>
                         <p className="text-sm text-muted-foreground">
-                          Omogočajo prikaz prilagojenih vsebin in oglasov glede na interese uporabnika.
+                          {t('cookie.marketingDesc')}
                         </p>
                       </div>
                       <Switch
@@ -192,19 +193,19 @@ export const CookieConsent = () => {
                       variant="outline"
                       onClick={handleRejectNonEssential}
                     >
-                      Zavrni nenujne
+                      {t('cookie.rejectNonEssential')}
                     </Button>
                     <Button
                       variant="outline"
                       onClick={handleSaveSettings}
                     >
-                      Shrani nastavitve
+                      {t('cookie.saveSettings')}
                     </Button>
                     <Button
                       onClick={handleAcceptAll}
                       className="bg-primary hover:bg-primary/90"
                     >
-                      Sprejmi vse
+                      {t('cookie.acceptAll')}
                     </Button>
                   </div>
                 </div>

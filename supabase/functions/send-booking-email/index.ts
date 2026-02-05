@@ -43,12 +43,11 @@ const bookingSchema = z.object({
   guests: z.array(guestSchema).max(20, "Preveč gostov (max 20)").default([]),
   hasPets: z.boolean(),
   agreeTerms: z.boolean().refine(val => val === true, "Morate se strinjati s pogoji"),
+  language: z.enum(['sl', 'en', 'de']).default('en'),
   // Honeypot fields for bot detection (should be empty)
   website: z.string().max(0, "Invalid submission").optional().default(""),
   phone_confirm: z.string().max(0, "Invalid submission").optional().default(""),
 });
-
-type BookingRequest = z.infer<typeof bookingSchema>;
 
 // Escape HTML to prevent injection in email templates
 function escapeHtml(text: string): string {
@@ -59,6 +58,189 @@ function escapeHtml(text: string): string {
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#039;');
 }
+
+// Send email using Resend API
+// Note: For production, verify your domain at https://resend.com/domains
+// Currently using Resend's onboarding domain for testing
+async function sendEmail(
+  apiKey: string,
+  to: string[],
+  subject: string,
+  text: string,
+  replyTo?: string
+): Promise<{ success: boolean; error?: string }> {
+  try {
+    const response = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        "Authorization": `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        // Using Resend's onboarding domain for now
+        // To use custom domain, verify lavitarelax.lovable.app at https://resend.com/domains
+        from: "La Vita Hiška <onboarding@resend.dev>",
+        to,
+        subject,
+        text,
+        ...(replyTo && { reply_to: replyTo }),
+      }),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("Resend API error:", errorText);
+      return { success: false, error: errorText };
+    }
+
+    return { success: true };
+  } catch (error) {
+    console.error("Email sending error:", error);
+    return { success: false, error: String(error) };
+  }
+}
+
+// Localized email content
+const emailTemplates = {
+  sl: {
+    subject: (name: string, arrival: string, departure: string) => 
+      `Nova rezervacija: ${name} (${arrival} - ${departure})`,
+    ownerBody: (data: {
+      name: string;
+      email: string;
+      arrivalDate: string;
+      departureDate: string;
+      arrivalTime: string;
+      guestsList: string;
+      hasPets: boolean;
+    }) => `
+Nova rezervacija za La Vita Hiško
+
+Kontaktna oseba:
+  Ime in priimek: ${data.name}
+  E-mail: ${data.email}
+
+Datumi:
+  Prihod: ${data.arrivalDate}
+  Odhod: ${data.departureDate}
+  Okvirni čas prihoda: ${data.arrivalTime || 'Po dogovoru'}
+
+Gostje:
+${data.guestsList || '  Ni dodatnih gostov'}
+
+Hišni ljubljenček: ${data.hasPets ? 'DA (+ 5€/noč)' : 'NE'}
+    `.trim(),
+    customerSubject: 'Potrditev rezervacije – La Vita Hiška',
+    customerBody: (name: string) => `
+Spoštovani ${name},
+
+Hvala za vašo rezervacijo.
+Vaše povpraševanje smo uspešno prejeli in vas bomo v najkrajšem možnem času kontaktirali.
+
+Lep pozdrav,
+Ekipa La Vita
+
+---
+La Vita Hiška
+Kamp Terme 3000, Moravske Toplice
+Tel: +386 68 169 430
+E-pošta: rent@lavitaterme3000.com
+    `.trim(),
+    successMessage: 'Rezervacija uspešno poslana!',
+  },
+  en: {
+    subject: (name: string, arrival: string, departure: string) => 
+      `New reservation: ${name} (${arrival} - ${departure})`,
+    ownerBody: (data: {
+      name: string;
+      email: string;
+      arrivalDate: string;
+      departureDate: string;
+      arrivalTime: string;
+      guestsList: string;
+      hasPets: boolean;
+    }) => `
+New reservation for La Vita House
+
+Contact person:
+  Full name: ${data.name}
+  Email: ${data.email}
+
+Dates:
+  Arrival: ${data.arrivalDate}
+  Departure: ${data.departureDate}
+  Approximate arrival time: ${data.arrivalTime || 'By agreement'}
+
+Guests:
+${data.guestsList || '  No additional guests'}
+
+Pet: ${data.hasPets ? 'YES (+ €5/night)' : 'NO'}
+    `.trim(),
+    customerSubject: 'Booking Confirmation – La Vita House',
+    customerBody: (name: string) => `
+Dear ${name},
+
+Thank you for your reservation.
+We have successfully received your request and will contact you as soon as possible.
+
+Best regards,
+Team La Vita
+
+---
+La Vita House
+Camp Terme 3000, Moravske Toplice
+Phone: +386 68 169 430
+Email: rent@lavitaterme3000.com
+    `.trim(),
+    successMessage: 'Reservation sent successfully!',
+  },
+  de: {
+    subject: (name: string, arrival: string, departure: string) => 
+      `Neue Reservierung: ${name} (${arrival} - ${departure})`,
+    ownerBody: (data: {
+      name: string;
+      email: string;
+      arrivalDate: string;
+      departureDate: string;
+      arrivalTime: string;
+      guestsList: string;
+      hasPets: boolean;
+    }) => `
+Neue Reservierung für Ferienhaus La Vita
+
+Kontaktperson:
+  Vollständiger Name: ${data.name}
+  E-Mail: ${data.email}
+
+Termine:
+  Ankunft: ${data.arrivalDate}
+  Abreise: ${data.departureDate}
+  Ungefähre Ankunftszeit: ${data.arrivalTime || 'Nach Vereinbarung'}
+
+Gäste:
+${data.guestsList || '  Keine zusätzlichen Gäste'}
+
+Haustier: ${data.hasPets ? 'JA (+ 5€/Nacht)' : 'NEIN'}
+    `.trim(),
+    customerSubject: 'Buchungsbestätigung – Ferienhaus La Vita',
+    customerBody: (name: string) => `
+Sehr geehrte/r ${name},
+
+Vielen Dank für Ihre Reservierung.
+Wir haben Ihre Anfrage erfolgreich erhalten und werden Sie so schnell wie möglich kontaktieren.
+
+Mit freundlichen Grüßen,
+Team La Vita
+
+---
+Ferienhaus La Vita
+Camp Terme 3000, Moravske Toplice
+Telefon: +386 68 169 430
+E-Mail: rent@lavitaterme3000.com
+    `.trim(),
+    successMessage: 'Reservierung erfolgreich gesendet!',
+  },
+};
 
 const handler = async (req: Request): Promise<Response> => {
   // Handle CORS preflight requests
@@ -76,7 +258,7 @@ const handler = async (req: Request): Promise<Response> => {
       console.warn(`Rate limit exceeded for IP: ${clientIp}`);
       return new Response(
         JSON.stringify({ 
-          error: "Preveč zahtevkov. Prosimo, poskusite čez nekaj časa." 
+          error: "Too many requests. Please try again later." 
         }),
         {
           status: 429,
@@ -102,13 +284,15 @@ const handler = async (req: Request): Promise<Response> => {
     }
 
     const bookingData = parseResult.data;
+    const lang = bookingData.language;
+    const template = emailTemplates[lang] || emailTemplates.en;
     
     // Bot detection: honeypot fields should be empty
     if (bookingData.website || bookingData.phone_confirm) {
       console.warn("Bot detected via honeypot fields from IP:", clientIp);
       // Return success to not alert bots, but don't process
       return new Response(
-        JSON.stringify({ success: true, message: "Rezervacija uspešno poslana!" }),
+        JSON.stringify({ success: true, message: template.successMessage }),
         {
           status: 200,
           headers: { "Content-Type": "application/json", ...corsHeaders },
@@ -116,7 +300,7 @@ const handler = async (req: Request): Promise<Response> => {
       );
     }
     
-    console.log("Received valid booking request for:", bookingData.email);
+    console.log("Received valid booking request for:", bookingData.email, "language:", lang);
 
     // Escape all user inputs for safe template interpolation
     const safeName = escapeHtml(bookingData.fullName);
@@ -128,47 +312,25 @@ const handler = async (req: Request): Promise<Response> => {
     // Format guests list with escaped values
     const guestsList = bookingData.guests
       .map((g, i) => {
-        const safeName = escapeHtml(g.name);
+        const guestName = escapeHtml(g.name);
         const safeGuestEmail = g.email ? escapeHtml(g.email) : '';
-        return `  ${i + 1}. ${safeName}${safeGuestEmail ? ` (${safeGuestEmail})` : ''}`;
+        return `  ${i + 1}. ${guestName}${safeGuestEmail ? ` (${safeGuestEmail})` : ''}`;
       })
       .join('\n');
-
-    // Create email content with sanitized data
-    const emailContent = `
-Nova rezervacija za La Vita Hiško
-
-Kontaktna oseba:
-  Ime in priimek: ${safeName}
-  E-mail: ${safeEmail}
-
-Datumi:
-  Prihod: ${safeArrivalDate}
-  Odhod: ${safeDepartureDate}
-  Okvirni čas prihoda: ${safeArrivalTime}
-
-Gostje:
-${guestsList || '  Ni dodatnih gostov'}
-
-Hišni ljubljenček: ${bookingData.hasPets ? 'DA (+ 5€/noč)' : 'NE'}
-
-Strinjanje s pogoji: ${bookingData.agreeTerms ? 'DA' : 'NE'}
-    `.trim();
 
     // Check if RESEND_API_KEY is configured
     const resendApiKey = Deno.env.get("RESEND_API_KEY");
     
     if (!resendApiKey) {
-      // Log booking data (without sensitive details) for manual processing
+      // Log booking data for manual processing
       console.log("RESEND_API_KEY not configured - booking logged for manual processing");
       console.log("Booking date range:", safeArrivalDate, "to", safeDepartureDate);
       
-      // Return success but inform that email sending is pending configuration
       return new Response(
         JSON.stringify({ 
           success: true, 
-          message: "Rezervacija uspešno poslana!",
-          note: "Email pošiljanje je v postopku konfiguracije."
+          message: template.successMessage,
+          note: "Email sending is pending configuration."
         }),
         {
           status: 200,
@@ -177,34 +339,53 @@ Strinjanje s pogoji: ${bookingData.agreeTerms ? 'DA' : 'NE'}
       );
     }
 
-    // Send email via Resend
-    const emailResponse = await fetch("https://api.resend.com/emails", {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${resendApiKey}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        from: "La Vita Hiška <noreply@lavitarelax.lovable.app>",
-        to: ["lavitarelax@gmail.com"],
-        subject: `Nova rezervacija: ${safeName} (${safeArrivalDate} - ${safeDepartureDate})`,
-        text: emailContent,
-        reply_to: bookingData.email,
-      }),
-    });
+    // Prepare email data
+    const emailData = {
+      name: safeName,
+      email: safeEmail,
+      arrivalDate: safeArrivalDate,
+      departureDate: safeDepartureDate,
+      arrivalTime: safeArrivalTime,
+      guestsList,
+      hasPets: bookingData.hasPets,
+    };
 
-    if (!emailResponse.ok) {
-      const errorText = await emailResponse.text();
-      console.error("Resend API error:", errorText);
-      throw new Error("Failed to send email");
+    // Send email to owner (rent@lavitaterme3000.com)
+    const ownerResult = await sendEmail(
+      resendApiKey,
+      ["rent@lavitaterme3000.com"],
+      template.subject(safeName, safeArrivalDate, safeDepartureDate),
+      template.ownerBody(emailData),
+      bookingData.email
+    );
+
+    if (!ownerResult.success) {
+      console.error("Failed to send owner email:", ownerResult.error);
+      throw new Error("Failed to send notification email");
     }
 
-    console.log("Booking email sent successfully");
+    console.log("Owner notification email sent successfully");
+
+    // Send confirmation email to customer
+    const customerResult = await sendEmail(
+      resendApiKey,
+      [bookingData.email],
+      template.customerSubject,
+      template.customerBody(safeName)
+    );
+
+    if (!customerResult.success) {
+      console.error("Failed to send customer email:", customerResult.error);
+      // Don't throw - owner notification was sent, log but continue
+      console.warn("Customer confirmation email failed but owner was notified");
+    } else {
+      console.log("Customer confirmation email sent successfully");
+    }
 
     return new Response(
       JSON.stringify({ 
         success: true, 
-        message: "Rezervacija uspešno poslana!" 
+        message: template.successMessage
       }),
       {
         status: 200,
@@ -212,11 +393,10 @@ Strinjanje s pogoji: ${bookingData.agreeTerms ? 'DA' : 'NE'}
       }
     );
   } catch (error: unknown) {
-    // Log full error for debugging, return generic message to client
     console.error("Error in send-booking-email function:", error);
     return new Response(
       JSON.stringify({ 
-        error: "Prišlo je do napake pri obdelavi zahteve. Prosimo, poskusite znova ali nas kontaktirajte." 
+        error: "An error occurred while processing your request. Please try again or contact us directly." 
       }),
       {
         status: 500,

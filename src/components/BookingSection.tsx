@@ -10,48 +10,26 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Calendar as CalendarComponent } from "@/components/ui/calendar";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { format } from "date-fns";
-import { sl } from "date-fns/locale";
+import { sl, de, enUS } from "date-fns/locale";
 import { cn } from "@/lib/utils";
 import laVitaLogoNew from "@/assets/la-vita-logo-new.png";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface Guest {
   name: string;
   email: string;
 }
 
-const winterFeatures = [
-  "2x kopalni karti vključeni",
-  "Polno opremljena kuhinja",
-  "Brezplačno parkiranje",
-  "WiFi vključen",
-  "Možnost eno dnevne nočitve",
-  "Posteljnina vključena",
-  "Končno čiščenje vključeno",
-];
-
-const summerFeatures = [
-  "2x kopalni karti vključeni",
-  "3x brezplačna kolesa",
-  "Polno opremljena kuhinja",
-  "Brezplačno parkiranje",
-  "Športni Rekviziti",
-  "Posteljnina vključena",
-  "Končno čiščenje vključeno",
-  "WiFi vključen",
-];
-
-const priceInfo = [
-  "ZNIŽANE KARTE za tretjo in ostale osebe 21,90€",
-  "GRATIS za otroke do 6 leta",
-  "Otroci do 15 leta 17,90€ po osebi na noč",
-];
-
 export const BookingSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
   const { toast } = useToast();
+  const { language, t } = useLanguage();
+  
+  // Get the appropriate date locale
+  const dateLocale = language === 'sl' ? sl : language === 'de' ? de : enUS;
   
   // Form state
   const [fullName, setFullName] = useState("");
@@ -67,6 +45,57 @@ export const BookingSection = () => {
 
   // Slide show state
   const [currentOffer, setCurrentOffer] = useState(0);
+
+  // Localized features
+  const winterFeatures = [
+    t('booking.winterOffer') === 'Zimska ponudba' ? "2x kopalni karti vključeni" : 
+    t('booking.winterOffer') === 'Winterangebot' ? "2x Spa-Tickets inklusive" : "2x spa tickets included",
+    t('booking.winterOffer') === 'Zimska ponudba' ? "Polno opremljena kuhinja" :
+    t('booking.winterOffer') === 'Winterangebot' ? "Voll ausgestattete Küche" : "Fully equipped kitchen",
+    t('booking.winterOffer') === 'Zimska ponudba' ? "Brezplačno parkiranje" :
+    t('booking.winterOffer') === 'Winterangebot' ? "Kostenloses Parken" : "Free parking",
+    t('booking.winterOffer') === 'Zimska ponudba' ? "WiFi vključen" :
+    t('booking.winterOffer') === 'Winterangebot' ? "WLAN inklusive" : "WiFi included",
+    t('booking.winterOffer') === 'Zimska ponudba' ? "Možnost eno dnevne nočitve" :
+    t('booking.winterOffer') === 'Winterangebot' ? "Einzelübernachtung möglich" : "Single night stay possible",
+    t('booking.winterOffer') === 'Zimska ponudba' ? "Posteljnina vključena" :
+    t('booking.winterOffer') === 'Winterangebot' ? "Bettwäsche inklusive" : "Bed linen included",
+    t('booking.winterOffer') === 'Zimska ponudba' ? "Končno čiščenje vključeno" :
+    t('booking.winterOffer') === 'Winterangebot' ? "Endreinigung inklusive" : "Final cleaning included",
+  ];
+
+  const summerFeatures = [
+    t('booking.summerOffer') === 'Poletna ponudba' ? "2x kopalni karti vključeni" :
+    t('booking.summerOffer') === 'Sommerangebot' ? "2x Spa-Tickets inklusive" : "2x spa tickets included",
+    t('booking.summerOffer') === 'Poletna ponudba' ? "3x brezplačna kolesa" :
+    t('booking.summerOffer') === 'Sommerangebot' ? "3x kostenlose Fahrräder" : "3x free bicycles",
+    t('booking.summerOffer') === 'Poletna ponudba' ? "Polno opremljena kuhinja" :
+    t('booking.summerOffer') === 'Sommerangebot' ? "Voll ausgestattete Küche" : "Fully equipped kitchen",
+    t('booking.summerOffer') === 'Poletna ponudba' ? "Brezplačno parkiranje" :
+    t('booking.summerOffer') === 'Sommerangebot' ? "Kostenloses Parken" : "Free parking",
+    t('booking.summerOffer') === 'Poletna ponudba' ? "Športni Rekviziti" :
+    t('booking.summerOffer') === 'Sommerangebot' ? "Sportausrüstung" : "Sports equipment",
+    t('booking.summerOffer') === 'Poletna ponudba' ? "Posteljnina vključena" :
+    t('booking.summerOffer') === 'Sommerangebot' ? "Bettwäsche inklusive" : "Bed linen included",
+    t('booking.summerOffer') === 'Poletna ponudba' ? "Končno čiščenje vključeno" :
+    t('booking.summerOffer') === 'Sommerangebot' ? "Endreinigung inklusive" : "Final cleaning included",
+    t('booking.summerOffer') === 'Poletna ponudba' ? "WiFi vključen" :
+    t('booking.summerOffer') === 'Sommerangebot' ? "WLAN inklusive" : "WiFi included",
+  ];
+
+  const priceInfo = language === 'sl' ? [
+    "ZNIŽANE KARTE za tretjo in ostale osebe 21,90€",
+    "GRATIS za otroke do 6 leta",
+    "Otroci do 15 leta 17,90€ po osebi na noč",
+  ] : language === 'de' ? [
+    "ERMÄSSIGTE TICKETS für dritte und weitere Personen 21,90€",
+    "GRATIS für Kinder bis 6 Jahre",
+    "Kinder bis 15 Jahre 17,90€ pro Person/Nacht",
+  ] : [
+    "REDUCED TICKETS for 3rd and additional persons €21.90",
+    "FREE for children up to 6 years",
+    "Children up to 15 years €17.90 per person/night",
+  ];
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -96,8 +125,8 @@ export const BookingSection = () => {
     
     if (!agreeTerms) {
       toast({
-        title: "Napaka",
-        description: "Prosimo, potrdite splošne pogoje poslovanja.",
+        title: t('booking.error'),
+        description: t('booking.errorTerms'),
         variant: "destructive",
       });
       return;
@@ -105,8 +134,8 @@ export const BookingSection = () => {
 
     if (!fullName || !email || !arrivalDate || !departureDate) {
       toast({
-        title: "Napaka",
-        description: "Prosimo, izpolnite vsa obvezna polja.",
+        title: t('booking.error'),
+        description: t('booking.errorFields'),
         variant: "destructive",
       });
       return;
@@ -119,12 +148,13 @@ export const BookingSection = () => {
         body: {
           fullName,
           email,
-          arrivalDate: format(arrivalDate, "PPP", { locale: sl }),
-          departureDate: format(departureDate, "PPP", { locale: sl }),
-          arrivalTime: arrivalTime || "Po dogovoru",
+          arrivalDate: format(arrivalDate, "PPP", { locale: dateLocale }),
+          departureDate: format(departureDate, "PPP", { locale: dateLocale }),
+          arrivalTime: arrivalTime || t('booking.byAgreement'),
           guests,
           hasPets,
           agreeTerms,
+          language,
         },
       });
 
@@ -134,8 +164,8 @@ export const BookingSection = () => {
     } catch (error: any) {
       console.error("Error submitting booking:", error);
       toast({
-        title: "Napaka",
-        description: "Prišlo je do napake. Prosimo, poskusite znova.",
+        title: t('booking.error'),
+        description: t('booking.errorGeneric'),
         variant: "destructive",
       });
     } finally {
@@ -157,13 +187,13 @@ export const BookingSection = () => {
                 <Check className="w-10 h-10 text-primary" />
               </div>
               <h2 className="font-display text-3xl font-bold text-foreground mb-4">
-                Hvala za Rezervacijo!
+                {t('booking.thankYou')}
               </h2>
               <p className="text-muted-foreground text-lg mb-6">
-                V najkrajšem možnem času vas bomo kontaktirali.
+                {t('booking.willContact')}
               </p>
               <p className="font-display text-xl text-primary font-semibold">
-                Team La Vita
+                {t('booking.team')}
               </p>
             </div>
           </motion.div>
@@ -212,11 +242,11 @@ export const BookingSection = () => {
                   >
                     <span className="inline-flex items-center gap-2 bg-primary-foreground/20 px-4 py-2 rounded-full text-sm font-medium mb-4">
                       <Ticket className="w-4 h-4" />
-                      Zimska ponudba
+                      {t('booking.winterOffer')}
                     </span>
                     <div className="flex items-baseline gap-2 mb-4">
                       <span className="font-display text-5xl font-bold">80€</span>
-                      <span className="text-primary-foreground/80 text-lg">/ noč</span>
+                      <span className="text-primary-foreground/80 text-lg">{t('booking.perNight')}</span>
                     </div>
                     <ul className="space-y-2 mb-4">
                       {winterFeatures.map((feature, idx) => (
@@ -248,11 +278,11 @@ export const BookingSection = () => {
                   >
                     <span className="inline-flex items-center gap-2 bg-accent/90 text-accent-foreground px-4 py-2 rounded-full text-sm font-medium mb-4">
                       <Ticket className="w-4 h-4" />
-                      Poletna ponudba
+                      {t('booking.summerOffer')}
                     </span>
                     <div className="flex items-baseline gap-2 mb-4">
                       <span className="font-display text-5xl font-bold">110€</span>
-                      <span className="text-primary-foreground/80 text-lg">/ noč</span>
+                      <span className="text-primary-foreground/80 text-lg">{t('booking.perNight')}</span>
                     </div>
                     <ul className="space-y-2 mb-4">
                       {summerFeatures.map((feature, idx) => (
@@ -290,31 +320,31 @@ export const BookingSection = () => {
               {/* Right - Booking Form */}
               <div className="p-8 lg:p-12">
                 <h3 className="font-display text-2xl font-bold text-foreground mb-6">
-                  Rezervacijski Obrazec
+                  {t('booking.formTitle')}
                 </h3>
                 
                 <form onSubmit={handleSubmit} className="space-y-4">
                   {/* Full Name */}
                   <div className="space-y-2">
-                    <Label htmlFor="fullName">Ime in Priimek *</Label>
+                    <Label htmlFor="fullName">{t('booking.nameLabel')} *</Label>
                     <Input
                       id="fullName"
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
-                      placeholder="Vnesite ime in priimek"
+                      placeholder={language === 'sl' ? "Vnesite ime in priimek" : language === 'de' ? "Geben Sie Ihren Namen ein" : "Enter your full name"}
                       required
                     />
                   </div>
 
                   {/* Email */}
                   <div className="space-y-2">
-                    <Label htmlFor="email">E-mail *</Label>
+                    <Label htmlFor="email">{t('booking.emailLabel')} *</Label>
                     <Input
                       id="email"
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
-                      placeholder="vas.email@primer.com"
+                      placeholder={language === 'sl' ? "vas.email@primer.com" : language === 'de' ? "ihre.email@beispiel.com" : "your.email@example.com"}
                       required
                     />
                   </div>
@@ -322,7 +352,7 @@ export const BookingSection = () => {
                   {/* Date Pickers */}
                   <div className="grid grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label>Datum prihoda *</Label>
+                      <Label>{t('booking.arrivalDate')} *</Label>
                       <Popover>
                         <PopoverTrigger asChild>
                           <Button
@@ -333,7 +363,7 @@ export const BookingSection = () => {
                             )}
                           >
                             <CalendarDays className="mr-2 h-4 w-4" />
-                            {arrivalDate ? format(arrivalDate, "PPP", { locale: sl }) : "Izberi"}
+                            {arrivalDate ? format(arrivalDate, "PPP", { locale: dateLocale }) : t('booking.select')}
                           </Button>
                         </PopoverTrigger>
                         <PopoverContent className="w-auto p-0" align="start">
@@ -350,7 +380,7 @@ export const BookingSection = () => {
                     </div>
                     
                     <div className="space-y-2">
-                      <Label>Datum odhoda *</Label>
+                      <Label>{t('booking.departureDate')} *</Label>
                       <Popover>
                         <PopoverTrigger asChild>
                           <Button
@@ -361,7 +391,7 @@ export const BookingSection = () => {
                             )}
                           >
                             <CalendarDays className="mr-2 h-4 w-4" />
-                            {departureDate ? format(departureDate, "PPP", { locale: sl }) : "Izberi"}
+                            {departureDate ? format(departureDate, "PPP", { locale: dateLocale }) : t('booking.select')}
                           </Button>
                         </PopoverTrigger>
                         <PopoverContent className="w-auto p-0" align="start">
@@ -380,10 +410,10 @@ export const BookingSection = () => {
 
                   {/* Arrival Time */}
                   <div className="space-y-2">
-                    <Label htmlFor="arrivalTime">Okvirni čas prihoda</Label>
+                    <Label htmlFor="arrivalTime">{t('booking.arrivalTime')}</Label>
                     <Select value={arrivalTime} onValueChange={setArrivalTime}>
                       <SelectTrigger>
-                        <SelectValue placeholder="Izberite čas">
+                        <SelectValue placeholder={t('booking.selectTime')}>
                           {arrivalTime && (
                             <span className="flex items-center gap-2">
                               <Clock className="h-4 w-4" />
@@ -393,7 +423,7 @@ export const BookingSection = () => {
                         </SelectValue>
                       </SelectTrigger>
                       <SelectContent>
-                        {["14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "Po dogovoru"].map((time) => (
+                        {["14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", t('booking.byAgreement')].map((time) => (
                           <SelectItem key={time} value={time}>{time}</SelectItem>
                         ))}
                       </SelectContent>
@@ -403,7 +433,7 @@ export const BookingSection = () => {
                   {/* Guests */}
                   <div className="space-y-3">
                     <div className="flex items-center justify-between">
-                      <Label>Gostje</Label>
+                      <Label>{t('booking.guests')}</Label>
                       <Button
                         type="button"
                         variant="outline"
@@ -412,7 +442,7 @@ export const BookingSection = () => {
                         className="gap-1"
                       >
                         <Plus className="w-4 h-4" />
-                        Dodaj osebo
+                        {t('booking.addGuest')}
                       </Button>
                     </div>
                     {guests.map((guest, index) => (
@@ -421,7 +451,7 @@ export const BookingSection = () => {
                           <Input
                             value={guest.name}
                             onChange={(e) => updateGuest(index, "name", e.target.value)}
-                            placeholder={`Ime gosta ${index + 1}`}
+                            placeholder={`${t('booking.guestName')} ${index + 1}`}
                           />
                         </div>
                         {guests.length > 1 && (
@@ -449,7 +479,7 @@ export const BookingSection = () => {
                       />
                       <Label htmlFor="pets" className="flex items-center gap-2 cursor-pointer">
                         <Dog className="w-4 h-4" />
-                        Hišni ljubljenček
+                        {t('booking.pets')}
                       </Label>
                     </div>
                     {hasPets && (
@@ -458,7 +488,7 @@ export const BookingSection = () => {
                         animate={{ opacity: 1, height: "auto" }}
                         className="text-sm text-accent-foreground bg-accent/20 p-3 rounded-lg ml-6"
                       >
-                        Doplačilo za hišnega ljubljenčka: <strong>5€/noč</strong>
+                        {t('booking.petsNote')}
                       </motion.p>
                     )}
                   </div>
@@ -471,7 +501,7 @@ export const BookingSection = () => {
                       onCheckedChange={(checked) => setAgreeTerms(checked as boolean)}
                     />
                     <Label htmlFor="terms" className="text-sm text-muted-foreground leading-relaxed cursor-pointer">
-                      Z oddajo povpraševanja se strinjate s splošnimi pogoji poslovanja *
+                      {t('booking.terms')} *
                     </Label>
                   </div>
 
@@ -485,7 +515,7 @@ export const BookingSection = () => {
                         <Phone className="w-4 h-4 text-primary-foreground" />
                       </div>
                       <div>
-                        <span className="text-[10px] text-muted-foreground">Pokličite nas</span>
+                        <span className="text-[10px] text-muted-foreground">{t('booking.callUs')}</span>
                         <p className="font-semibold text-foreground text-xs">+386 68 169 430</p>
                       </div>
                     </a>
@@ -498,7 +528,7 @@ export const BookingSection = () => {
                         <Mail className="w-4 h-4 text-accent-foreground" />
                       </div>
                       <div>
-                        <span className="text-[10px] text-muted-foreground">Pišite nam</span>
+                        <span className="text-[10px] text-muted-foreground">{t('booking.writeUs')}</span>
                         <p className="font-semibold text-foreground text-xs truncate">lavitarelax@gmail.com</p>
                       </div>
                     </a>
@@ -511,7 +541,7 @@ export const BookingSection = () => {
                     disabled={!agreeTerms || isSubmitting}
                   >
                     <Calendar className="w-5 h-5 mr-2" />
-                    {isSubmitting ? "Pošiljanje..." : "Rezerviraj Zdaj"}
+                    {isSubmitting ? t('booking.submitting') : t('booking.reserveNow')}
                   </Button>
                 </form>
               </div>

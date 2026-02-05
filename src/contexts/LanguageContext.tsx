@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { supabase } from "@/integrations/supabase/client";
 
 export type Language = 'sl' | 'en' | 'de';
 
@@ -6,6 +7,7 @@ interface LanguageContextType {
   language: Language;
   setLanguage: (lang: Language) => void;
   t: (key: string) => string;
+  isAutoDetected: boolean;
 }
 
 const translations: Record<Language, Record<string, string>> = {
@@ -158,13 +160,22 @@ const translations: Record<Language, Record<string, string>> = {
     'booking.addGuest': 'Dodaj osebo',
     'booking.guestName': 'Ime gosta',
     'booking.pets': 'Pripeljal/-a bom hišnega ljubljenčka',
+    'booking.petsNote': 'Doplačilo za hišnega ljubljenčka: 5€/noč',
     'booking.terms': 'Strinjam se s splošnimi pogoji poslovanja',
     'booking.submit': 'Pošlji rezervacijo',
     'booking.submitting': 'Pošiljam...',
-    'booking.thankYou': 'Hvala za Rezervacijo!',
-    'booking.willContact': 'V najkrajšem možnem času vas bomo kontaktirali.',
-    'booking.team': 'Team La Vita',
+    'booking.thankYou': 'Hvala za vašo rezervacijo!',
+    'booking.willContact': 'Vaše povpraševanje smo uspešno prejeli in vas bomo v najkrajšem možnem času kontaktirali.',
+    'booking.team': 'Ekipa La Vita',
     'booking.select': 'Izberi',
+    'booking.callUs': 'Pokličite nas',
+    'booking.writeUs': 'Pišite nam',
+    'booking.reserveNow': 'Rezerviraj Zdaj',
+    'booking.perNight': '/ noč',
+    'booking.error': 'Napaka',
+    'booking.errorTerms': 'Prosimo, potrdite splošne pogoje poslovanja.',
+    'booking.errorFields': 'Prosimo, izpolnite vsa obvezna polja.',
+    'booking.errorGeneric': 'Prišlo je do napake. Prosimo, poskusite znova.',
     
     // Validation
     'validation.nameMin': 'Ime mora imeti vsaj 2 znaka',
@@ -177,6 +188,22 @@ const translations: Record<Language, Record<string, string>> = {
     'validation.messageMin': 'Sporočilo mora imeti vsaj 10 znakov',
     'validation.messageMax': 'Sporočilo je predolgo',
     'validation.selectNights': 'Izberite število noči',
+
+    // Cookie Consent
+    'cookie.title': 'Uporaba piškotkov',
+    'cookie.description': 'Na spletni strani uporabljamo nujne piškotke za zagotavljanje pravilnega delovanja spletne strani ter analitične in oglaševalske piškotke za izboljšanje uporabniške izkušnje in prikaz prilagojenih vsebin. Več informacij je na voljo v Pravilniku o zasebnosti in Politiki piškotkov.',
+    'cookie.settings': 'Nastavitve',
+    'cookie.rejectNonEssential': 'Zavrni nenujne',
+    'cookie.acceptAll': 'Sprejmi vse',
+    'cookie.settingsTitle': 'Nastavitve piškotkov',
+    'cookie.settingsDescription': 'Izberite, katere vrste piškotkov dovolite. Nujni piškotki so vedno omogočeni, saj so potrebni za delovanje spletne strani.',
+    'cookie.essential': 'Nujni piškotki',
+    'cookie.essentialDesc': 'Omogočajo osnovno delovanje spletne strani in varno uporabo storitev. Ti piškotki so vedno aktivni.',
+    'cookie.analytics': 'Analitični piškotki',
+    'cookie.analyticsDesc': 'Omogočajo zbiranje anonimnih statističnih podatkov o uporabi spletne strani z namenom izboljšanja njene vsebine in delovanja.',
+    'cookie.marketing': 'Oglaševalski piškotki',
+    'cookie.marketingDesc': 'Omogočajo prikaz prilagojenih vsebin in oglasov glede na interese uporabnika.',
+    'cookie.saveSettings': 'Shrani nastavitve',
   },
   en: {
     // Navbar
@@ -327,13 +354,22 @@ const translations: Record<Language, Record<string, string>> = {
     'booking.addGuest': 'Add guest',
     'booking.guestName': 'Guest name',
     'booking.pets': 'I will bring a pet',
+    'booking.petsNote': 'Pet surcharge: €5/night',
     'booking.terms': 'I agree to the terms and conditions',
     'booking.submit': 'Submit booking',
     'booking.submitting': 'Submitting...',
-    'booking.thankYou': 'Thank You for Your Booking!',
-    'booking.willContact': 'We will contact you as soon as possible.',
+    'booking.thankYou': 'Thank you for your reservation!',
+    'booking.willContact': 'We have successfully received your request and will contact you as soon as possible.',
     'booking.team': 'Team La Vita',
     'booking.select': 'Select',
+    'booking.callUs': 'Call us',
+    'booking.writeUs': 'Write to us',
+    'booking.reserveNow': 'Book Now',
+    'booking.perNight': '/ night',
+    'booking.error': 'Error',
+    'booking.errorTerms': 'Please agree to the terms and conditions.',
+    'booking.errorFields': 'Please fill in all required fields.',
+    'booking.errorGeneric': 'An error occurred. Please try again.',
     
     // Validation
     'validation.nameMin': 'Name must have at least 2 characters',
@@ -346,6 +382,22 @@ const translations: Record<Language, Record<string, string>> = {
     'validation.messageMin': 'Message must have at least 10 characters',
     'validation.messageMax': 'Message is too long',
     'validation.selectNights': 'Select number of nights',
+
+    // Cookie Consent
+    'cookie.title': 'Cookie usage',
+    'cookie.description': 'We use essential cookies to ensure proper website functionality, as well as analytics and advertising cookies to improve user experience and display personalized content. More information is available in our Privacy Policy and Cookie Policy.',
+    'cookie.settings': 'Settings',
+    'cookie.rejectNonEssential': 'Reject non-essential',
+    'cookie.acceptAll': 'Accept all',
+    'cookie.settingsTitle': 'Cookie settings',
+    'cookie.settingsDescription': 'Choose which types of cookies you allow. Essential cookies are always enabled as they are required for website functionality.',
+    'cookie.essential': 'Essential cookies',
+    'cookie.essentialDesc': 'Enable basic website functionality and secure use of services. These cookies are always active.',
+    'cookie.analytics': 'Analytics cookies',
+    'cookie.analyticsDesc': 'Enable collection of anonymous statistical data about website usage to improve content and performance.',
+    'cookie.marketing': 'Advertising cookies',
+    'cookie.marketingDesc': 'Enable display of personalized content and ads based on user interests.',
+    'cookie.saveSettings': 'Save settings',
   },
   de: {
     // Navbar
@@ -496,13 +548,22 @@ const translations: Record<Language, Record<string, string>> = {
     'booking.addGuest': 'Gast hinzufügen',
     'booking.guestName': 'Gastname',
     'booking.pets': 'Ich bringe ein Haustier mit',
+    'booking.petsNote': 'Haustierzuschlag: 5€/Nacht',
     'booking.terms': 'Ich stimme den AGB zu',
     'booking.submit': 'Buchung absenden',
     'booking.submitting': 'Wird gesendet...',
-    'booking.thankYou': 'Danke für Ihre Buchung!',
-    'booking.willContact': 'Wir werden Sie so schnell wie möglich kontaktieren.',
+    'booking.thankYou': 'Vielen Dank für Ihre Reservierung!',
+    'booking.willContact': 'Wir haben Ihre Anfrage erfolgreich erhalten und werden Sie so schnell wie möglich kontaktieren.',
     'booking.team': 'Team La Vita',
     'booking.select': 'Wählen',
+    'booking.callUs': 'Rufen Sie uns an',
+    'booking.writeUs': 'Schreiben Sie uns',
+    'booking.reserveNow': 'Jetzt Buchen',
+    'booking.perNight': '/ Nacht',
+    'booking.error': 'Fehler',
+    'booking.errorTerms': 'Bitte stimmen Sie den AGB zu.',
+    'booking.errorFields': 'Bitte füllen Sie alle Pflichtfelder aus.',
+    'booking.errorGeneric': 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.',
     
     // Validation
     'validation.nameMin': 'Name muss mindestens 2 Zeichen haben',
@@ -515,37 +576,99 @@ const translations: Record<Language, Record<string, string>> = {
     'validation.messageMin': 'Nachricht muss mindestens 10 Zeichen haben',
     'validation.messageMax': 'Nachricht ist zu lang',
     'validation.selectNights': 'Anzahl der Nächte wählen',
+
+    // Cookie Consent
+    'cookie.title': 'Cookie-Nutzung',
+    'cookie.description': 'Wir verwenden notwendige Cookies für die ordnungsgemäße Funktion der Website sowie Analyse- und Werbe-Cookies zur Verbesserung der Benutzererfahrung und Anzeige personalisierter Inhalte. Weitere Informationen finden Sie in unserer Datenschutzrichtlinie und Cookie-Richtlinie.',
+    'cookie.settings': 'Einstellungen',
+    'cookie.rejectNonEssential': 'Nicht-essentielle ablehnen',
+    'cookie.acceptAll': 'Alle akzeptieren',
+    'cookie.settingsTitle': 'Cookie-Einstellungen',
+    'cookie.settingsDescription': 'Wählen Sie, welche Arten von Cookies Sie zulassen. Notwendige Cookies sind immer aktiviert, da sie für die Website-Funktionalität erforderlich sind.',
+    'cookie.essential': 'Notwendige Cookies',
+    'cookie.essentialDesc': 'Ermöglichen grundlegende Website-Funktionalität und sichere Nutzung der Dienste. Diese Cookies sind immer aktiv.',
+    'cookie.analytics': 'Analytische Cookies',
+    'cookie.analyticsDesc': 'Ermöglichen die Erfassung anonymer statistischer Daten zur Verbesserung von Inhalt und Leistung.',
+    'cookie.marketing': 'Werbe-Cookies',
+    'cookie.marketingDesc': 'Ermöglichen die Anzeige personalisierter Inhalte und Werbung basierend auf Benutzerinteressen.',
+    'cookie.saveSettings': 'Einstellungen speichern',
   },
 };
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
-export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [language, setLanguageState] = useState<Language>(() => {
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem('la-vita-language');
-      if (saved && (saved === 'sl' || saved === 'en' || saved === 'de')) {
-        return saved;
-      }
-    }
-    return 'sl';
-  });
+const LANGUAGE_STORAGE_KEY = 'la-vita-language';
+const LANGUAGE_AUTO_DETECTED_KEY = 'la-vita-language-auto-detected';
 
+export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
+  const [language, setLanguageState] = useState<Language>('en');
+  const [isAutoDetected, setIsAutoDetected] = useState(false);
+  const [isInitialized, setIsInitialized] = useState(false);
+
+  // Initialize language on mount
   useEffect(() => {
-    localStorage.setItem('la-vita-language', language);
-    document.documentElement.lang = language;
-  }, [language]);
+    const initializeLanguage = async () => {
+      // Check if user has manually set language before
+      const savedLanguage = localStorage.getItem(LANGUAGE_STORAGE_KEY);
+      const wasAutoDetected = localStorage.getItem(LANGUAGE_AUTO_DETECTED_KEY);
+      
+      if (savedLanguage && (savedLanguage === 'sl' || savedLanguage === 'en' || savedLanguage === 'de')) {
+        // User has a saved preference, use it
+        setLanguageState(savedLanguage);
+        setIsAutoDetected(wasAutoDetected === 'true');
+        setIsInitialized(true);
+        return;
+      }
+
+      // No saved preference - try to auto-detect
+      try {
+        const response = await supabase.functions.invoke('detect-language');
+        
+        if (response.data?.language) {
+          const detectedLang = response.data.language as Language;
+          console.log('Auto-detected language:', detectedLang, 'from country:', response.data.country);
+          setLanguageState(detectedLang);
+          setIsAutoDetected(true);
+          localStorage.setItem(LANGUAGE_STORAGE_KEY, detectedLang);
+          localStorage.setItem(LANGUAGE_AUTO_DETECTED_KEY, 'true');
+        } else {
+          // Default to English if detection fails
+          setLanguageState('en');
+          localStorage.setItem(LANGUAGE_STORAGE_KEY, 'en');
+        }
+      } catch (error) {
+        console.error('Language detection failed:', error);
+        // Default to English on error
+        setLanguageState('en');
+        localStorage.setItem(LANGUAGE_STORAGE_KEY, 'en');
+      }
+      
+      setIsInitialized(true);
+    };
+
+    initializeLanguage();
+  }, []);
+
+  // Update document language and save to storage when language changes
+  useEffect(() => {
+    if (isInitialized) {
+      document.documentElement.lang = language;
+    }
+  }, [language, isInitialized]);
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
+    setIsAutoDetected(false);
+    localStorage.setItem(LANGUAGE_STORAGE_KEY, lang);
+    localStorage.setItem(LANGUAGE_AUTO_DETECTED_KEY, 'false');
   };
 
   const t = (key: string): string => {
-    return translations[language][key] || key;
+    return translations[language][key] || translations['en'][key] || key;
   };
 
   return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
+    <LanguageContext.Provider value={{ language, setLanguage, t, isAutoDetected }}>
       {children}
     </LanguageContext.Provider>
   );

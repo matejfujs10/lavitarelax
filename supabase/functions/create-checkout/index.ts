@@ -98,10 +98,11 @@ serve(async (req) => {
     const parseResult = checkoutSchema.safeParse(rawData);
     
     if (!parseResult.success) {
-      const errors = parseResult.error.errors.map(e => e.message).join(", ");
-      console.warn("[CREATE-CHECKOUT] Validation failed:", errors);
+      // Log detailed errors server-side only for debugging
+      console.warn("[CREATE-CHECKOUT] Validation failed:", JSON.stringify(parseResult.error.errors));
+      // Return generic error message to prevent information leakage
       return new Response(
-        JSON.stringify({ error: errors }),
+        JSON.stringify({ error: "Prosimo, preverite vnesene podatke." }),
         {
           status: 400,
           headers: { ...corsHeaders, "Content-Type": "application/json" },

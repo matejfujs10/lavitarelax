@@ -7,6 +7,18 @@ const corsHeaders = {
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, stripe-signature",
 };
 
+// HTML escape function to prevent XSS attacks
+function escapeHtml(text: string): string {
+  const htmlEntities: Record<string, string> = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#39;',
+  };
+  return text.replace(/[&<>"']/g, (char) => htmlEntities[char] || char);
+}
+
 // Generate PDF voucher as base64
 function generateVoucherPDF(voucher: any): string {
   const validUntil = new Date(voucher.valid_until);
@@ -25,6 +37,11 @@ function generateVoucherPDF(voucher: any): string {
   const productText = isBathCards 
     ? "2x kopalne karte" 
     : `${voucher.nights} ${voucher.nights === 1 ? "noč" : voucher.nights < 5 ? "noči" : "noči"}`;
+
+  // Escape user-controlled fields to prevent XSS
+  const safeRecipientEmail = escapeHtml(voucher.recipient_email || '');
+  const safeGiverName = escapeHtml(`${voucher.giver_first_name || ''} ${voucher.giver_last_name || ''}`);
+  const safeRecipientMessage = escapeHtml(voucher.recipient_message || '');
 
   // Simple HTML template that will be converted to PDF-like content
   const html = `
@@ -138,7 +155,7 @@ function generateVoucherPDF(voucher: any): string {
     <div class="content">
       <div class="left-section">
         <div class="label">Prejemnik</div>
-        <div class="value">${voucher.recipient_email}</div>
+        <div class="value">${safeRecipientEmail}</div>
         
         <div class="label">Datum izdaje</div>
         <div class="value">${formatDate(issuedAt)}</div>
@@ -146,16 +163,16 @@ function generateVoucherPDF(voucher: any): string {
       
       <div class="right-section">
         <div class="label">Podarja</div>
-        <div class="value">${voucher.giver_first_name} ${voucher.giver_last_name}</div>
+        <div class="value">${safeGiverName}</div>
         
         <div class="label">Veljavno do</div>
         <div class="value">${formatDate(validUntil)}</div>
       </div>
     </div>
     
-    ${voucher.recipient_message ? `
+    ${safeRecipientMessage ? `
     <div class="message">
-      "${voucher.recipient_message}"
+      "${safeRecipientMessage}"
     </div>
     ` : ''}
     

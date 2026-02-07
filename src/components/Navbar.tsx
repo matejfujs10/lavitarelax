@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Facebook, Instagram } from "lucide-react";
+import { Menu, X, Facebook, Instagram, ArrowRight } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useLanguage, Language } from "@/contexts/LanguageContext";
 
@@ -87,14 +87,15 @@ export const Navbar = () => {
         }`}
       >
         <div className="container mx-auto px-4 flex items-center justify-between">
-          {/* Logo - Text Based */}
+          {/* Logo - Text Based with Arrow */}
           <a href="#domov" className="flex items-center gap-2 group">
-            <motion.span
+            <motion.div
               whileHover={{ scale: 1.02 }}
-              className="text-xl md:text-2xl font-bold text-foreground"
+              className="flex items-center gap-2"
             >
-              Hiška La Vita
-            </motion.span>
+              <ArrowRight className="w-6 h-6 text-accent" />
+              <span className="font-display text-xl font-bold text-foreground">Hiška La Vita</span>
+            </motion.div>
           </a>
 
           {/* Desktop Navigation */}

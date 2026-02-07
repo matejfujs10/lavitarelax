@@ -43,7 +43,7 @@ export const AboutSection = () => {
               {t('about.label')}
             </span>
             <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-6">
-              {t('about.title')}
+              Lokacija in dostop
             </h2>
             
             <div className="space-y-4 text-muted-foreground text-base md:text-lg leading-relaxed mb-8">

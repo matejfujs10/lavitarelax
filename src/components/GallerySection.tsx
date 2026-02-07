@@ -18,18 +18,18 @@ import slide11 from "@/assets/slide-11.jpg";
 import kitchenDetail from "@/assets/kitchen-detail.jpg";
 
 const images = [
-  { src: slide8, alt: "Spalnica z LED lučkami", title: "Topel ambient z LED lučkami" },
-  { src: kitchenDetail, alt: "Kuhinja z detajli", title: "Kuhinja z ljubkimi detajli" },
-  { src: slide1, alt: "HI-FI sistem", title: "Kakovosten zvočni sistem" },
-  { src: slide2, alt: "Otroške igrače", title: "Zabava za najmlajše" },
-  { src: slide3, alt: "Kuhinja", title: "Opremljena kuhinja" },
-  { src: slide4, alt: "Spalnica", title: "Udobna spalnica" },
-  { src: slide5, alt: "Spalnice", title: "Prostorne spalnice" },
-  { src: slide6, alt: "Kuhinja s kuhalnimi površinami", title: "Polno opremljena kuhinja" },
-  { src: slide7, alt: "Vhodni prostor", title: "Urejen vhod" },
-  { src: slide9, alt: "Jedilnica z LED osvetlitvijo", title: "Prijetna jedilnica" },
-  { src: slide10, alt: "Spalnica z LED lučkami", title: "Spalnica z ambient osvetlitvijo" },
-  { src: slide11, alt: "Dnevni prostor s kuhinjo", title: "Odprt bivalni prostor" },
+  { src: slide8, alt: "Notranjost hiške Hiška La Vita Moravske Toplice – spalnica z LED osvetlitvijo", title: "Topel ambient z LED lučkami" },
+  { src: kitchenDetail, alt: "Kuhinja v počitniški hiški Hiška La Vita – detajli opreme", title: "Kuhinja z ljubkimi detajli" },
+  { src: slide1, alt: "HI-FI sistem v hiški Hiška La Vita Kamp Terme 3000", title: "Kakovosten zvočni sistem" },
+  { src: slide2, alt: "Otroške igrače v počitniški hiški Hiška La Vita", title: "Zabava za najmlajše" },
+  { src: slide3, alt: "Opremljena kuhinja v hiški Hiška La Vita Moravske Toplice", title: "Opremljena kuhinja" },
+  { src: slide4, alt: "Udobna spalnica v počitniški hiški Hiška La Vita", title: "Udobna spalnica" },
+  { src: slide5, alt: "Prostorne spalnice v hiški Hiška La Vita Kamp Terme 3000", title: "Prostorne spalnice" },
+  { src: slide6, alt: "Polno opremljena kuhinja Hiška La Vita Moravske Toplice", title: "Polno opremljena kuhinja" },
+  { src: slide7, alt: "Vhodni prostor počitniške hiške Hiška La Vita", title: "Urejen vhod" },
+  { src: slide9, alt: "Jedilnica z LED osvetlitvijo v hiški Hiška La Vita", title: "Prijetna jedilnica" },
+  { src: slide10, alt: "Spalnica z ambient osvetlitvijo Hiška La Vita Terme 3000", title: "Spalnica z ambient osvetlitvijo" },
+  { src: slide11, alt: "Odprt bivalni prostor v počitniški hiški Hiška La Vita", title: "Odprt bivalni prostor" },
 ];
 
 export const GallerySection = () => {
@@ -63,10 +63,10 @@ export const GallerySection = () => {
             📸 Galerija
           </span>
           <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">
-            Pogled v Notranjost
+            Udobje in oprema hiške
           </h2>
           <p className="text-muted-foreground text-lg">
-            Oglejte si udobje in toplino naše hiške
+            Oglejte si notranjost počitniške hiške Hiška La Vita v Kampu Terme 3000
           </p>
         </motion.div>
 

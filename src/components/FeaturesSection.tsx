@@ -72,7 +72,7 @@ export const FeaturesSection = () => {
             {t('features.label')}
           </span>
           <h2 className="font-display text-3xl md:text-4xl lg:text-5xl font-bold text-foreground mb-4">
-            {t('features.title')}
+            Počitniška hiška v Moravskih Toplicah
           </h2>
           <p className="text-muted-foreground text-base md:text-lg">
             {t('features.subtitle')}

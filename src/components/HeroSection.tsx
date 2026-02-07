@@ -14,14 +14,14 @@ import slide7 from "@/assets/slide-7.jpg";
 import slide8 from "@/assets/slide-8.jpg";
 
 const heroSlides = [
-  { src: slide1, alt: "La Vita Hiška - poletje" },
-  { src: slide2, alt: "La Vita Hiška - zima" },
-  { src: slide3, alt: "La Vita Hiška - večer" },
-  { src: slide4, alt: "La Vita Hiška - noč" },
-  { src: slide5, alt: "La Vita Hiška - zunanjost" },
-  { src: slide6, alt: "Terme 3000 - bazeni" },
-  { src: slide7, alt: "Terme 3000 - okolica" },
-  { src: slide8, alt: "La Vita Hiška - LED spalnica" },
+  { src: slide1, alt: "Počitniška hiška Hiška La Vita v Kampu Terme 3000 – poletni pogled" },
+  { src: slide2, alt: "Hiška La Vita Moravske Toplice – zimski ambient" },
+  { src: slide3, alt: "Počitniška hiška Hiška La Vita – večerni pogled" },
+  { src: slide4, alt: "Hiška La Vita Kamp Terme 3000 – nočna osvetlitev" },
+  { src: slide5, alt: "Zunanjost počitniške hiške Hiška La Vita v Moravskih Toplicah" },
+  { src: slide6, alt: "Terme 3000 Moravske Toplice – termalni bazeni" },
+  { src: slide7, alt: "Okolica Kampa Terme 3000 v Moravskih Toplicah" },
+  { src: slide8, alt: "Notranjost hiške Hiška La Vita – spalnica z LED osvetlitvijo" },
 ];
 
 export const HeroSection = () => {
@@ -160,15 +160,15 @@ export const HeroSection = () => {
               </AnimatePresence>
             </motion.div>
 
-            {/* Main Title */}
+            {/* Main Title - H1 for SEO */}
             <motion.h1
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
               className="font-display text-5xl md:text-7xl lg:text-8xl font-bold mb-6"
             >
-              <span className="text-card drop-shadow-lg">{t('hero.title1')}</span>{" "}
-              <span className="text-gradient-primary drop-shadow-lg">{t('hero.title2')}</span>
+              <span className="text-card drop-shadow-lg">Hiška La Vita</span>{" "}
+              <span className="text-gradient-primary drop-shadow-lg">– Kamp Terme 3000</span>
             </motion.h1>
 
             {/* Subtitle */}

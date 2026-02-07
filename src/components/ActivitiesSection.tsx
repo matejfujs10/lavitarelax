@@ -145,11 +145,11 @@ export const ActivitiesSection = () => {
             Raziščite Pomurje
           </span>
           <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6">
-            Aktivnosti & Doživetja
+            Aktivnosti v okolici Term 3000
           </h2>
           <p className="text-muted-foreground text-lg md:text-xl leading-relaxed">
             Prekmurje ni samo ravnica z reko Muro. Odkrijte gričevnato Goričko, 
-            zdravilne terme, kulinarične mojstrovine in skrivnostne kotičke, 
+            zdravilne termalne kopeli, kulinarične mojstrovine in skrivnostne kotičke, 
             kjer čas teče počasneje.
           </p>
         </motion.div>
@@ -196,7 +196,7 @@ export const ActivitiesSection = () => {
               Kulinarika
             </span>
             <h3 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Okusi Prekmurja
+              Termalne izkušnje
             </h3>
             <p className="text-muted-foreground max-w-2xl mx-auto">
               Bil bi greh, če ne bi poskusili bograča, bujte repe, prekmurske gibanice, 

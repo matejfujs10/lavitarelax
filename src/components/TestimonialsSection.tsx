@@ -81,7 +81,7 @@ export const TestimonialsSection = () => {
             ⭐ 100% priporočajo (9+ ocen)
           </span>
           <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">
-            Mnenja Gostov
+            Idealno za družine in pare
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
             Preberite izkušnje naših zadovoljnih gostov iz vse Evrope

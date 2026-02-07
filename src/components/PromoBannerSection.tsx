@@ -34,6 +34,9 @@ export const PromoBannerSection = () => {
     <section className="py-12 bg-gradient-to-r from-primary/5 via-accent/10 to-primary/5">
       <div className="container mx-auto px-4">
         <div className="text-center">
+          {/* H2 for SEO */}
+          <h2 className="sr-only">Vključeni 2× kopalni karti in 3× brezplačna kolesa</h2>
+          
           {/* Summer Offer Banner */}
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}

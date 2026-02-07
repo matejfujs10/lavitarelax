@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Facebook, Instagram, ArrowRight } from "lucide-react";
+import { Menu, X, Facebook, Instagram } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useLanguage, Language } from "@/contexts/LanguageContext";
+import laVitaLogo from "@/assets/la-vita-kamp-logo.png";
 
 const languages: Language[] = ["sl", "en", "de"];
 
@@ -91,23 +92,13 @@ export const Navbar = () => {
           <a href="#domov" className="flex items-center gap-2 group">
             <motion.div
               whileHover={{ scale: 1.02 }}
-              className="flex items-center gap-2"
+              className="flex items-center"
             >
-              <motion.span
-                animate={{ x: [0, 5, 0] }}
-                transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-                className="text-accent text-2xl md:text-3xl"
-              >
-                <ArrowRight className="w-8 h-8 md:w-10 md:h-10 stroke-[2.5]" />
-              </motion.span>
-              <div className="flex flex-col">
-                <span className="font-display text-xl md:text-2xl lg:text-3xl font-bold text-foreground">
-                  Hiška La Vita
-                </span>
-                <span className="text-[10px] md:text-xs text-muted-foreground font-body tracking-widest">
-                  {t('nav.tagline')}
-                </span>
-              </div>
+              <img
+                src={laVitaLogo}
+                alt="La Vita Hiška Kamp Terme 3000"
+                className="h-12 md:h-14 lg:h-16 w-auto object-contain"
+              />
             </motion.div>
           </a>
 

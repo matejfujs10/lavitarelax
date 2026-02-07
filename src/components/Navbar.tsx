@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Facebook, Instagram, ArrowRight } from "lucide-react";
+import { Menu, X, Facebook, Instagram } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useLanguage, Language } from "@/contexts/LanguageContext";
+import laVitaLogo from "@/assets/la-vita-kamp-logo.png";
 
 const languages: Language[] = ["sl", "en", "de"];
 

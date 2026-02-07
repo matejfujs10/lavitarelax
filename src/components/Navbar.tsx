@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, Facebook, Instagram } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useLanguage, Language } from "@/contexts/LanguageContext";
-import laVitaLogo from "@/assets/la-vita-kamp-logo.png";
 
 const languages: Language[] = ["sl", "en", "de"];
 
@@ -88,18 +87,14 @@ export const Navbar = () => {
         }`}
       >
         <div className="container mx-auto px-4 flex items-center justify-between">
-          {/* Logo - Text Based with Energy Arrow */}
+          {/* Logo - Text Based */}
           <a href="#domov" className="flex items-center gap-2 group">
-            <motion.div
+            <motion.span
               whileHover={{ scale: 1.02 }}
-              className="flex items-center"
+              className="text-xl md:text-2xl font-bold text-foreground"
             >
-              <img
-                src={laVitaLogo}
-                alt="La Vita Hiška Kamp Terme 3000"
-                className="h-12 md:h-14 lg:h-16 w-auto object-contain"
-              />
-            </motion.div>
+              Hiška La Vita
+            </motion.span>
           </a>
 
           {/* Desktop Navigation */}

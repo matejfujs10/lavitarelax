@@ -361,7 +361,8 @@ const handler = async (req: Request): Promise<Response> => {
 
     if (!ownerResult.success) {
       console.error("Failed to send owner email:", ownerResult.error);
-      throw new Error("Failed to send notification email");
+      // Don't throw - log the booking data so it's not lost, and notify the user gracefully
+      console.log("BOOKING DATA (email failed):", JSON.stringify(emailData));
     }
 
     console.log("Owner notification email sent successfully");

@@ -1,7 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { supabase } from "@/integrations/supabase/client";
 
-export type Language = 'sl' | 'en' | 'de';
+export type Language = 'sl' | 'en' | 'de' | 'hr';
 
 interface LanguageContextType {
   language: Language;
@@ -48,6 +48,7 @@ const translations: Record<Language, Record<string, string>> = {
     // Features Section
     'features.label': '🌿 Kaj vas čaka',
     'features.title': 'Vse za Popoln Oddih',
+    'features.h2': 'Počitniška hiška v Moravskih Toplicah',
     'features.subtitle': 'La Vita Hiška ponuja vse, kar potrebujete za nepozaben oddih sredi narave',
     'features.space': '50m² Prostora',
     'features.spaceDesc': 'Prostorna hiška z dvema terasama za popoln oddih v naravi',
@@ -144,6 +145,18 @@ const translations: Record<Language, Record<string, string>> = {
     'voucher.cancelledText': 'Plačilo je bilo preklicano. Lahko poskusite znova ali se vrnete na domačo stran.',
     'voucher.tryAgain': 'Poskusite znova',
     'voucher.home': 'Domov',
+    'voucher.nightOption0': '0 - Nakup 2x kopalne karte',
+    'voucher.nightOption0Desc': 'Prejmete Celodnevne Karte za neomejen vstop v Termalni Kompleks, prevzem na Recepciji Kampa kjer doplačate 6,50€. Za več info nam pišite na rent@lavitaterme3000.com',
+    
+    // Gift Voucher Success
+    'voucherSuccess.title': 'Hvala za nakup! 🎉',
+    'voucherSuccess.subtitle': 'Vaše plačilo je bilo uspešno obdelano. Darilni bon je bil poslan prejemniku na e-naslov.',
+    'voucherSuccess.emailSent': 'E-pošta poslana',
+    'voucherSuccess.emailDetails': 'Prejemnik bo kmalu prejel e-pošto z darilnim bonom v PDF obliki. Kopijo bona smo poslali tudi na vaš e-naslov.',
+    'voucherSuccess.validity': 'Veljavnost bona: 1 leto od datuma nakupa',
+    'voucherSuccess.contactInfo': 'Za rezervacijo termina naj prejemnik kontaktira:',
+    'voucherSuccess.buyAnother': 'Kupi še en bon',
+    'voucherSuccess.backHome': 'Nazaj na domačo stran',
     
     // Booking
     'booking.winterOffer': 'Zimska ponudba',
@@ -176,6 +189,8 @@ const translations: Record<Language, Record<string, string>> = {
     'booking.errorTerms': 'Prosimo, potrdite splošne pogoje poslovanja.',
     'booking.errorFields': 'Prosimo, izpolnite vsa obvezna polja.',
     'booking.errorGeneric': 'Prišlo je do napake. Prosimo, poskusite znova.',
+    'booking.namePlaceholder': 'Vnesite ime in priimek',
+    'booking.emailPlaceholder': 'vas.email@primer.com',
     
     // Validation
     'validation.nameMin': 'Ime mora imeti vsaj 2 znaka',
@@ -204,6 +219,33 @@ const translations: Record<Language, Record<string, string>> = {
     'cookie.marketing': 'Oglaševalski piškotki',
     'cookie.marketingDesc': 'Omogočajo prikaz prilagojenih vsebin in oglasov glede na interese uporabnika.',
     'cookie.saveSettings': 'Shrani nastavitve',
+    
+    // Activities Section
+    'activities.label': 'Raziščite Pomurje',
+    'activities.title': 'Aktivnosti v okolici Term 3000',
+    'activities.subtitle': 'Prekmurje ni samo ravnica z reko Muro. Odkrijte gričevnato Goričko, zdravilne termalne kopeli, kulinarične mojstrovine in skrivnostne kotičke, kjer čas teče počasneje.',
+    'activities.culinary': 'Kulinarika',
+    'activities.culinaryTitle': 'Termalne izkušnje',
+    'activities.culinarySubtitle': 'Bil bi greh, če ne bi poskusili bograča, bujte repe, prekmurske gibanice, domače šunke in drugih kulinaričnih dobrot te čarobne pokrajine.',
+    'activities.walks': 'Sprehodi v naravi',
+    'activities.sup': 'SUP & Surf na Soboškem jezeru',
+    'activities.amazon': 'Amazon of Europe',
+    
+    // FAQ Section
+    'faq.label': '❓ Pogosta vprašanja',
+    'faq.title': 'Imate Vprašanja?',
+    'faq.subtitle': 'Tukaj najdete odgovore na najpogostejša vprašanja naših gostov',
+    'faq.winterBadge': '🎄 Zimska ponudba',
+    
+    // Testimonials Section
+    'testimonials.badge': '⭐ 100% priporočajo (9+ ocen)',
+    'testimonials.title': 'Idealno za družine in pare',
+    'testimonials.subtitle': 'Preberite izkušnje naših zadovoljnih gostov iz vse Evrope',
+    'testimonials.moreReviews': 'Več ocen na Facebook-u →',
+    
+    // Promo Banner Section
+    'promo.summerBanner': 'POLETNA AKCIJA 110€ na noč z dvema kopalnima kartama + 3x Kolesi + Športni Rekviziti',
+    'promo.h2': 'Vključeni 2× kopalni karti in 3× brezplačna kolesa',
   },
   en: {
     // Navbar
@@ -242,6 +284,7 @@ const translations: Record<Language, Record<string, string>> = {
     // Features Section
     'features.label': '🌿 What awaits you',
     'features.title': 'Everything for a Perfect Getaway',
+    'features.h2': 'Holiday house in Moravske Toplice',
     'features.subtitle': 'La Vita House offers everything you need for an unforgettable retreat in nature',
     'features.space': '50m² of Space',
     'features.spaceDesc': 'Spacious house with two terraces for a perfect getaway in nature',
@@ -338,6 +381,18 @@ const translations: Record<Language, Record<string, string>> = {
     'voucher.cancelledText': 'Payment was cancelled. You can try again or return to the home page.',
     'voucher.tryAgain': 'Try again',
     'voucher.home': 'Home',
+    'voucher.nightOption0': '0 - Purchase 2x spa tickets',
+    'voucher.nightOption0Desc': 'You receive all-day tickets for unlimited access to the Thermal Complex, pick up at the Camp Reception with a surcharge of €6.50. For more info write to rent@lavitaterme3000.com',
+    
+    // Gift Voucher Success
+    'voucherSuccess.title': 'Thank you for your purchase! 🎉',
+    'voucherSuccess.subtitle': 'Your payment has been successfully processed. The gift voucher has been sent to the recipient\'s email.',
+    'voucherSuccess.emailSent': 'Email sent',
+    'voucherSuccess.emailDetails': 'The recipient will soon receive an email with the gift voucher in PDF format. A copy of the voucher has also been sent to your email.',
+    'voucherSuccess.validity': 'Voucher validity: 1 year from purchase date',
+    'voucherSuccess.contactInfo': 'To book a date, the recipient should contact:',
+    'voucherSuccess.buyAnother': 'Buy another voucher',
+    'voucherSuccess.backHome': 'Back to home page',
     
     // Booking
     'booking.winterOffer': 'Winter offer',
@@ -370,6 +425,8 @@ const translations: Record<Language, Record<string, string>> = {
     'booking.errorTerms': 'Please agree to the terms and conditions.',
     'booking.errorFields': 'Please fill in all required fields.',
     'booking.errorGeneric': 'An error occurred. Please try again.',
+    'booking.namePlaceholder': 'Enter your full name',
+    'booking.emailPlaceholder': 'your.email@example.com',
     
     // Validation
     'validation.nameMin': 'Name must have at least 2 characters',
@@ -398,6 +455,33 @@ const translations: Record<Language, Record<string, string>> = {
     'cookie.marketing': 'Advertising cookies',
     'cookie.marketingDesc': 'Enable display of personalized content and ads based on user interests.',
     'cookie.saveSettings': 'Save settings',
+    
+    // Activities Section
+    'activities.label': 'Explore Pomurje',
+    'activities.title': 'Activities around Terme 3000',
+    'activities.subtitle': 'Pomurje is not just a plain with the Mura river. Discover the hilly Goričko, healing thermal baths, culinary masterpieces and secret corners where time moves slower.',
+    'activities.culinary': 'Culinary',
+    'activities.culinaryTitle': 'Thermal experiences',
+    'activities.culinarySubtitle': 'It would be a sin not to try bograč, bujta repa, prekmurska gibanica, homemade ham and other culinary delights of this magical region.',
+    'activities.walks': 'Nature walks',
+    'activities.sup': 'SUP & Surf at Soboško lake',
+    'activities.amazon': 'Amazon of Europe',
+    
+    // FAQ Section
+    'faq.label': '❓ Frequently Asked Questions',
+    'faq.title': 'Have Questions?',
+    'faq.subtitle': 'Here you can find answers to the most common questions from our guests',
+    'faq.winterBadge': '🎄 Winter offer',
+    
+    // Testimonials Section
+    'testimonials.badge': '⭐ 100% recommend (9+ ratings)',
+    'testimonials.title': 'Ideal for families and couples',
+    'testimonials.subtitle': 'Read the experiences of our satisfied guests from all over Europe',
+    'testimonials.moreReviews': 'More reviews on Facebook →',
+    
+    // Promo Banner Section
+    'promo.summerBanner': 'SUMMER SPECIAL €110 per night with two spa tickets + 3x Bicycles + Sports Equipment',
+    'promo.h2': 'Included 2× spa tickets and 3× free bicycles',
   },
   de: {
     // Navbar
@@ -436,6 +520,7 @@ const translations: Record<Language, Record<string, string>> = {
     // Features Section
     'features.label': '🌿 Was Sie erwartet',
     'features.title': 'Alles für einen perfekten Urlaub',
+    'features.h2': 'Ferienhaus in Moravske Toplice',
     'features.subtitle': 'Das La Vita Haus bietet alles, was Sie für einen unvergesslichen Rückzug in der Natur brauchen',
     'features.space': '50m² Platz',
     'features.spaceDesc': 'Geräumiges Haus mit zwei Terrassen für perfekte Erholung in der Natur',
@@ -532,6 +617,18 @@ const translations: Record<Language, Record<string, string>> = {
     'voucher.cancelledText': 'Die Zahlung wurde abgebrochen. Sie können es erneut versuchen oder zur Startseite zurückkehren.',
     'voucher.tryAgain': 'Erneut versuchen',
     'voucher.home': 'Startseite',
+    'voucher.nightOption0': '0 - 2x Spa-Tickets kaufen',
+    'voucher.nightOption0Desc': 'Sie erhalten Tageskarten für unbegrenzten Zutritt zum Thermalkomplex, Abholung an der Camp-Rezeption mit Aufpreis von 6,50€. Für weitere Infos schreiben Sie an rent@lavitaterme3000.com',
+    
+    // Gift Voucher Success
+    'voucherSuccess.title': 'Vielen Dank für Ihren Kauf! 🎉',
+    'voucherSuccess.subtitle': 'Ihre Zahlung wurde erfolgreich verarbeitet. Der Geschenkgutschein wurde an die E-Mail des Empfängers gesendet.',
+    'voucherSuccess.emailSent': 'E-Mail gesendet',
+    'voucherSuccess.emailDetails': 'Der Empfänger wird in Kürze eine E-Mail mit dem Geschenkgutschein im PDF-Format erhalten. Eine Kopie des Gutscheins wurde auch an Ihre E-Mail gesendet.',
+    'voucherSuccess.validity': 'Gutscheingültigkeit: 1 Jahr ab Kaufdatum',
+    'voucherSuccess.contactInfo': 'Für eine Terminbuchung sollte der Empfänger kontaktieren:',
+    'voucherSuccess.buyAnother': 'Weiteren Gutschein kaufen',
+    'voucherSuccess.backHome': 'Zurück zur Startseite',
     
     // Booking
     'booking.winterOffer': 'Winterangebot',
@@ -564,6 +661,8 @@ const translations: Record<Language, Record<string, string>> = {
     'booking.errorTerms': 'Bitte stimmen Sie den AGB zu.',
     'booking.errorFields': 'Bitte füllen Sie alle Pflichtfelder aus.',
     'booking.errorGeneric': 'Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.',
+    'booking.namePlaceholder': 'Geben Sie Ihren Namen ein',
+    'booking.emailPlaceholder': 'ihre.email@beispiel.com',
     
     // Validation
     'validation.nameMin': 'Name muss mindestens 2 Zeichen haben',
@@ -592,6 +691,269 @@ const translations: Record<Language, Record<string, string>> = {
     'cookie.marketing': 'Werbe-Cookies',
     'cookie.marketingDesc': 'Ermöglichen die Anzeige personalisierter Inhalte und Werbung basierend auf Benutzerinteressen.',
     'cookie.saveSettings': 'Einstellungen speichern',
+    
+    // Activities Section
+    'activities.label': 'Pomurje entdecken',
+    'activities.title': 'Aktivitäten rund um Terme 3000',
+    'activities.subtitle': 'Pomurje ist nicht nur eine Ebene mit dem Fluss Mura. Entdecken Sie das hügelige Goričko, heilende Thermalbäder, kulinarische Meisterwerke und geheimnisvolle Ecken, wo die Zeit langsamer vergeht.',
+    'activities.culinary': 'Kulinarik',
+    'activities.culinaryTitle': 'Thermale Erlebnisse',
+    'activities.culinarySubtitle': 'Es wäre eine Sünde, nicht Bograč, Bujta Repa, Prekmurska Gibanica, hausgemachten Schinken und andere kulinarische Köstlichkeiten dieser magischen Region zu probieren.',
+    'activities.walks': 'Spaziergänge in der Natur',
+    'activities.sup': 'SUP & Surf am Soboško-See',
+    'activities.amazon': 'Amazon of Europe',
+    
+    // FAQ Section
+    'faq.label': '❓ Häufig gestellte Fragen',
+    'faq.title': 'Haben Sie Fragen?',
+    'faq.subtitle': 'Hier finden Sie Antworten auf die häufigsten Fragen unserer Gäste',
+    'faq.winterBadge': '🎄 Winterangebot',
+    
+    // Testimonials Section
+    'testimonials.badge': '⭐ 100% empfehlen (9+ Bewertungen)',
+    'testimonials.title': 'Ideal für Familien und Paare',
+    'testimonials.subtitle': 'Lesen Sie die Erfahrungen unserer zufriedenen Gäste aus ganz Europa',
+    'testimonials.moreReviews': 'Mehr Bewertungen auf Facebook →',
+    
+    // Promo Banner Section
+    'promo.summerBanner': 'SOMMERANGEBOT 110€ pro Nacht mit zwei Spa-Tickets + 3x Fahrräder + Sportausrüstung',
+    'promo.h2': 'Inklusive 2× Spa-Tickets und 3× kostenlose Fahrräder',
+  },
+  hr: {
+    // Navbar
+    'nav.home': 'POČETNA',
+    'nav.booking': 'REZERVIRAJTE ODMOR',
+    'nav.vouchers': 'POKLON BONOVI',
+    'nav.activities': 'AKTIVNOSTI',
+    'nav.reviews': 'RECENZIJE GOSTIJU',
+    'nav.faq': 'ČESTA PITANJA',
+    'nav.about': 'O NAMA',
+    'nav.tagline': 'Travel·Enjoy·Explore',
+    
+    // Hero Section
+    'hero.title1': 'Kućica',
+    'hero.title2': 'La Vita',
+    'hero.subtitle': 'Vaš kutak opuštanja i prirode u Termama 3000',
+    'hero.winterAction': 'Zimska akcija',
+    'hero.summerAction': 'Ljetna akcija',
+    'hero.perNight': '/noć',
+    'hero.bookNow': 'Rezervirajte sada',
+    'hero.discoverActivities': 'Otkrijte aktivnosti',
+    'hero.discoverMore': 'Otkrijte više',
+    'hero.badge.tickets': '🎫 2x Kupaoničke karte uključene',
+    'hero.badge.bikes': '🚲 3x Besplatni bicikli',
+    'hero.badge.tv': '📺 TV + Video rekorder',
+    'hero.badge.space': '🏡 50m² prostora',
+    'hero.badge.camping': '⛺ Kampiranje uz kućicu',
+    'hero.badge.teambuilding': '🤝 Team Building',
+    'hero.badge.unique': '✨ Jedinstveni prostori',
+    'hero.badge.nature': '🌳 Uređena okolina',
+    
+    // Prominent Banner
+    'banner.yourHome': 'Vaš Dom Daleko od Doma',
+    'banner.ticketsIncluded': '2x KUPAONIČKE KARTE UKLJUČENE',
+    
+    // Features Section
+    'features.label': '🌿 Što vas čeka',
+    'features.title': 'Sve za Savršen Odmor',
+    'features.h2': 'Kuća za odmor u Moravskim Toplicama',
+    'features.subtitle': 'La Vita kućica nudi sve što vam treba za nezaboravan odmor usred prirode',
+    'features.space': '50m² Prostora',
+    'features.spaceDesc': 'Prostrana kućica s dvije terase za savršen odmor u prirodi',
+    'features.guests': 'Do 6 Gostiju',
+    'features.guestsDesc': 'Idealno za obitelji i manje grupe prijatelja',
+    'features.kitchen': 'Opremljena Kuhinja',
+    'features.kitchenDesc': 'Sve što trebate za pripremu ukusnih obroka',
+    'features.led': 'LED Rasvjeta',
+    'features.ledDesc': 'Ambijentalna rasvjeta za romantične večeri',
+    'features.hifi': 'HI-FI Sustav',
+    'features.hifiDesc': 'Kvalitetna glazba za opuštenu atmosferu',
+    'features.dormeo': 'DORMEO Ležajevi',
+    'features.dormeoDesc': 'Premium kvaliteta spavanja za potpunu regeneraciju',
+    'features.bikes': '3x Besplatni Bicikli',
+    'features.bikesDesc': 'Istražite okolicu na dva kotača',
+    'features.tickets': '2x Kupaoničke Karte',
+    'features.ticketsDesc': 'Ulaz u termalni kompleks uključen',
+    'features.area': 'Uređena Okolina',
+    'features.areaDesc': 'Lijepo održavan prostor za opuštanje i uživanje',
+    'features.sports': 'Sportski Rekviziti',
+    'features.sportsDesc': 'Oprema za aktivno provođenje slobodnog vremena',
+    'features.linen': 'Posteljina Uključena',
+    'features.linenDesc': 'Svježa posteljina i ručnici za vašu udobnost',
+    'features.terrace': '2x Terasa',
+    'features.terraceDesc': 'Jedna mala sprijeda i jedna velika privatna iza kućice',
+    
+    // About Section
+    'about.label': '🏡 O nama',
+    'about.title': 'Vaš Dom Daleko od Doma',
+    'about.text1': 'La Vita kućica je pažljivo osmišljen odmornišni smještaj u srcu Kampa Terme 3000, gdje se udobnost doma isprepliće s prirodnom opuštenošću kampiranja. Okružena je lijepo uređenom okolinom koja pruža mir, privatnost i osjećaj pravog odmora u prirodi — daleko od buke teške industrije, u netaknutom okruženju s ljubaznim ljudima, izvrsnom kulinarikom i ljekovitom termalnom vodom.',
+    'about.text2': 'Naša kućica od 50 m² nudi vrhunsku opremu, dvije ugodne terase i veliku privatnu terasu, idealnu za jutarnju kavu, sunčanje ili večernje trenutke uz dobro društvo. Izravan pristup termalnom kompleksu osigurava potpuno opuštanje u svakom godišnjem dobu.',
+    'about.text3': 'Posebna prednost La Vita kućice je izuzetno povoljna cijena – za boravak do 6 osoba iznosi manje od 19 € po osobi po noći, a u cijenu su već uključene dvije kupaoničke karte za terme.',
+    'about.priceTitle': 'Za ostale osobe vrijede snižene cijene ulaznica:',
+    'about.priceAdult': 'odrasli: 21,90 € po osobi po noći',
+    'about.priceChild': 'djeca od 6 do 14,99 godina: 17,90 € po osobi po noći',
+    'about.priceFree': 'djeca do 5,99 godina: besplatno',
+    'about.text4': 'Za još bogatije iskustvo nudimo mogućnost najma dodatnih bicikala, foto opreme te PROFLIPP kombija za zajedničko istraživanje prekrasnog Pomurja — od vinograda i prirodnih ljepota do lokalnih kulinarskih blaga.',
+    'about.text5': 'Priuštite si povoljan odmor bez kompromisa – više udobnosti, više opuštanja i više nezaboravnih trenutaka.',
+    'about.cta': '✨ Pobjegnite od svakodnevice i stvorite uspomene koje će trajati. Dobrodošli u La Vita kućicu! ✨',
+    'about.stats': 'Domaćinstvo, Opuštanje, Odmor',
+    'about.location': 'Lokacija',
+    'about.locationValue': 'Kamp Terme 3000, Moravske Toplice',
+    'about.phone': 'Telefon',
+    'about.email': 'Email',
+    
+    // Footer
+    'footer.tagline': 'Vaš kutak opuštanja i prirode u Kampu Terme 3000. Uživajte u udobnosti, prirodi i termalnim iskustvima.',
+    'footer.quickLinks': 'Brzi Pristup',
+    'footer.home': 'Početna',
+    'footer.reservation': 'Rezervacija',
+    'footer.activities': 'Aktivnosti',
+    'footer.reviews': 'Recenzije gostiju',
+    'footer.faq': 'Česta pitanja',
+    'footer.about': 'O nama',
+    'footer.contact': 'Kontakt',
+    'footer.terms': 'Opći uvjeti poslovanja',
+    'footer.privacy': 'Pravila o privatnosti',
+    'footer.cookies': 'Politika kolačića',
+    'footer.cookieSettings': 'Postavke kolačića',
+    'footer.rights': 'Sva prava pridržana.',
+    'footer.madeWith': 'Izrađeno s',
+    'footer.forGuests': 'za najbolje goste',
+    
+    // Gift Voucher
+    'voucher.title': 'Poklonite Odmor u Termama 3000',
+    'voucher.subtitle': 'Ispunite obrazac i pošaljite poklon bon sada!',
+    'voucher.description': 'Najbolji poklon za prijatelje i obitelj - nezaboravni trenuci u La Vita kućici',
+    'voucher.backHome': 'Natrag na početnu stranicu',
+    'voucher.giverTitle': 'Poklon bon daruje',
+    'voucher.firstName': 'Ime',
+    'voucher.lastName': 'Prezime',
+    'voucher.address': 'Adresa',
+    'voucher.postalCode': 'Poštanski broj',
+    'voucher.city': 'Grad',
+    'voucher.yourEmail': 'Vaš e-mail',
+    'voucher.recipientTitle': 'Primatelj bona',
+    'voucher.recipientEmail': 'E-mail primatelja',
+    'voucher.message': 'Poruka primatelju',
+    'voucher.messagePlaceholder': 'Napišite osobnu poruku za primatelja poklon bona...',
+    'voucher.valueTitle': 'Vrijednost bona',
+    'voucher.voucherIncludes': 'Bon uključuje 2x kupaoničke karte.',
+    'voucher.priceInfo': 'Cijene su po noći. U kućici može boraviti do 6 osoba.',
+    'voucher.selectNights': 'Odaberite broj noćenja',
+    'voucher.night': 'noć',
+    'voucher.nights': 'noći',
+    'voucher.totalValue': 'Ukupna vrijednost bona',
+    'voucher.perNight': 'po noći',
+    'voucher.previewButton': 'Pregled bona',
+    'voucher.securePayment': 'Sigurno kartično plaćanje',
+    'voucher.supportedCards': 'Podržane kartice: Visa, Mastercard, Maestro',
+    'voucher.payButton': 'Platite karticom i pošaljite bon',
+    'voucher.processing': 'Obrada...',
+    'voucher.cancelled': 'Plaćanje otkazano',
+    'voucher.cancelledText': 'Plaćanje je otkazano. Možete pokušati ponovo ili se vratiti na početnu stranicu.',
+    'voucher.tryAgain': 'Pokušajte ponovo',
+    'voucher.home': 'Početna',
+    'voucher.nightOption0': '0 - Kupnja 2x kupaoničke karte',
+    'voucher.nightOption0Desc': 'Dobivate cjelodnevne karte za neograničen ulaz u Termalni Kompleks, preuzimanje na Recepciji Kampa uz doplatu od 6,50€. Za više informacija pišite na rent@lavitaterme3000.com',
+    
+    // Gift Voucher Success
+    'voucherSuccess.title': 'Hvala na kupnji! 🎉',
+    'voucherSuccess.subtitle': 'Vaše plaćanje je uspješno obrađeno. Poklon bon je poslan primatelju na e-mail.',
+    'voucherSuccess.emailSent': 'E-mail poslan',
+    'voucherSuccess.emailDetails': 'Primatelj će uskoro primiti e-mail s poklon bonom u PDF formatu. Kopiju bona smo poslali i na vaš e-mail.',
+    'voucherSuccess.validity': 'Valjanost bona: 1 godina od datuma kupnje',
+    'voucherSuccess.contactInfo': 'Za rezervaciju termina neka primatelj kontaktira:',
+    'voucherSuccess.buyAnother': 'Kupite još jedan bon',
+    'voucherSuccess.backHome': 'Natrag na početnu stranicu',
+    
+    // Booking
+    'booking.winterOffer': 'Zimska ponuda',
+    'booking.summerOffer': 'Ljetna ponuda',
+    'booking.formTitle': 'Obrazac za Rezervaciju',
+    'booking.nameLabel': 'Ime i Prezime',
+    'booking.emailLabel': 'E-mail',
+    'booking.arrivalDate': 'Datum dolaska',
+    'booking.departureDate': 'Datum odlaska',
+    'booking.arrivalTime': 'Okvirno vrijeme dolaska',
+    'booking.selectTime': 'Odaberite vrijeme',
+    'booking.byAgreement': 'Po dogovoru',
+    'booking.guests': 'Gosti',
+    'booking.addGuest': 'Dodajte gosta',
+    'booking.guestName': 'Ime gosta',
+    'booking.pets': 'Dovest ću kućnog ljubimca',
+    'booking.petsNote': 'Doplata za kućnog ljubimca: 5€/noć',
+    'booking.terms': 'Slažem se s općim uvjetima poslovanja',
+    'booking.submit': 'Pošaljite rezervaciju',
+    'booking.submitting': 'Šaljem...',
+    'booking.thankYou': 'Hvala na vašoj rezervaciji!',
+    'booking.willContact': 'Vaš upit smo uspješno primili i kontaktirat ćemo vas u najkraćem mogućem roku.',
+    'booking.team': 'Tim La Vita',
+    'booking.select': 'Odaberite',
+    'booking.callUs': 'Nazovite nas',
+    'booking.writeUs': 'Pišite nam',
+    'booking.reserveNow': 'Rezervirajte Sada',
+    'booking.perNight': '/ noć',
+    'booking.error': 'Greška',
+    'booking.errorTerms': 'Molimo potvrdite opće uvjete poslovanja.',
+    'booking.errorFields': 'Molimo ispunite sva obavezna polja.',
+    'booking.errorGeneric': 'Došlo je do greške. Molimo pokušajte ponovo.',
+    'booking.namePlaceholder': 'Unesite ime i prezime',
+    'booking.emailPlaceholder': 'vas.email@primjer.com',
+    
+    // Validation
+    'validation.nameMin': 'Ime mora imati najmanje 2 znaka',
+    'validation.surnameMin': 'Prezime mora imati najmanje 2 znaka',
+    'validation.addressMin': 'Unesite valjanu adresu',
+    'validation.postalMin': 'Unesite valjani poštanski broj',
+    'validation.cityMin': 'Unesite valjani grad',
+    'validation.emailInvalid': 'Unesite valjani e-mail',
+    'validation.recipientEmailInvalid': 'Unesite valjani e-mail primatelja',
+    'validation.messageMin': 'Poruka mora imati najmanje 10 znakova',
+    'validation.messageMax': 'Poruka je preduga',
+    'validation.selectNights': 'Odaberite broj noćenja',
+
+    // Cookie Consent
+    'cookie.title': 'Korištenje kolačića',
+    'cookie.description': 'Na web stranici koristimo nužne kolačiće za osiguranje pravilnog rada stranice te analitičke i oglašivačke kolačiće za poboljšanje korisničkog iskustva i prikaz prilagođenog sadržaja. Više informacija dostupno je u Pravilima o privatnosti i Politici kolačića.',
+    'cookie.settings': 'Postavke',
+    'cookie.rejectNonEssential': 'Odbij nepotrebne',
+    'cookie.acceptAll': 'Prihvati sve',
+    'cookie.settingsTitle': 'Postavke kolačića',
+    'cookie.settingsDescription': 'Odaberite koje vrste kolačića dopuštate. Nužni kolačići su uvijek omogućeni jer su potrebni za rad web stranice.',
+    'cookie.essential': 'Nužni kolačići',
+    'cookie.essentialDesc': 'Omogućuju osnovno funkcioniranje web stranice i sigurno korištenje usluga. Ovi kolačići su uvijek aktivni.',
+    'cookie.analytics': 'Analitički kolačići',
+    'cookie.analyticsDesc': 'Omogućuju prikupljanje anonimnih statističkih podataka o korištenju web stranice radi poboljšanja sadržaja i performansi.',
+    'cookie.marketing': 'Oglašivački kolačići',
+    'cookie.marketingDesc': 'Omogućuju prikaz prilagođenog sadržaja i oglasa prema interesima korisnika.',
+    'cookie.saveSettings': 'Spremi postavke',
+    
+    // Activities Section
+    'activities.label': 'Istražite Pomurje',
+    'activities.title': 'Aktivnosti u okolici Terma 3000',
+    'activities.subtitle': 'Pomurje nije samo ravnica s rijekom Murom. Otkrijte brežuljkasto Goričko, ljekovite termalne kupke, kulinarske remek-djela i tajnovite kutke gdje vrijeme teče sporije.',
+    'activities.culinary': 'Kulinarstvo',
+    'activities.culinaryTitle': 'Termalna iskustva',
+    'activities.culinarySubtitle': 'Bio bi grijeh ne probati bograč, bujtu repu, prekmursku gibanicu, domaću šunku i druge kulinarske delicije ovog čarobnog kraja.',
+    'activities.walks': 'Šetnje u prirodi',
+    'activities.sup': 'SUP & Surf na Soboškom jezeru',
+    'activities.amazon': 'Amazon of Europe',
+    
+    // FAQ Section
+    'faq.label': '❓ Česta pitanja',
+    'faq.title': 'Imate Pitanja?',
+    'faq.subtitle': 'Ovdje možete pronaći odgovore na najčešća pitanja naših gostiju',
+    'faq.winterBadge': '🎄 Zimska ponuda',
+    
+    // Testimonials Section
+    'testimonials.badge': '⭐ 100% preporučuju (9+ ocjena)',
+    'testimonials.title': 'Idealno za obitelji i parove',
+    'testimonials.subtitle': 'Pročitajte iskustva naših zadovoljnih gostiju iz cijele Europe',
+    'testimonials.moreReviews': 'Više recenzija na Facebooku →',
+    
+    // Promo Banner Section
+    'promo.summerBanner': 'LJETNA AKCIJA 110€ po noći s dvije kupaoničke karte + 3x Bicikli + Sportski Rekviziti',
+    'promo.h2': 'Uključene 2× kupaoničke karte i 3× besplatni bicikli',
   },
 };
 
@@ -599,6 +961,10 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 
 const LANGUAGE_STORAGE_KEY = 'la-vita-language';
 const LANGUAGE_AUTO_DETECTED_KEY = 'la-vita-language-auto-detected';
+
+const isValidLanguage = (lang: string): lang is Language => {
+  return ['sl', 'en', 'de', 'hr'].includes(lang);
+};
 
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [language, setLanguageState] = useState<Language>('en');
@@ -612,7 +978,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
       const savedLanguage = localStorage.getItem(LANGUAGE_STORAGE_KEY);
       const wasAutoDetected = localStorage.getItem(LANGUAGE_AUTO_DETECTED_KEY);
       
-      if (savedLanguage && (savedLanguage === 'sl' || savedLanguage === 'en' || savedLanguage === 'de')) {
+      if (savedLanguage && isValidLanguage(savedLanguage)) {
         // User has a saved preference, use it
         setLanguageState(savedLanguage);
         setIsAutoDetected(wasAutoDetected === 'true');
@@ -624,7 +990,7 @@ export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }
       try {
         const response = await supabase.functions.invoke('detect-language');
         
-        if (response.data?.language) {
+        if (response.data?.language && isValidLanguage(response.data.language)) {
           const detectedLang = response.data.language as Language;
           console.log('Auto-detected language:', detectedLang, 'from country:', response.data.country);
           setLanguageState(detectedLang);

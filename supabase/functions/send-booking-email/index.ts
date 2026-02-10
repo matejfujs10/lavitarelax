@@ -79,7 +79,7 @@ async function sendEmail(
       body: JSON.stringify({
         // Using Resend's onboarding domain for now
         // To use custom domain, verify lavitarelax.lovable.app at https://resend.com/domains
-        from: "La Vita Hiška <onboarding@resend.dev>",
+        from: "Hiška La Vita <rent@lavitaterme3000.com>",
         to,
         subject,
         text,
@@ -361,11 +361,10 @@ const handler = async (req: Request): Promise<Response> => {
 
     if (!ownerResult.success) {
       console.error("Failed to send owner email:", ownerResult.error);
-      // Don't throw - log the booking data so it's not lost, and notify the user gracefully
       console.log("BOOKING DATA (email failed):", JSON.stringify(emailData));
+    } else {
+      console.log("Owner notification email sent successfully");
     }
-
-    console.log("Owner notification email sent successfully");
 
     // Send confirmation email to customer
     const customerResult = await sendEmail(

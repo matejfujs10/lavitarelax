@@ -4,7 +4,7 @@ import { Menu, X, Facebook, Instagram, ArrowRight } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useLanguage, Language } from "@/contexts/LanguageContext";
 
-const languages: Language[] = ["sl", "en", "de"];
+const languages: Language[] = ["sl", "en", "de", "hr"];
 
 export const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);

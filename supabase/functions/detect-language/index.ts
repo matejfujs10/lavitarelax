@@ -13,6 +13,10 @@ const countryToLanguage: Record<string, string> = {
   'DE': 'de', // Germany
   'CH': 'de', // Switzerland
   'LI': 'de', // Liechtenstein
+  'HR': 'hr', // Croatia
+  'BA': 'hr', // Bosnia and Herzegovina
+  'RS': 'hr', // Serbia (closest supported)
+  'ME': 'hr', // Montenegro
 };
 
 const handler = async (req: Request): Promise<Response> => {

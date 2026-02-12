@@ -6,16 +6,19 @@ export function Toaster() {
 
   return (
     <ToastProvider>
-      {toasts
-        .filter(Boolean)
-        .map(function ({ id, title, description, action, ...props }) {
+      {Array.isArray(toasts) &&
+        toasts.map((toast) => {
+          if (!toast) return null;
+
           return (
-            <Toast key={id} {...props}>
+            <Toast key={toast.id ?? Math.random()} {...toast}>
               <div className="grid gap-1">
-                {title && <ToastTitle>{title}</ToastTitle>}
-                {description && <ToastDescription>{description}</ToastDescription>}
+                {toast?.title ? <ToastTitle>{toast.title}</ToastTitle> : null}
+                {toast?.description ? (
+                  <ToastDescription>{toast.description}</ToastDescription>
+                ) : null}
               </div>
-              {action}
+              {toast?.action}
               <ToastClose />
             </Toast>
           );

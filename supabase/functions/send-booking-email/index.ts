@@ -7,20 +7,23 @@ const corsHeaders = {
 };
 
 // Rate limiting: simple in-memory store (resets on function cold start)
-const rateLimitStore = new Map<string, { count: number; resetTime: number }>();
+const ipRateLimitStore = new Map<string, { count: number; resetTime: number }>();
+const emailRateLimitStore = new Map<string, { count: number; resetTime: number }>();
 const RATE_LIMIT_MAX = 5;
 const RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000; // 1 hour
+const EMAIL_RATE_LIMIT_MAX = 3;
+const EMAIL_RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000; // 1 hour
 
-function isRateLimited(clientIp: string): boolean {
+function isRateLimited(key: string, store: Map<string, { count: number; resetTime: number }>, max: number, windowMs: number): boolean {
   const now = Date.now();
-  const record = rateLimitStore.get(clientIp);
+  const record = store.get(key);
   
   if (!record || now > record.resetTime) {
-    rateLimitStore.set(clientIp, { count: 1, resetTime: now + RATE_LIMIT_WINDOW_MS });
+    store.set(key, { count: 1, resetTime: now + windowMs });
     return false;
   }
   
-  if (record.count >= RATE_LIMIT_MAX) {
+  if (record.count >= max) {
     return true;
   }
   
@@ -254,7 +257,7 @@ const handler = async (req: Request): Promise<Response> => {
                      req.headers.get("cf-connecting-ip") || 
                      "unknown";
     
-    if (isRateLimited(clientIp)) {
+    if (isRateLimited(clientIp, ipRateLimitStore, RATE_LIMIT_MAX, RATE_LIMIT_WINDOW_MS)) {
       console.warn(`Rate limit exceeded for IP: ${clientIp}`);
       return new Response(
         JSON.stringify({ 
@@ -295,6 +298,21 @@ const handler = async (req: Request): Promise<Response> => {
         JSON.stringify({ success: true, message: template.successMessage }),
         {
           status: 200,
+          headers: { "Content-Type": "application/json", ...corsHeaders },
+        }
+      );
+    }
+
+    // Email-based rate limiting (prevents abuse with rotating IPs)
+    const emailKey = bookingData.email.toLowerCase();
+    if (isRateLimited(emailKey, emailRateLimitStore, EMAIL_RATE_LIMIT_MAX, EMAIL_RATE_LIMIT_WINDOW_MS)) {
+      console.warn(`Email rate limit exceeded for: ${emailKey}`);
+      return new Response(
+        JSON.stringify({ 
+          error: "Too many requests from this email. Please try again later." 
+        }),
+        {
+          status: 429,
           headers: { "Content-Type": "application/json", ...corsHeaders },
         }
       );

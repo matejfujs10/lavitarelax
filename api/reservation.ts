@@ -1,7 +1,5 @@
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 // Prevent broken HTML / injection
 function escapeHtml(input: unknown) {
   return String(input ?? "")
@@ -13,27 +11,42 @@ function escapeHtml(input: unknown) {
 }
 
 export default async function handler(req: any, res: any) {
-  // Allow only POST
+  // Simple health/info for GET (da lahko vidiš, da endpoint živi)
+  if (req.method === "GET") {
+    return res.status(200).json({ ok: true, hint: "Use POST /api/reservation" });
+  }
+
   if (req.method !== "POST") {
     return res.status(405).json({ ok: false, error: "Method not allowed" });
   }
 
   try {
+    const apiKey = process.env.RESEND_API_KEY;
+
+    // Če je ključ missing, vrni jasen error (namesto crasha)
+    if (!apiKey) {
+      return res.status(500).json({
+        ok: false,
+        error: "Missing RESEND_API_KEY on server",
+      });
+    }
+
+    const resend = new Resend(apiKey);
+
     const body = req.body ?? {};
 
     const name = body.name;
     const email = body.email;
     const phone = body.phone;
-    const checkIn = body.checkIn;     // IMPORTANT: camelCase
-    const checkOut = body.checkOut;   // IMPORTANT: camelCase
+    const checkIn = body.checkIn;     // IMPORTANT: checkIn
+    const checkOut = body.checkOut;   // IMPORTANT: checkOut
     const guests = body.guests;
     const message = body.message;
 
-    // Basic validation
     if (!name || !email || !checkIn || !checkOut) {
       return res.status(400).json({
         ok: false,
-        error: "Missing required fields",
+        error: "Missing required fields (name, email, checkIn, checkOut)",
       });
     }
 
@@ -47,9 +60,7 @@ export default async function handler(req: any, res: any) {
       <p><b>Prihod:</b> ${escapeHtml(checkIn)}</p>
       <p><b>Odhod:</b> ${escapeHtml(checkOut)}</p>
       <p><b>Št. oseb:</b> ${escapeHtml(guests ?? "-")}</p>
-      <p><b>Sporočilo:</b><br/>
-        ${escapeHtml(message || "-").replace(/\n/g, "<br/>")}
-      </p>
+      <p><b>Sporočilo:</b><br/>${escapeHtml(message || "-").replace(/\n/g, "<br/>")}</p>
       <hr/>
       <p>Poslano iz obrazca na lavitaterme3000.com</p>
     `;
@@ -67,7 +78,6 @@ export default async function handler(req: any, res: any) {
     }
 
     return res.status(200).json({ ok: true });
-
   } catch (err: any) {
     return res.status(500).json({
       ok: false,

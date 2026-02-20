@@ -2,6 +2,7 @@ import { Resend } from "resend";
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+// Prevent broken HTML / injection
 function escapeHtml(input: unknown) {
   return String(input ?? "")
     .replaceAll("&", "&amp;")
@@ -12,6 +13,7 @@ function escapeHtml(input: unknown) {
 }
 
 export default async function handler(req: any, res: any) {
+  // Allow only POST
   if (req.method !== "POST") {
     return res.status(405).json({ ok: false, error: "Method not allowed" });
   }
@@ -22,13 +24,17 @@ export default async function handler(req: any, res: any) {
     const name = body.name;
     const email = body.email;
     const phone = body.phone;
-    const checkIn = body.checkIn;
-    const checkOut = body.checkOut;
+    const checkIn = body.checkIn;     // IMPORTANT: camelCase
+    const checkOut = body.checkOut;   // IMPORTANT: camelCase
     const guests = body.guests;
     const message = body.message;
 
+    // Basic validation
     if (!name || !email || !checkIn || !checkOut) {
-      return res.status(400).json({ ok: false, error: "Missing required fields" });
+      return res.status(400).json({
+        ok: false,
+        error: "Missing required fields",
+      });
     }
 
     const subject = `Nova rezervacija: ${name} (${checkIn} → ${checkOut})`;
@@ -41,7 +47,9 @@ export default async function handler(req: any, res: any) {
       <p><b>Prihod:</b> ${escapeHtml(checkIn)}</p>
       <p><b>Odhod:</b> ${escapeHtml(checkOut)}</p>
       <p><b>Št. oseb:</b> ${escapeHtml(guests ?? "-")}</p>
-      <p><b>Sporočilo:</b><br/>${escapeHtml(message || "-").replace(/\n/g, "<br/>")}</p>
+      <p><b>Sporočilo:</b><br/>
+        ${escapeHtml(message || "-").replace(/\n/g, "<br/>")}
+      </p>
       <hr/>
       <p>Poslano iz obrazca na lavitaterme3000.com</p>
     `;
@@ -59,7 +67,11 @@ export default async function handler(req: any, res: any) {
     }
 
     return res.status(200).json({ ok: true });
+
   } catch (err: any) {
-    return res.status(500).json({ ok: false, error: err?.message ?? "Server error" });
+    return res.status(500).json({
+      ok: false,
+      error: err?.message ?? "Server error",
+    });
   }
 }

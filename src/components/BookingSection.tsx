@@ -13,7 +13,7 @@ import { format } from "date-fns";
 import { sl, de, enUS } from "date-fns/locale";
 import { cn } from "@/lib/utils";
 import laVitaLogoNew from "@/assets/la-vita-logo-new.png";
-import { supabase } from "@/integrations/supabase/client";
+
 import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -144,28 +144,46 @@ export const BookingSection = () => {
     setIsSubmitting(true);
 
     try {
-      const { data, error } = await supabase.functions.invoke('send-booking-email', {
-        body: {
-          fullName,
-          email,
-          arrivalDate: format(arrivalDate, "PPP", { locale: dateLocale }),
-          departureDate: format(departureDate, "PPP", { locale: dateLocale }),
-          arrivalTime: arrivalTime || t('booking.byAgreement'),
-          guests,
-          hasPets,
-          agreeTerms,
-          language,
-        },
+      // Build extra info for the message field
+      const extraParts: string[] = [];
+      if (arrivalTime) extraParts.push(`Okvirni čas prihoda: ${arrivalTime}`);
+      if (hasPets) extraParts.push("Hišni ljubljenček: Da (+5€/noč)");
+      if (guests.length > 0) {
+        const guestNames = guests
+          .filter(g => g.name)
+          .map((g, i) => `${i + 1}. ${g.name}${g.email ? ` (${g.email})` : ""}`)
+          .join(", ");
+        if (guestNames) extraParts.push(`Gostje: ${guestNames}`);
+      }
+
+      const payload = {
+        name: fullName,
+        email,
+        phone: "",
+        checkIn: format(arrivalDate, "yyyy-MM-dd"),
+        checkOut: format(departureDate, "yyyy-MM-dd"),
+        guests: String(guests.length),
+        message: extraParts.join("\n"),
+      };
+
+      const resp = await fetch("/api/reservation", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
       });
 
-      if (error) throw error;
+      const data = await resp.json();
+
+      if (!resp.ok || data.ok !== true) {
+        throw new Error(data.error || "Pošiljanje ni uspelo");
+      }
 
       setIsSubmitted(true);
     } catch (error: any) {
       console.error("Error submitting booking:", error);
       toast({
         title: t('booking.error'),
-        description: t('booking.errorGeneric'),
+        description: error?.message || t('booking.errorGeneric'),
         variant: "destructive",
       });
     } finally {

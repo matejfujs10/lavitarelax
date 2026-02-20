@@ -172,7 +172,12 @@ export const BookingSection = () => {
         body: JSON.stringify(payload),
       });
 
-      const data = await resp.json();
+      let data: any;
+      try {
+        data = await resp.json();
+      } catch {
+        throw new Error("Pošiljanje ni uspelo (server error)");
+      }
 
       if (!resp.ok || data.ok !== true) {
         throw new Error(data.error || "Pošiljanje ni uspelo");

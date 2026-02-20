@@ -68,7 +68,7 @@ export default async function handler(req: any, res: any) {
     const { error } = await resend.emails.send({
       from: "La Vita <rent@lavitaterme3000.com>",
       to: ["rent@lavitaterme3000.com"],
-      replyTo: String(email),
+      reply_to: String(email),
       subject,
       html,
     });

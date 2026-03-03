@@ -16,10 +16,12 @@ export type Database = {
     Tables: {
       gift_vouchers: {
         Row: {
+          admin_email_sent: boolean
           amount_cents: number
           code: string
           created_at: string
           currency: string | null
+          error_message: string | null
           giver_address: string
           giver_city: string
           giver_email: string
@@ -30,6 +32,9 @@ export type Database = {
           issued_at: string | null
           nights: number
           recipient_email: string
+          recipient_email_sent: boolean
+          recipient_first_name: string | null
+          recipient_last_name: string | null
           recipient_message: string | null
           redeemed_at: string | null
           status: string | null
@@ -37,12 +42,15 @@ export type Database = {
           stripe_session_id: string | null
           updated_at: string
           valid_until: string | null
+          voucher_generated: boolean
         }
         Insert: {
+          admin_email_sent?: boolean
           amount_cents: number
           code: string
           created_at?: string
           currency?: string | null
+          error_message?: string | null
           giver_address: string
           giver_city: string
           giver_email: string
@@ -53,6 +61,9 @@ export type Database = {
           issued_at?: string | null
           nights: number
           recipient_email: string
+          recipient_email_sent?: boolean
+          recipient_first_name?: string | null
+          recipient_last_name?: string | null
           recipient_message?: string | null
           redeemed_at?: string | null
           status?: string | null
@@ -60,12 +71,15 @@ export type Database = {
           stripe_session_id?: string | null
           updated_at?: string
           valid_until?: string | null
+          voucher_generated?: boolean
         }
         Update: {
+          admin_email_sent?: boolean
           amount_cents?: number
           code?: string
           created_at?: string
           currency?: string | null
+          error_message?: string | null
           giver_address?: string
           giver_city?: string
           giver_email?: string
@@ -76,6 +90,9 @@ export type Database = {
           issued_at?: string | null
           nights?: number
           recipient_email?: string
+          recipient_email_sent?: boolean
+          recipient_first_name?: string | null
+          recipient_last_name?: string | null
           recipient_message?: string | null
           redeemed_at?: string | null
           status?: string | null
@@ -83,6 +100,7 @@ export type Database = {
           stripe_session_id?: string | null
           updated_at?: string
           valid_until?: string | null
+          voucher_generated?: boolean
         }
         Relationships: []
       }

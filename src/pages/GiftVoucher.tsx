@@ -59,6 +59,8 @@ const GiftVoucher = () => {
     giverPostalCode: z.string().min(4, t('validation.postalMin')),
     giverCity: z.string().min(2, t('validation.cityMin')),
     giverEmail: z.string().email(t('validation.emailInvalid')),
+    recipientFirstName: z.string().min(2, t('validation.nameMin')),
+    recipientLastName: z.string().min(2, t('validation.surnameMin')),
     recipientEmail: z.string().email(t('validation.recipientEmailInvalid')),
     recipientMessage: z.string().min(10, t('validation.messageMin')).max(500, t('validation.messageMax')),
     nights: z.string().min(1, t('validation.selectNights')),
@@ -75,6 +77,8 @@ const GiftVoucher = () => {
       giverPostalCode: "",
       giverCity: "",
       giverEmail: "",
+      recipientFirstName: "",
+      recipientLastName: "",
       recipientEmail: "",
       recipientMessage: "",
       nights: "",
@@ -83,6 +87,7 @@ const GiftVoucher = () => {
 
   const selectedNights = form.watch("nights");
   const selectedOption = nightOptions.find(opt => opt.value === selectedNights);
+  const isBathCards = selectedOption?.nights === 0;
 
   const onSubmit = async (data: VoucherFormData) => {
     setIsProcessing(true);
@@ -97,6 +102,8 @@ const GiftVoucher = () => {
           giverPostalCode: data.giverPostalCode,
           giverCity: data.giverCity,
           giverEmail: data.giverEmail,
+          recipientFirstName: data.recipientFirstName,
+          recipientLastName: data.recipientLastName,
           recipientEmail: data.recipientEmail,
           recipientMessage: data.recipientMessage,
         },
@@ -107,7 +114,6 @@ const GiftVoucher = () => {
       }
 
       if (responseData?.url) {
-        // Redirect to Stripe Checkout
         window.location.href = responseData.url;
       } else {
         throw new Error("Ni prejete URL za plačilo");
@@ -165,6 +171,14 @@ const GiftVoucher = () => {
     } else {
       return nights === 1 ? t('voucher.night') : t('voucher.nights');
     }
+  };
+
+  // Get preview image based on selection
+  const getPreviewImage = () => {
+    // Both use voucher-preview.jpg for now - replace with separate images later
+    // Bath cards: /voucher-preview-bath.jpg
+    // Nights: /voucher-preview-nights.jpg
+    return "/voucher-preview.jpg";
   };
 
   return (
@@ -321,6 +335,36 @@ const GiftVoucher = () => {
                       </h2>
                     </div>
 
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      <FormField
+                        control={form.control}
+                        name="recipientFirstName"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>{t('voucher.firstName')} *</FormLabel>
+                            <FormControl>
+                              <Input placeholder={t('voucher.firstName')} {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+
+                      <FormField
+                        control={form.control}
+                        name="recipientLastName"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>{t('voucher.lastName')} *</FormLabel>
+                            <FormControl>
+                              <Input placeholder={t('voucher.lastName')} {...field} />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+
                     <FormField
                       control={form.control}
                       name="recipientEmail"
@@ -413,19 +457,58 @@ const GiftVoucher = () => {
                         )}
                       </motion.div>
                     )}
+
+                    {/* Voucher Preview Image */}
+                    {selectedOption && (
+                      <motion.div
+                        key={isBathCards ? "bath" : "nights"}
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ duration: 0.3 }}
+                        className="rounded-xl overflow-hidden border border-border/50 shadow-sm"
+                      >
+                        <img
+                          src={getPreviewImage()}
+                          alt={isBathCards ? "Predogled bona - Kopalne karte" : "Predogled bona - Nočitve"}
+                          className="w-full h-auto object-contain"
+                        />
+                      </motion.div>
+                    )}
                     
                     {/* Preview Button */}
-                    <Button
-                      type="button"
-                      variant="outline"
-                      className="w-full"
-                      onClick={() => {
-                        window.open('/voucher-preview', '_blank', 'noopener,noreferrer');
-                      }}
-                    >
-                      <Eye className="w-4 h-4 mr-2" />
-                      {t('voucher.previewButton')}
-                    </Button>
+                    {selectedOption && (
+                      <Button
+                        type="button"
+                        variant="outline"
+                        className="w-full"
+                        onClick={() => {
+                          // Open preview image in a new window
+                          const previewUrl = getPreviewImage();
+                          const win = window.open("", "_blank", "noopener,noreferrer");
+                          if (win) {
+                            win.document.write(`
+                              <!DOCTYPE html>
+                              <html>
+                              <head>
+                                <title>Predogled darilnega bona</title>
+                                <style>
+                                  body { margin: 0; background: #111; display: flex; align-items: center; justify-content: center; min-height: 100vh; }
+                                  img { max-width: 95vw; max-height: 95vh; object-fit: contain; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+                                </style>
+                              </head>
+                              <body>
+                                <img src="${previewUrl}" alt="Predogled bona" />
+                              </body>
+                              </html>
+                            `);
+                            win.document.close();
+                          }
+                        }}
+                      >
+                        <Eye className="w-4 h-4 mr-2" />
+                        {t('voucher.previewButton')}
+                      </Button>
+                    )}
                   </div>
 
                   {/* Payment Info - with uploaded images */}

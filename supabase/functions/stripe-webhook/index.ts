@@ -23,6 +23,54 @@ function getNightsText(nights: number): string {
   return `${nights} ${nights === 1 ? "noč" : "noči"}`;
 }
 
+// Generate dynamic voucher HTML for bath cards (kopalne karte)
+function generateBathCardsVoucherHtml(voucher: any): string {
+  const safeRecipient = escapeHtml(`${voucher.recipient_first_name || ""} ${voucher.recipient_last_name || ""}`);
+  const safeGiver = escapeHtml(`${voucher.giver_first_name || ""} ${voucher.giver_last_name || ""}`);
+
+  return `
+<!DOCTYPE html>
+<html>
+<head><meta charset="UTF-8">
+<style>
+  @page { size: A4 landscape; margin: 0; }
+  body { font-family: 'Georgia', serif; margin: 0; padding: 40px; background: linear-gradient(135deg, #f5f5dc 0%, #e8dcc4 100%); min-height: 100vh; box-sizing: border-box; }
+  .voucher { border: 3px solid #8b7355; border-radius: 20px; padding: 40px; background: white; box-shadow: 0 10px 30px rgba(0,0,0,0.1); max-width: 900px; margin: 0 auto; }
+  .header { text-align: center; border-bottom: 2px solid #8b7355; padding-bottom: 20px; margin-bottom: 30px; }
+  .title { font-size: 36px; color: #5d4e37; margin: 0; text-transform: uppercase; letter-spacing: 3px; }
+  .subtitle { font-size: 18px; color: #8b7355; margin-top: 10px; }
+  .amount { font-size: 42px; color: #5d4e37; font-weight: bold; text-align: center; padding: 20px; background: linear-gradient(135deg, #f5f5dc 0%, #e8dcc4 100%); border-radius: 10px; margin: 20px 0; }
+  .fields { display: flex; flex-wrap: wrap; gap: 20px; margin: 30px 0; }
+  .field { flex: 1; min-width: 200px; }
+  .label { font-size: 12px; color: #888; text-transform: uppercase; margin-bottom: 5px; }
+  .value { font-size: 18px; color: #333; }
+  .code { text-align: center; font-size: 24px; font-family: monospace; background: #f5f5f5; padding: 15px; border-radius: 8px; letter-spacing: 2px; margin-top: 20px; }
+  .footer { text-align: center; font-size: 12px; color: #888; margin-top: 30px; padding-top: 20px; border-top: 1px solid #ddd; }
+</style>
+</head>
+<body>
+<div class="voucher">
+  <div class="header">
+    <h1 class="title">Darilni Bon</h1>
+    <p class="subtitle">La Vita Hiška • Terme 3000</p>
+  </div>
+  <div class="amount">2x Kopalni Karti</div>
+  <div class="fields">
+    <div class="field"><div class="label">Prejemnik</div><div class="value">${safeRecipient}</div></div>
+    <div class="field"><div class="label">Podarja</div><div class="value">${safeGiver}</div></div>
+    <div class="field"><div class="label">Vrsta</div><div class="value">2x Celodnevne kopalne karte za Termalni Kompleks Terme 3000</div></div>
+    <div class="field"><div class="label">Datum izdaje</div><div class="value">${formatDateSl(new Date(voucher.issued_at))}</div></div>
+  </div>
+  <div class="code">Koda bona: <strong>${escapeHtml(voucher.code)}</strong></div>
+  <div class="footer">
+    <p>Bon velja 1 leto od datuma izdaje. Prevzem kart na Recepciji Kampa (doplačilo 6,50 €).</p>
+    <p>Za rezervacijo kontaktirajte: rent@lavitaterme3000.com | www.lavitaterme3000.com</p>
+  </div>
+</div>
+</body>
+</html>`;
+}
+
 // Generate dynamic voucher HTML for "ŠTEVILO NOČI" type
 function generateDynamicVoucherHtml(voucher: any): string {
   const safeRecipient = escapeHtml(`${voucher.recipient_first_name || ""} ${voucher.recipient_last_name || ""}`);
@@ -204,9 +252,12 @@ serve(async (req) => {
       let attachmentFilename: string | undefined;
 
       if (isBathCards) {
-        // Static voucher for bath cards - no dynamic fill
+        // Dynamic voucher for bath cards
+        const voucherHtml = generateBathCardsVoucherHtml(voucher);
+        const encoder = new TextEncoder();
+        const bytes = encoder.encode(voucherHtml);
+        attachmentBase64 = btoa(String.fromCharCode(...bytes));
         attachmentFilename = `Darilni-bon-kopalne-karte-${voucher.code}.html`;
-        // Mark as generated (static)
         await supabase.from("gift_vouchers").update({ voucher_generated: true }).eq("id", voucher.id);
       } else {
         // Dynamic voucher for nights

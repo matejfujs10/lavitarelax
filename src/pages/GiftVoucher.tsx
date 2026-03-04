@@ -175,10 +175,7 @@ const GiftVoucher = () => {
 
   // Get preview image based on selection
   const getPreviewImage = () => {
-    // Both use voucher-preview.jpg for now - replace with separate images later
-    // Bath cards: /voucher-preview-bath.jpg
-    // Nights: /voucher-preview-nights.jpg
-    return "/voucher-preview.jpg";
+    return isBathCards ? "/voucher-kopalne-karte.jpg" : "/voucher-stevilo-noci.jpg";
   };
 
   return (

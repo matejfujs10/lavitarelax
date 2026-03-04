@@ -51,8 +51,8 @@ const termsContent = {
         subtitle: "Dodatne kopalne karte:",
         items: [
           "odrasli: 21,90 EUR na osebo na noč",
-          "otroci od 6 do 14,99 let: 17,90 EUR na osebo na noč",
-          "otroci do 5,99 let: brezplačno"
+          "otroci od 5 do 14,99 let: 17,90 EUR",
+          "otroci do 4,99 let: brezplačno"
         ],
         content3: "Dodatne kopalne karte se kupijo na recepciji kampa po znižani ceni."
       },
@@ -144,8 +144,8 @@ const termsContent = {
         subtitle: "Additional spa tickets:",
         items: [
           "adults: €21.90 per person per night",
-          "children 6 to 14.99 years: €17.90 per person per night",
-          "children up to 5.99 years: free"
+          "children 5 to 14.99 years: €17.90",
+          "children up to 4.99 years: free"
         ],
         content3: "Additional spa tickets can be purchased at the camp reception at a reduced price."
       },
@@ -237,8 +237,8 @@ const termsContent = {
         subtitle: "Zusätzliche Spa-Tickets:",
         items: [
           "Erwachsene: 21,90 € pro Person/Nacht",
-          "Kinder 6 bis 14,99 Jahre: 17,90 € pro Person/Nacht",
-          "Kinder bis 5,99 Jahre: kostenlos"
+          "Kinder von 5 bis 14,99 Jahre: 17,90 €",
+          "Kinder bis 4,99 Jahre: kostenlos"
         ],
         content3: "Zusätzliche Spa-Tickets können an der Camp-Rezeption zu ermäßigten Preisen erworben werden."
       },

@@ -85,16 +85,20 @@ export const BookingSection = () => {
 
   const priceInfo = language === 'sl' ? [
     "ZNIŽANE KARTE za tretjo in ostale osebe 21,90€",
-    "GRATIS za otroke do 6 leta",
-    "Otroci do 15 leta 17,90€ po osebi na noč",
+    "GRATIS za otroke do 4,99 leta",
+    "Otroci od 5 do 14,99 leta 17,90€",
   ] : language === 'de' ? [
     "ERMÄSSIGTE TICKETS für dritte und weitere Personen 21,90€",
-    "GRATIS für Kinder bis 6 Jahre",
-    "Kinder bis 15 Jahre 17,90€ pro Person/Nacht",
+    "GRATIS für Kinder bis 4,99 Jahre",
+    "Kinder von 5 bis 14,99 Jahre 17,90€",
+  ] : language === 'hr' ? [
+    "SNIŽENE KARTE za treću i ostale osobe 21,90€",
+    "GRATIS za djecu do 4,99 godina",
+    "Djeca od 5 do 14,99 godina 17,90€",
   ] : [
     "REDUCED TICKETS for 3rd and additional persons €21.90",
-    "FREE for children up to 6 years",
-    "Children up to 15 years €17.90 per person/night",
+    "FREE for children up to 4.99 years",
+    "Children from 5 to 14.99 years €17.90",
   ];
 
   useEffect(() => {

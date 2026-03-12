@@ -14,14 +14,14 @@ import slide7 from "@/assets/slide-7.jpg";
 import slide8 from "@/assets/slide-8.jpg";
 
 const heroSlides = [
-  { src: slide1, alt: "Počitniška hiška Hiška La Vita v Kampu Terme 3000 – poletni pogled" },
-  { src: slide2, alt: "Hiška La Vita Moravske Toplice – zimski ambient" },
-  { src: slide3, alt: "Počitniška hiška Hiška La Vita – večerni pogled" },
-  { src: slide4, alt: "Hiška La Vita Kamp Terme 3000 – nočna osvetlitev" },
-  { src: slide5, alt: "Zunanjost počitniške hiške Hiška La Vita v Moravskih Toplicah" },
-  { src: slide6, alt: "Terme 3000 Moravske Toplice – termalni bazeni" },
-  { src: slide7, alt: "Okolica Kampa Terme 3000 v Moravskih Toplicah" },
-  { src: slide8, alt: "Notranjost hiške Hiška La Vita – spalnica z LED osvetlitvijo" },
+  { src: slide1, alt: "La Vita House Terme 3000 accommodation" },
+  { src: slide2, alt: "Holiday house Moravske Toplice Slovenia" },
+  { src: slide3, alt: "Camping Terme 3000 holiday house" },
+  { src: slide4, alt: "Terrace La Vita House Moravske Toplice" },
+  { src: slide5, alt: "Family accommodation Terme 3000 Slovenia" },
+  { src: slide6, alt: "Holiday house near Terme 3000 spa" },
+  { src: slide7, alt: "Camping Terme 3000 surroundings Moravske Toplice" },
+  { src: slide8, alt: "La Vita House bedroom with LED lighting" },
 ];
 
 export const HeroSection = () => {

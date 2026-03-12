@@ -1,0 +1,1 @@
+ALTER TABLE public.gift_vouchers ALTER COLUMN code TYPE character varying(30);

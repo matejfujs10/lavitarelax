@@ -87,14 +87,17 @@ export const Navbar = () => {
         }`}
       >
         <div className="container mx-auto px-4 flex items-center justify-between">
-          {/* Logo - Text Based with Arrow */}
+          {/* Logo - Text Based with Arrow and Tagline */}
           <a href="#domov" className="flex items-center gap-2 group">
             <motion.div
               whileHover={{ scale: 1.02 }}
               className="flex items-center gap-2"
             >
               <ArrowRight className="w-6 h-6 text-accent" />
-              <span className="font-display text-xl font-bold text-foreground">Hiška La Vita</span>
+              <div className="flex flex-col">
+                <span className="font-display text-xl font-bold text-foreground leading-tight">Hiška La Vita</span>
+                <span className="text-[10px] tracking-[0.2em] text-muted-foreground font-medium uppercase leading-tight">Enjoy · Relax · Refresh</span>
+              </div>
             </motion.div>
           </a>
 

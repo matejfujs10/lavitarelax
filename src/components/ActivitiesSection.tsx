@@ -2,132 +2,35 @@ import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
 import { 
-  Waves, 
-  Ship, 
-  Wine, 
-  Bike, 
-  Mountain, 
-  TreePine, 
-  Building2,
-  Utensils,
-  Camera,
-  Heart,
-  Sparkles,
-  MapPin,
-  ChefHat,
-  Castle,
-  Leaf
+  Waves, Ship, Wine, Bike, Mountain, TreePine, Building2,
+  Utensils, Camera, Heart, Sparkles, MapPin, ChefHat, Castle, Leaf
 } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
-const activities = [
-  {
-    icon: Waves,
-    title: "Terme 3000",
-    subtitle: "Zdravilna črna voda",
-    description: "Potopite se v edinstveno črno termo-mineralno vodo z zdravilnimi učinki. Bazeni, savne, wellness in nepozabna sprostitev le nekaj korakov od vaše hiške.",
-    highlight: "2x kopalni karti vključeni",
-    color: "bg-primary/10 text-primary",
-  },
-  {
-    icon: Ship,
-    title: "Rafting na Muri",
-    subtitle: "Avantura za vse",
-    description: "Prepustite se toku najdaljše slovenske reke. Mirno veslanje skozi devištvo narave, kjer srečate bobra in obilje ptic. Popolno za družine in romantične pare.",
-    highlight: "24 km od hiške",
-    color: "bg-accent/15 text-accent-foreground",
-  },
-  {
-    icon: Wine,
-    title: "Jeruzalem",
-    subtitle: "Vinorodna pravljica",
-    description: "Slikovite vinorodne gorice s panoramskimi razgledi, ki jemljejo dih. Degustirajte vrhunska bela vina in uživajte v kulinaričnih dobrotah Prlekije.",
-    highlight: "Najboljše vinorodne lege",
-    color: "bg-primary/10 text-primary",
-  },
-  {
-    icon: Bike,
-    title: "Ride Goričko",
-    subtitle: "Kolesarski raj",
-    description: "Gričevnata pokrajina Goričkega vabi na kolesarske pustolovščine. Električna kolesa, lokalni vodniki in skrite poti vas popeljejo skozi zeleno srce Pomurja.",
-    highlight: "3x kolesa brezplačno",
-    color: "bg-accent/15 text-accent-foreground",
-  },
-  {
-    icon: Mountain,
-    title: "Stolp Vinarium",
-    subtitle: "Razgled na 4 države",
-    description: "Vzpnite se na 54-metrski razgledni stolp in uživajte v dih jemajočem 360° pogledu na Slovenijo, Madžarsko, Hrvaško in Avstrijo. Zipline za pogumne!",
-    highlight: "Adrenalinski zipline",
-    color: "bg-primary/10 text-primary",
-  },
-  {
-    icon: TreePine,
-    title: "Bukovniško jezero",
-    subtitle: "Energijske točke",
-    description: "Skrivnostno jezero z 26 energijskimi točkami, obdano s stoletnim gozdom. Idealno za meditacijo, sprehode in ribolov v absolutnem miru narave.",
-    highlight: "26 energijskih točk",
-    color: "bg-accent/15 text-accent-foreground",
-  },
-  {
-    icon: Building2,
-    title: "Expano",
-    subtitle: "Vrata v Pomurje",
-    description: "Sodobni interaktivni paviljon ob Soboškem jezeru. Odkrijte zgodbo Pomurja skozi inovativne predstavitve narave, športa, tradicije in kulinarike.",
-    highlight: "Ob Soboškem jezeru",
-    color: "bg-primary/10 text-primary",
-  },
-  {
-    icon: Castle,
-    title: "Grad Grad",
-    subtitle: "365 sob, 1 grad",
-    description: "Največji baročni grad v Sloveniji s 365 sobami — ena za vsak dan v letu. Obiščite muzejske zbirke in odkrijte bogato zgodovino Goričkega.",
-    highlight: "Največji grad v SLO",
-    color: "bg-accent/15 text-accent-foreground",
-  },
-  {
-    icon: Sparkles,
-    title: "Park Vulkanija",
-    subtitle: "Vulkanska pustolovščina",
-    description: "Ste vedeli, da je zadnji vulkan v Sloveniji izbruhnil pred 3 milijoni let? Doživite interaktivno izkušnjo geološke zgodovine za celo družino.",
-    highlight: "Edinstveno v Sloveniji",
-    color: "bg-primary/10 text-primary",
-  },
-  {
-    icon: Leaf,
-    title: "Ocean Orchids",
-    subtitle: "Tropski vrt",
-    description: "Potujte v tropske kraje sredi Prekmurja. Občudujte orhideje z vsega sveta, eksotične rastline in subtropski ambient, ki vas bo očaral.",
-    highlight: "Tropska oaza",
-    color: "bg-accent/15 text-accent-foreground",
-  },
+const activityKeys = [
+  { icon: Waves, key: "terme", color: "bg-primary/10 text-primary" },
+  { icon: Ship, key: "rafting", color: "bg-accent/15 text-accent-foreground" },
+  { icon: Wine, key: "jeruzalem", color: "bg-primary/10 text-primary" },
+  { icon: Bike, key: "goricko", color: "bg-accent/15 text-accent-foreground" },
+  { icon: Mountain, key: "vinarium", color: "bg-primary/10 text-primary" },
+  { icon: TreePine, key: "bukovnisko", color: "bg-accent/15 text-accent-foreground" },
+  { icon: Building2, key: "expano", color: "bg-primary/10 text-primary" },
+  { icon: Castle, key: "grad", color: "bg-accent/15 text-accent-foreground" },
+  { icon: Sparkles, key: "vulkanija", color: "bg-primary/10 text-primary" },
+  { icon: Leaf, key: "orchids", color: "bg-accent/15 text-accent-foreground" },
 ];
 
-const culinaryExperiences = [
-  {
-    icon: ChefHat,
-    title: "Gostilna Rajh",
-    description: "Četrta generacija s prekmursko tradicijo in sodobnim pridihom",
-  },
-  {
-    icon: Utensils,
-    title: "Kodila - Meet Meat Eat",
-    description: "Raj za ljubitelje mesa in izbranih zrezkov",
-  },
-  {
-    icon: Heart,
-    title: "Čokoladnica Passero",
-    description: "Prekmurski okusi v čokoladnih pralinejih in sladoledu",
-  },
-  {
-    icon: Wine,
-    title: "Hiša Gibanice",
-    description: "Spoznajte skrivnosti prave prekmurske gibanice",
-  },
+const culinaryKeys = [
+  { icon: ChefHat, nameKey: "culinary.rajh", descKey: "culinary.rajhDesc" },
+  { icon: Utensils, nameKey: "culinary.kodila", descKey: "culinary.kodilaDesc" },
+  { icon: Heart, nameKey: "culinary.passero", descKey: "culinary.passeroDesc" },
+  { icon: Wine, nameKey: "culinary.gibanica", descKey: "culinary.gibanicaDesc" },
 ];
 
 export const ActivitiesSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const { t } = useLanguage();
 
   return (
     <section id="aktivnosti" className="py-24 bg-secondary/30">
@@ -142,23 +45,21 @@ export const ActivitiesSection = () => {
         >
           <span className="inline-flex items-center gap-2 text-primary font-medium text-sm tracking-wide uppercase mb-4 bg-primary/10 px-4 py-2 rounded-full">
             <MapPin className="w-4 h-4" />
-            Raziščite Pomurje
+            {t('activities.label')}
           </span>
           <h2 className="font-display text-4xl md:text-5xl lg:text-6xl font-bold text-foreground mb-6">
-            Aktivnosti v okolici Term 3000
+            {t('activities.title')}
           </h2>
           <p className="text-muted-foreground text-lg md:text-xl leading-relaxed">
-            Prekmurje ni samo ravnica z reko Muro. Odkrijte gričevnato Goričko, 
-            zdravilne termalne kopeli, kulinarične mojstrovine in skrivnostne kotičke, 
-            kjer čas teče počasneje.
+            {t('activities.subtitle')}
           </p>
         </motion.div>
 
         {/* Activities Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
-          {activities.map((activity, index) => (
+          {activityKeys.map((activity, index) => (
             <motion.div
-              key={activity.title}
+              key={activity.key}
               initial={{ opacity: 0, y: 30 }}
               animate={isInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.5, delay: index * 0.1 }}
@@ -168,16 +69,16 @@ export const ActivitiesSection = () => {
                 <activity.icon className="w-7 h-7" />
               </div>
               <h3 className="font-display text-xl font-bold text-foreground mb-1">
-                {activity.title}
+                {t(`activity.${activity.key}.title`)}
               </h3>
               <p className="text-primary text-sm font-medium mb-3">
-                {activity.subtitle}
+                {t(`activity.${activity.key}.subtitle`)}
               </p>
               <p className="text-muted-foreground text-sm leading-relaxed mb-4">
-                {activity.description}
+                {t(`activity.${activity.key}.desc`)}
               </p>
               <span className="inline-block bg-accent/20 text-accent-foreground text-xs font-semibold px-3 py-1.5 rounded-full">
-                {activity.highlight}
+                {t(`activity.${activity.key}.highlight`)}
               </span>
             </motion.div>
           ))}
@@ -193,21 +94,20 @@ export const ActivitiesSection = () => {
           <div className="text-center mb-10">
             <span className="inline-flex items-center gap-2 text-accent-foreground font-medium text-sm tracking-wide uppercase mb-4 bg-accent/20 px-4 py-2 rounded-full">
               <Utensils className="w-4 h-4" />
-              Kulinarika
+              {t('activities.culinary')}
             </span>
             <h3 className="font-display text-3xl md:text-4xl font-bold text-foreground mb-4">
-              Termalne izkušnje
+              {t('activities.culinaryTitle')}
             </h3>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Bil bi greh, če ne bi poskusili bograča, bujte repe, prekmurske gibanice, 
-              domače šunke in drugih kulinaričnih dobrot te čarobne pokrajine.
+              {t('activities.culinarySubtitle')}
             </p>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {culinaryExperiences.map((item, index) => (
+            {culinaryKeys.map((item, index) => (
               <motion.div
-                key={item.title}
+                key={item.nameKey}
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={isInView ? { opacity: 1, scale: 1 } : {}}
                 transition={{ duration: 0.4, delay: 0.7 + index * 0.1 }}
@@ -217,10 +117,10 @@ export const ActivitiesSection = () => {
                   <item.icon className="w-6 h-6" />
                 </div>
                 <h4 className="font-display font-semibold text-foreground mb-2">
-                  {item.title}
+                  {t(item.nameKey)}
                 </h4>
                 <p className="text-muted-foreground text-sm">
-                  {item.description}
+                  {t(item.descKey)}
                 </p>
               </motion.div>
             ))}
@@ -237,17 +137,17 @@ export const ActivitiesSection = () => {
           <div className="inline-flex flex-wrap items-center justify-center gap-4 md:gap-6 bg-gradient-to-r from-primary/10 via-accent/10 to-primary/10 px-8 py-6 rounded-2xl">
             <span className="flex items-center gap-2 text-foreground font-medium">
               <Camera className="w-5 h-5 text-primary" />
-              Sprehodi v naravi
+              {t('activities.walks')}
             </span>
             <span className="text-muted-foreground">•</span>
             <span className="flex items-center gap-2 text-foreground font-medium">
               <Ship className="w-5 h-5 text-primary" />
-              SUP & Surf na Soboškem jezeru
+              {t('activities.sup')}
             </span>
             <span className="text-muted-foreground">•</span>
             <span className="flex items-center gap-2 text-foreground font-medium">
               <Heart className="w-5 h-5 text-primary" />
-              Amazon of Europe
+              {t('activities.amazon')}
             </span>
           </div>
         </motion.div>

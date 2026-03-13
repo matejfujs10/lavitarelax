@@ -20,13 +20,13 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.reviews': 'MNENJA GOSTOV',
     'nav.faq': 'POGOSTA VPRAŠANJA',
     'nav.about': 'O NAS',
-    'nav.tagline': 'Travel·Enjoy·Explore',
+    'nav.tagline': 'Enjoy · Relax · Refresh',
     
     // Hero Section
-    'hero.title1': 'Hiška',
-    'hero.title2': 'La Vita',
+    'hero.title.main': 'Hiška La Vita',
+    'hero.title.sub': '– Kamp Terme 3000',
     'hero.subtitle': 'Vaš kotiček sprostitve in narave v Termah 3000',
-    'hero.winterAction': 'Zimska akcija',
+    'hero.springAction': 'Pomladna akcija',
     'hero.summerAction': 'Poletna akcija',
     'hero.perNight': '/noč',
     'hero.bookNow': 'Rezerviraj zdaj',
@@ -159,7 +159,7 @@ const translations: Record<Language, Record<string, string>> = {
     'voucherSuccess.backHome': 'Nazaj na domačo stran',
     
     // Booking
-    'booking.winterOffer': 'Zimska ponudba',
+    'booking.springOffer': 'Pomladna akcija',
     'booking.summerOffer': 'Poletna ponudba',
     'booking.formTitle': 'Rezervacijski Obrazec',
     'booking.nameLabel': 'Ime in Priimek',
@@ -231,11 +231,83 @@ const translations: Record<Language, Record<string, string>> = {
     'activities.sup': 'SUP & Surf na Soboškem jezeru',
     'activities.amazon': 'Amazon of Europe',
     
+    // Activity items
+    'activity.terme.title': 'Terme 3000',
+    'activity.terme.subtitle': 'Zdravilna črna voda',
+    'activity.terme.desc': 'Potopite se v edinstveno črno termo-mineralno vodo z zdravilnimi učinki. Bazeni, savne, wellness in nepozabna sprostitev le nekaj korakov od vaše hiške.',
+    'activity.terme.highlight': '2x kopalni karti vključeni',
+    'activity.rafting.title': 'Rafting na Muri',
+    'activity.rafting.subtitle': 'Avantura za vse',
+    'activity.rafting.desc': 'Prepustite se toku najdaljše slovenske reke. Mirno veslanje skozi devištvo narave, kjer srečate bobra in obilje ptic. Popolno za družine in romantične pare.',
+    'activity.rafting.highlight': '24 km od hiške',
+    'activity.jeruzalem.title': 'Jeruzalem',
+    'activity.jeruzalem.subtitle': 'Vinorodna pravljica',
+    'activity.jeruzalem.desc': 'Slikovite vinorodne gorice s panoramskimi razgledi, ki jemljejo dih. Degustirajte vrhunska bela vina in uživajte v kulinaričnih dobrotah Prlekije.',
+    'activity.jeruzalem.highlight': 'Najboljše vinorodne lege',
+    'activity.goricko.title': 'Ride Goričko',
+    'activity.goricko.subtitle': 'Kolesarski raj',
+    'activity.goricko.desc': 'Gričevnata pokrajina Goričkega vabi na kolesarske pustolovščine. Električna kolesa, lokalni vodniki in skrite poti vas popeljejo skozi zeleno srce Pomurja.',
+    'activity.goricko.highlight': '3x kolesa brezplačno',
+    'activity.vinarium.title': 'Stolp Vinarium',
+    'activity.vinarium.subtitle': 'Razgled na 4 države',
+    'activity.vinarium.desc': 'Vzpnite se na 54-metrski razgledni stolp in uživajte v dih jemajočem 360° pogledu na Slovenijo, Madžarsko, Hrvaško in Avstrijo. Zipline za pogumne!',
+    'activity.vinarium.highlight': 'Adrenalinski zipline',
+    'activity.bukovnisko.title': 'Bukovniško jezero',
+    'activity.bukovnisko.subtitle': 'Energijske točke',
+    'activity.bukovnisko.desc': 'Skrivnostno jezero z 26 energijskimi točkami, obdano s stoletnim gozdom. Idealno za meditacijo, sprehode in ribolov v absolutnem miru narave.',
+    'activity.bukovnisko.highlight': '26 energijskih točk',
+    'activity.expano.title': 'Expano',
+    'activity.expano.subtitle': 'Vrata v Pomurje',
+    'activity.expano.desc': 'Sodobni interaktivni paviljon ob Soboškem jezeru. Odkrijte zgodbo Pomurja skozi inovativne predstavitve narave, športa, tradicije in kulinarike.',
+    'activity.expano.highlight': 'Ob Soboškem jezeru',
+    'activity.grad.title': 'Grad Grad',
+    'activity.grad.subtitle': '365 sob, 1 grad',
+    'activity.grad.desc': 'Največji baročni grad v Sloveniji s 365 sobami — ena za vsak dan v letu. Obiščite muzejske zbirke in odkrijte bogato zgodovino Goričkega.',
+    'activity.grad.highlight': 'Največji grad v SLO',
+    'activity.vulkanija.title': 'Park Vulkanija',
+    'activity.vulkanija.subtitle': 'Vulkanska pustolovščina',
+    'activity.vulkanija.desc': 'Ste vedeli, da je zadnji vulkan v Sloveniji izbruhnil pred 3 milijoni let? Doživite interaktivno izkušnjo geološke zgodovine za celo družino.',
+    'activity.vulkanija.highlight': 'Edinstveno v Sloveniji',
+    'activity.orchids.title': 'Ocean Orchids',
+    'activity.orchids.subtitle': 'Tropski vrt',
+    'activity.orchids.desc': 'Potujte v tropske kraje sredi Prekmurja. Občudujte orhideje z vsega sveta, eksotične rastline in subtropski ambient, ki vas bo očaral.',
+    'activity.orchids.highlight': 'Tropska oaza',
+    
+    // Culinary items
+    'culinary.rajh': 'Gostilna Rajh',
+    'culinary.rajhDesc': 'Četrta generacija s prekmursko tradicijo in sodobnim pridihom',
+    'culinary.kodila': 'Kodila - Meet Meat Eat',
+    'culinary.kodilaDesc': 'Raj za ljubitelje mesa in izbranih zrezkov',
+    'culinary.passero': 'Čokoladnica Passero',
+    'culinary.passeroDesc': 'Prekmurski okusi v čokoladnih pralinejih in sladoledu',
+    'culinary.gibanica': 'Hiša Gibanice',
+    'culinary.gibanicaDesc': 'Spoznajte skrivnosti prave prekmurske gibanice',
+    
     // FAQ Section
     'faq.label': '❓ Pogosta vprašanja',
     'faq.title': 'Imate Vprašanja?',
     'faq.subtitle': 'Tukaj najdete odgovore na najpogostejša vprašanja naših gostov',
-    'faq.winterBadge': '🎄 Zimska ponudba',
+    'faq.springBadge': '🌸 Pomladna ponudba',
+    'faq.q1': 'Kaj je vključeno v ceno nočitve?',
+    'faq.a1': 'V ceno nočitve sta vključeni 2 kopalni karti za termalni kompleks Terme 3000, uporaba 3 koles, otroške igrače, športni rekviziti, popolnoma opremljena kuhinja, LED ambientna osvetlitev, HI-FI sistem, vrhunska DORMEO ležišča. WiFi je na voljo brezplačno. V pomladansko ponudbo so dodatno vključene otroške igrače ter videorekorder s filmi in risankami.',
+    'faq.q2': 'Ali je posteljnina vključena?',
+    'faq.a2': 'Da. Posteljnina je vključena, pripravljena, da oblečete postelje, kjer boste spali. V nekaterih primerih bomo postelje že oblekli in pripravili za vas.',
+    'faq.q3': 'Koliko oseb lahko prenočuje v La Vita Hiški?',
+    'faq.a3': 'Hiška je zasnovana za udobno nastanitev do 6 oseb. Idealna je za družine z otroki, pare ali manjše skupine prijateljev, ki iščejo sproščen oddih v naravi.',
+    'faq.q4': 'Kakšne so možnosti parkiranja?',
+    'faq.a4': 'Brezplačno parkirišče je na voljo neposredno ob hiški. Za vsako rezervacijo je zagotovljeno parkirno mesto.',
+    'faq.q5': 'Ali je dovoljeno prinesti hišne ljubljenčke?',
+    'faq.a5': 'Hišni ljubljenčki so dobrodošli! Lahko bivajo na veliki pokriti terasi za hiško. V kolikor morajo bivati v hiški, vas prosimo, da ne hodijo po posteljah. Doplačilo za hišne ljubljenčke je 5 € na noč.',
+    'faq.q6': 'Kakšni so pogoji za rezervacijo in odpoved?',
+    'faq.a6': 'Ob rezervaciji je potrebno nakazati aro v višini 30 % skupne cene ali po dogovoru. Brezplačna odpoved je možna do 3 dni pred prihodom. V primeru odpovedi vam izdamo darilni bon v vrednosti vplačane are.',
+    'faq.q7': 'Kdaj je možen prihod in odhod?',
+    'faq.a7': 'Prihod je možen že ob 9. uri, ko lahko že koristite kopanje v termalnem kompleksu. Namestitev v hiški je možna od 13:30 naprej, odhod pa do 11:00. V primeru, da je hiška naslednji dan prosta, je možno podaljšanje bivanja.',
+    'faq.q8': 'Kako daleč so Terme 3000?',
+    'faq.a8': 'La Vita Hiška se nahaja neposredno v Kampu Terme 3000, kar pomeni, da ste le nekaj korakov stran od vseh termalnih doživetij in zabave.',
+    'faq.q9': 'Ali je kuhinja polno opremljena?',
+    'faq.a9': 'Da! Posoda, pribor, hladilnik z zamrzovalnikom, kuhalna plošča, mikrovalovna pečica, toaster.',
+    'faq.q10': 'Ali nudite popust za daljša bivanja?',
+    'faq.a10': 'Da, za večdnevna bivanja (7 dni ali več) odobrimo poseben popust. Pišite nam na rent@lavitaterme3000.com za več informacij.',
     
     // Testimonials Section
     'testimonials.badge': '⭐ 100% priporočajo (9+ ocen)',
@@ -246,6 +318,22 @@ const translations: Record<Language, Record<string, string>> = {
     // Promo Banner Section
     'promo.summerBanner': 'POLETNA AKCIJA 110€ na noč z dvema kopalnima kartama + 3x Kolesi + Športni Rekviziti',
     'promo.h2': 'Vključeni 2× kopalni karti in 3× brezplačna kolesa',
+    'promo.tickets': '2x KOPALNI KARTI VKLJUČENI',
+    'promo.tv': 'TV + Videorekorder s Filmi in Risankami',
+    'promo.suitable': 'Primerno za pare, družine, prijatelje',
+    'promo.camping': 'Možnost kampiranja prijateljev takoj ob hiški',
+    'promo.teambuilding': 'Team Buildingi',
+    'promo.creative': 'Kreativen Prostor',
+    'promo.nature': 'Urejena Okolica',
+    'promo.cozy': 'Domačnost in Toplina',
+    'promo.wood': 'Toplina Lesa',
+    'promo.unique': 'Unikatno preurejeni prostori',
+    'promo.bikes': '3x BREZPLAČNA KOLESA',
+    'promo.hifi': 'HI-FI sistem za sproščeno in zabavno vzdušje',
+    'promo.dormeo': 'DORMEO vrhunska ležišča',
+    'promo.led': 'LED ambientna osvetlitev',
+    'promo.kitchen': 'Polno opremljena kuhinja',
+    'promo.size': '50m² Velika hiška z dvema terasama',
   },
   en: {
     // Navbar
@@ -256,13 +344,13 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.reviews': 'GUEST REVIEWS',
     'nav.faq': 'FAQ',
     'nav.about': 'ABOUT US',
-    'nav.tagline': 'Travel·Enjoy·Explore',
+    'nav.tagline': 'Enjoy · Relax · Refresh',
     
     // Hero Section
-    'hero.title1': 'House',
-    'hero.title2': 'La Vita',
+    'hero.title.main': 'La Vita House',
+    'hero.title.sub': '– Camp Terme 3000',
     'hero.subtitle': 'Your corner of relaxation and nature at Terme 3000',
-    'hero.winterAction': 'Winter special',
+    'hero.springAction': 'Spring special',
     'hero.summerAction': 'Summer special',
     'hero.perNight': '/night',
     'hero.bookNow': 'Book now',
@@ -395,7 +483,7 @@ const translations: Record<Language, Record<string, string>> = {
     'voucherSuccess.backHome': 'Back to home page',
     
     // Booking
-    'booking.winterOffer': 'Winter offer',
+    'booking.springOffer': 'Spring special',
     'booking.summerOffer': 'Summer offer',
     'booking.formTitle': 'Booking Form',
     'booking.nameLabel': 'Full Name',
@@ -467,11 +555,83 @@ const translations: Record<Language, Record<string, string>> = {
     'activities.sup': 'SUP & Surf at Soboško lake',
     'activities.amazon': 'Amazon of Europe',
     
+    // Activity items
+    'activity.terme.title': 'Terme 3000',
+    'activity.terme.subtitle': 'Healing black water',
+    'activity.terme.desc': 'Immerse yourself in unique black thermo-mineral water with healing effects. Pools, saunas, wellness and unforgettable relaxation just steps from your house.',
+    'activity.terme.highlight': '2x spa tickets included',
+    'activity.rafting.title': 'Rafting on the Mura',
+    'activity.rafting.subtitle': 'Adventure for everyone',
+    'activity.rafting.desc': 'Let yourself go with the flow of the longest Slovenian river. Calm paddling through pristine nature where you meet beavers and abundant birdlife. Perfect for families and romantic couples.',
+    'activity.rafting.highlight': '24 km from the house',
+    'activity.jeruzalem.title': 'Jeruzalem',
+    'activity.jeruzalem.subtitle': 'Wine fairy tale',
+    'activity.jeruzalem.desc': 'Picturesque wine-growing hills with breathtaking panoramic views. Taste premium white wines and enjoy culinary delights of Prlekija.',
+    'activity.jeruzalem.highlight': 'Best wine-growing locations',
+    'activity.goricko.title': 'Ride Goričko',
+    'activity.goricko.subtitle': 'Cycling paradise',
+    'activity.goricko.desc': 'The hilly landscape of Goričko invites you on cycling adventures. Electric bikes, local guides and hidden paths take you through the green heart of Pomurje.',
+    'activity.goricko.highlight': '3x bikes for free',
+    'activity.vinarium.title': 'Vinarium Tower',
+    'activity.vinarium.subtitle': 'View of 4 countries',
+    'activity.vinarium.desc': 'Climb the 54-meter observation tower and enjoy a breathtaking 360° view of Slovenia, Hungary, Croatia and Austria. Zipline for the brave!',
+    'activity.vinarium.highlight': 'Adrenaline zipline',
+    'activity.bukovnisko.title': 'Bukovniško Lake',
+    'activity.bukovnisko.subtitle': 'Energy points',
+    'activity.bukovnisko.desc': 'A mysterious lake with 26 energy points, surrounded by centuries-old forest. Ideal for meditation, walks and fishing in absolute peace of nature.',
+    'activity.bukovnisko.highlight': '26 energy points',
+    'activity.expano.title': 'Expano',
+    'activity.expano.subtitle': 'Gateway to Pomurje',
+    'activity.expano.desc': 'A modern interactive pavilion by Soboško Lake. Discover the story of Pomurje through innovative presentations of nature, sports, tradition and cuisine.',
+    'activity.expano.highlight': 'By Soboško Lake',
+    'activity.grad.title': 'Grad Castle',
+    'activity.grad.subtitle': '365 rooms, 1 castle',
+    'activity.grad.desc': 'The largest baroque castle in Slovenia with 365 rooms — one for every day of the year. Visit museum collections and discover the rich history of Goričko.',
+    'activity.grad.highlight': 'Largest castle in SLO',
+    'activity.vulkanija.title': 'Vulkanija Park',
+    'activity.vulkanija.subtitle': 'Volcanic adventure',
+    'activity.vulkanija.desc': 'Did you know the last volcano in Slovenia erupted 3 million years ago? Experience an interactive geological history for the whole family.',
+    'activity.vulkanija.highlight': 'Unique in Slovenia',
+    'activity.orchids.title': 'Ocean Orchids',
+    'activity.orchids.subtitle': 'Tropical garden',
+    'activity.orchids.desc': 'Travel to tropical places in the heart of Prekmurje. Admire orchids from all over the world, exotic plants and subtropical ambiance that will enchant you.',
+    'activity.orchids.highlight': 'Tropical oasis',
+    
+    // Culinary items
+    'culinary.rajh': 'Gostilna Rajh',
+    'culinary.rajhDesc': 'Fourth generation with Prekmurje tradition and a modern touch',
+    'culinary.kodila': 'Kodila - Meet Meat Eat',
+    'culinary.kodilaDesc': 'Paradise for meat lovers and select steaks',
+    'culinary.passero': 'Čokoladnica Passero',
+    'culinary.passeroDesc': 'Prekmurje flavors in chocolate pralines and ice cream',
+    'culinary.gibanica': 'Hiša Gibanice',
+    'culinary.gibanicaDesc': 'Discover the secrets of authentic Prekmurje gibanica',
+    
     // FAQ Section
     'faq.label': '❓ Frequently Asked Questions',
     'faq.title': 'Have Questions?',
     'faq.subtitle': 'Here you can find answers to the most common questions from our guests',
-    'faq.winterBadge': '🎄 Winter offer',
+    'faq.springBadge': '🌸 Spring offer',
+    'faq.q1': 'What is included in the nightly rate?',
+    'faq.a1': 'The nightly rate includes 2 spa tickets for the Terme 3000 thermal complex, use of 3 bicycles, children\'s toys, sports equipment, fully equipped kitchen, LED ambient lighting, HI-FI system, premium DORMEO mattresses. WiFi is available for free. The spring offer additionally includes children\'s toys and a video recorder with movies and cartoons.',
+    'faq.q2': 'Is bed linen included?',
+    'faq.a2': 'Yes. Bed linen is included, prepared for you to dress the beds you will sleep in. In some cases, we will have the beds already made for you.',
+    'faq.q3': 'How many people can stay at La Vita House?',
+    'faq.a3': 'The house is designed for comfortable accommodation of up to 6 people. It is ideal for families with children, couples or small groups of friends looking for a relaxing retreat in nature.',
+    'faq.q4': 'What are the parking options?',
+    'faq.a4': 'Free parking is available right next to the house. A parking space is guaranteed for each reservation.',
+    'faq.q5': 'Are pets allowed?',
+    'faq.a5': 'Pets are welcome! They can stay on the large covered terrace behind the house. If they need to stay inside, we ask that they don\'t go on the beds. The pet surcharge is €5 per night.',
+    'faq.q6': 'What are the booking and cancellation conditions?',
+    'faq.a6': 'A deposit of 30% of the total price or by agreement is required upon booking. Free cancellation is possible up to 3 days before arrival. In case of cancellation, we issue a gift voucher in the value of the deposit paid.',
+    'faq.q7': 'What are the check-in and check-out times?',
+    'faq.a7': 'Check-in is possible from 9 AM, when you can already use the thermal complex for swimming. Accommodation in the house is available from 1:30 PM, and check-out is by 11:00 AM. If the house is free the next day, extending your stay is possible.',
+    'faq.q8': 'How far is Terme 3000?',
+    'faq.a8': 'La Vita House is located directly in Camp Terme 3000, which means you are just a few steps away from all thermal experiences and entertainment.',
+    'faq.q9': 'Is the kitchen fully equipped?',
+    'faq.a9': 'Yes! Pots, cutlery, refrigerator with freezer, cooking hob, microwave oven, toaster.',
+    'faq.q10': 'Do you offer discounts for longer stays?',
+    'faq.a10': 'Yes, for stays of 7 days or more we offer a special discount. Write to us at rent@lavitaterme3000.com for more information.',
     
     // Testimonials Section
     'testimonials.badge': '⭐ 100% recommend (9+ ratings)',
@@ -482,6 +642,22 @@ const translations: Record<Language, Record<string, string>> = {
     // Promo Banner Section
     'promo.summerBanner': 'SUMMER SPECIAL €110 per night with two spa tickets + 3x Bicycles + Sports Equipment',
     'promo.h2': 'Included 2× spa tickets and 3× free bicycles',
+    'promo.tickets': '2x SPA TICKETS INCLUDED',
+    'promo.tv': 'TV + Video Recorder with Movies and Cartoons',
+    'promo.suitable': 'Suitable for couples, families, friends',
+    'promo.camping': 'Friends can camp right next to the house',
+    'promo.teambuilding': 'Team Buildings',
+    'promo.creative': 'Creative Space',
+    'promo.nature': 'Well-maintained Surroundings',
+    'promo.cozy': 'Coziness and Warmth',
+    'promo.wood': 'Warmth of Wood',
+    'promo.unique': 'Uniquely redesigned spaces',
+    'promo.bikes': '3x FREE BICYCLES',
+    'promo.hifi': 'HI-FI system for relaxing and fun atmosphere',
+    'promo.dormeo': 'DORMEO premium mattresses',
+    'promo.led': 'LED ambient lighting',
+    'promo.kitchen': 'Fully equipped kitchen',
+    'promo.size': '50m² Large house with two terraces',
   },
   de: {
     // Navbar
@@ -492,13 +668,13 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.reviews': 'GÄSTEBEWERTUNGEN',
     'nav.faq': 'FAQ',
     'nav.about': 'ÜBER UNS',
-    'nav.tagline': 'Travel·Enjoy·Explore',
+    'nav.tagline': 'Enjoy · Relax · Refresh',
     
     // Hero Section
-    'hero.title1': 'Haus',
-    'hero.title2': 'La Vita',
+    'hero.title.main': 'La Vita Haus',
+    'hero.title.sub': '– Camp Terme 3000',
     'hero.subtitle': 'Ihre Ecke der Entspannung und Natur in Terme 3000',
-    'hero.winterAction': 'Winterangebot',
+    'hero.springAction': 'Frühlingsangebot',
     'hero.summerAction': 'Sommerangebot',
     'hero.perNight': '/Nacht',
     'hero.bookNow': 'Jetzt buchen',
@@ -631,7 +807,7 @@ const translations: Record<Language, Record<string, string>> = {
     'voucherSuccess.backHome': 'Zurück zur Startseite',
     
     // Booking
-    'booking.winterOffer': 'Winterangebot',
+    'booking.springOffer': 'Frühlingsangebot',
     'booking.summerOffer': 'Sommerangebot',
     'booking.formTitle': 'Buchungsformular',
     'booking.nameLabel': 'Vollständiger Name',
@@ -703,11 +879,83 @@ const translations: Record<Language, Record<string, string>> = {
     'activities.sup': 'SUP & Surf am Soboško-See',
     'activities.amazon': 'Amazon of Europe',
     
+    // Activity items
+    'activity.terme.title': 'Terme 3000',
+    'activity.terme.subtitle': 'Heilendes schwarzes Wasser',
+    'activity.terme.desc': 'Tauchen Sie ein in einzigartiges schwarzes Thermo-Mineralwasser mit heilender Wirkung. Schwimmbäder, Saunen, Wellness und unvergessliche Entspannung nur wenige Schritte von Ihrem Haus.',
+    'activity.terme.highlight': '2x Spa-Tickets inklusive',
+    'activity.rafting.title': 'Rafting auf der Mur',
+    'activity.rafting.subtitle': 'Abenteuer für alle',
+    'activity.rafting.desc': 'Lassen Sie sich von der längsten slowenischen Flussströmung treiben. Ruhiges Paddeln durch unberührte Natur, wo Sie Biber und eine Fülle von Vögeln treffen. Perfekt für Familien und romantische Paare.',
+    'activity.rafting.highlight': '24 km vom Haus',
+    'activity.jeruzalem.title': 'Jeruzalem',
+    'activity.jeruzalem.subtitle': 'Weinmärchen',
+    'activity.jeruzalem.desc': 'Malerische Weinberge mit atemberaubenden Panoramablicken. Verkosten Sie erstklassige Weißweine und genießen Sie kulinarische Köstlichkeiten der Prlekija.',
+    'activity.jeruzalem.highlight': 'Beste Weinlagen',
+    'activity.goricko.title': 'Ride Goričko',
+    'activity.goricko.subtitle': 'Radfahrparadies',
+    'activity.goricko.desc': 'Die hügelige Landschaft des Goričko lädt zu Radabenteuern ein. E-Bikes, lokale Führer und versteckte Wege führen Sie durch das grüne Herz von Pomurje.',
+    'activity.goricko.highlight': '3x Fahrräder kostenlos',
+    'activity.vinarium.title': 'Vinarium Turm',
+    'activity.vinarium.subtitle': 'Blick auf 4 Länder',
+    'activity.vinarium.desc': 'Besteigen Sie den 54 Meter hohen Aussichtsturm und genießen Sie einen atemberaubenden 360°-Blick auf Slowenien, Ungarn, Kroatien und Österreich. Zipline für Mutige!',
+    'activity.vinarium.highlight': 'Adrenalin-Zipline',
+    'activity.bukovnisko.title': 'Bukovniško See',
+    'activity.bukovnisko.subtitle': 'Energiepunkte',
+    'activity.bukovnisko.desc': 'Ein geheimnisvoller See mit 26 Energiepunkten, umgeben von jahrhundertealtem Wald. Ideal für Meditation, Spaziergänge und Angeln in absoluter Ruhe der Natur.',
+    'activity.bukovnisko.highlight': '26 Energiepunkte',
+    'activity.expano.title': 'Expano',
+    'activity.expano.subtitle': 'Tor zu Pomurje',
+    'activity.expano.desc': 'Ein moderner interaktiver Pavillon am Soboško-See. Entdecken Sie die Geschichte von Pomurje durch innovative Präsentationen von Natur, Sport, Tradition und Kulinarik.',
+    'activity.expano.highlight': 'Am Soboško-See',
+    'activity.grad.title': 'Burg Grad',
+    'activity.grad.subtitle': '365 Zimmer, 1 Burg',
+    'activity.grad.desc': 'Die größte Barockburg Sloweniens mit 365 Zimmern — eines für jeden Tag im Jahr. Besuchen Sie Museumssammlungen und entdecken Sie die reiche Geschichte des Goričko.',
+    'activity.grad.highlight': 'Größte Burg in SLO',
+    'activity.vulkanija.title': 'Park Vulkanija',
+    'activity.vulkanija.subtitle': 'Vulkanisches Abenteuer',
+    'activity.vulkanija.desc': 'Wussten Sie, dass der letzte Vulkan in Slowenien vor 3 Millionen Jahren ausbrach? Erleben Sie eine interaktive geologische Geschichte für die ganze Familie.',
+    'activity.vulkanija.highlight': 'Einzigartig in Slowenien',
+    'activity.orchids.title': 'Ocean Orchids',
+    'activity.orchids.subtitle': 'Tropischer Garten',
+    'activity.orchids.desc': 'Reisen Sie in tropische Gefilde mitten in Prekmurje. Bewundern Sie Orchideen aus aller Welt, exotische Pflanzen und subtropisches Ambiente, das Sie verzaubern wird.',
+    'activity.orchids.highlight': 'Tropische Oase',
+    
+    // Culinary items
+    'culinary.rajh': 'Gostilna Rajh',
+    'culinary.rajhDesc': 'Vierte Generation mit Prekmurje-Tradition und modernem Touch',
+    'culinary.kodila': 'Kodila - Meet Meat Eat',
+    'culinary.kodilaDesc': 'Paradies für Fleischliebhaber und ausgewählte Steaks',
+    'culinary.passero': 'Čokoladnica Passero',
+    'culinary.passeroDesc': 'Prekmurje-Geschmäcker in Schokoladenpralinen und Eiscreme',
+    'culinary.gibanica': 'Hiša Gibanice',
+    'culinary.gibanicaDesc': 'Entdecken Sie die Geheimnisse der echten Prekmurje Gibanica',
+    
     // FAQ Section
     'faq.label': '❓ Häufig gestellte Fragen',
     'faq.title': 'Haben Sie Fragen?',
     'faq.subtitle': 'Hier finden Sie Antworten auf die häufigsten Fragen unserer Gäste',
-    'faq.winterBadge': '🎄 Winterangebot',
+    'faq.springBadge': '🌸 Frühlingsangebot',
+    'faq.q1': 'Was ist im Übernachtungspreis enthalten?',
+    'faq.a1': 'Im Übernachtungspreis sind 2 Spa-Tickets für den Thermalkomplex Terme 3000, Nutzung von 3 Fahrrädern, Kinderspielzeug, Sportausrüstung, voll ausgestattete Küche, LED-Ambientebeleuchtung, HI-FI-System, Premium-DORMEO-Matratzen enthalten. WLAN ist kostenlos verfügbar. Im Frühlingsangebot sind zusätzlich Kinderspielzeug und ein Videorekorder mit Filmen und Zeichentrickfilmen enthalten.',
+    'faq.q2': 'Ist Bettwäsche inklusive?',
+    'faq.a2': 'Ja. Bettwäsche ist inklusive, vorbereitet zum Beziehen der Betten. In einigen Fällen werden die Betten bereits für Sie bezogen und vorbereitet.',
+    'faq.q3': 'Wie viele Personen können im La Vita Haus übernachten?',
+    'faq.a3': 'Das Haus ist für eine komfortable Unterbringung von bis zu 6 Personen ausgelegt. Es ist ideal für Familien mit Kindern, Paare oder kleine Freundesgruppen, die einen entspannten Rückzug in der Natur suchen.',
+    'faq.q4': 'Welche Parkmöglichkeiten gibt es?',
+    'faq.a4': 'Ein kostenloser Parkplatz steht direkt neben dem Haus zur Verfügung. Für jede Reservierung ist ein Parkplatz garantiert.',
+    'faq.q5': 'Sind Haustiere erlaubt?',
+    'faq.a5': 'Haustiere sind willkommen! Sie können auf der großen überdachten Terrasse hinter dem Haus bleiben. Wenn sie drinnen bleiben müssen, bitten wir darum, dass sie nicht auf die Betten gehen. Der Haustierzuschlag beträgt 5 € pro Nacht.',
+    'faq.q6': 'Was sind die Buchungs- und Stornierungsbedingungen?',
+    'faq.a6': 'Bei der Buchung ist eine Anzahlung von 30 % des Gesamtpreises oder nach Vereinbarung erforderlich. Kostenlose Stornierung ist bis 3 Tage vor Anreise möglich. Bei Stornierung stellen wir einen Geschenkgutschein im Wert der geleisteten Anzahlung aus.',
+    'faq.q7': 'Wann ist Check-in und Check-out?',
+    'faq.a7': 'Check-in ist ab 9 Uhr möglich, wenn Sie bereits den Thermalkomplex zum Schwimmen nutzen können. Die Unterkunft im Haus ist ab 13:30 Uhr verfügbar, Check-out bis 11:00 Uhr. Falls das Haus am nächsten Tag frei ist, ist eine Verlängerung möglich.',
+    'faq.q8': 'Wie weit ist Terme 3000 entfernt?',
+    'faq.a8': 'Das La Vita Haus befindet sich direkt im Camp Terme 3000, was bedeutet, dass Sie nur wenige Schritte von allen Thermalerlebnissen und Unterhaltung entfernt sind.',
+    'faq.q9': 'Ist die Küche voll ausgestattet?',
+    'faq.a9': 'Ja! Töpfe, Besteck, Kühlschrank mit Gefrierfach, Kochfeld, Mikrowelle, Toaster.',
+    'faq.q10': 'Bieten Sie Rabatte für längere Aufenthalte?',
+    'faq.a10': 'Ja, für Aufenthalte ab 7 Tagen gewähren wir einen Sonderrabatt. Schreiben Sie uns an rent@lavitaterme3000.com für weitere Informationen.',
     
     // Testimonials Section
     'testimonials.badge': '⭐ 100% empfehlen (9+ Bewertungen)',
@@ -718,6 +966,22 @@ const translations: Record<Language, Record<string, string>> = {
     // Promo Banner Section
     'promo.summerBanner': 'SOMMERANGEBOT 110€ pro Nacht mit zwei Spa-Tickets + 3x Fahrräder + Sportausrüstung',
     'promo.h2': 'Inklusive 2× Spa-Tickets und 3× kostenlose Fahrräder',
+    'promo.tickets': '2x SPA-TICKETS INKLUSIVE',
+    'promo.tv': 'TV + Videorekorder mit Filmen und Zeichentrickfilmen',
+    'promo.suitable': 'Geeignet für Paare, Familien, Freunde',
+    'promo.camping': 'Freunde können direkt neben dem Haus campen',
+    'promo.teambuilding': 'Teambuildings',
+    'promo.creative': 'Kreativer Raum',
+    'promo.nature': 'Gepflegte Umgebung',
+    'promo.cozy': 'Gemütlichkeit und Wärme',
+    'promo.wood': 'Wärme des Holzes',
+    'promo.unique': 'Einzigartig umgestaltete Räume',
+    'promo.bikes': '3x KOSTENLOSE FAHRRÄDER',
+    'promo.hifi': 'HI-FI System für entspannte und unterhaltsame Atmosphäre',
+    'promo.dormeo': 'DORMEO Premium-Matratzen',
+    'promo.led': 'LED Ambientebeleuchtung',
+    'promo.kitchen': 'Voll ausgestattete Küche',
+    'promo.size': '50m² Großes Haus mit zwei Terrassen',
   },
   hr: {
     // Navbar
@@ -728,13 +992,13 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.reviews': 'RECENZIJE GOSTIJU',
     'nav.faq': 'ČESTA PITANJA',
     'nav.about': 'O NAMA',
-    'nav.tagline': 'Travel·Enjoy·Explore',
+    'nav.tagline': 'Enjoy · Relax · Refresh',
     
     // Hero Section
-    'hero.title1': 'Kućica',
-    'hero.title2': 'La Vita',
+    'hero.title.main': 'La Vita Kućica',
+    'hero.title.sub': '– Kamp Terme 3000',
     'hero.subtitle': 'Vaš kutak opuštanja i prirode u Termama 3000',
-    'hero.winterAction': 'Zimska akcija',
+    'hero.springAction': 'Proljetna akcija',
     'hero.summerAction': 'Ljetna akcija',
     'hero.perNight': '/noć',
     'hero.bookNow': 'Rezervirajte sada',
@@ -867,7 +1131,7 @@ const translations: Record<Language, Record<string, string>> = {
     'voucherSuccess.backHome': 'Natrag na početnu stranicu',
     
     // Booking
-    'booking.winterOffer': 'Zimska ponuda',
+    'booking.springOffer': 'Proljetna akcija',
     'booking.summerOffer': 'Ljetna ponuda',
     'booking.formTitle': 'Obrazac za Rezervaciju',
     'booking.nameLabel': 'Ime i Prezime',
@@ -939,11 +1203,83 @@ const translations: Record<Language, Record<string, string>> = {
     'activities.sup': 'SUP & Surf na Soboškom jezeru',
     'activities.amazon': 'Amazon of Europe',
     
+    // Activity items
+    'activity.terme.title': 'Terme 3000',
+    'activity.terme.subtitle': 'Ljekovita crna voda',
+    'activity.terme.desc': 'Uronite u jedinstvenu crnu termo-mineralnu vodu s ljekovitim učincima. Bazeni, saune, wellness i nezaboravno opuštanje samo nekoliko koraka od vaše kućice.',
+    'activity.terme.highlight': '2x kupaoničke karte uključene',
+    'activity.rafting.title': 'Rafting na Muri',
+    'activity.rafting.subtitle': 'Avantura za sve',
+    'activity.rafting.desc': 'Prepustite se toku najduže slovenske rijeke. Mirno veslanje kroz netaknutu prirodu, gdje srećete dabrove i obilje ptica. Savršeno za obitelji i romantične parove.',
+    'activity.rafting.highlight': '24 km od kućice',
+    'activity.jeruzalem.title': 'Jeruzalem',
+    'activity.jeruzalem.subtitle': 'Vinogradarska bajka',
+    'activity.jeruzalem.desc': 'Slikoviti vinogradi s panoramskim pogledima koji oduzimaju dah. Kušajte vrhunska bijela vina i uživajte u kulinarskim delicijama Prlekije.',
+    'activity.jeruzalem.highlight': 'Najbolje vinogradarske lokacije',
+    'activity.goricko.title': 'Ride Goričko',
+    'activity.goricko.subtitle': 'Biciklistički raj',
+    'activity.goricko.desc': 'Brežuljkasti krajobraz Goričkog poziva na biciklističke avanture. Električni bicikli, lokalni vodiči i skrivene staze vode vas kroz zeleno srce Pomurja.',
+    'activity.goricko.highlight': '3x bicikli besplatno',
+    'activity.vinarium.title': 'Toranj Vinarium',
+    'activity.vinarium.subtitle': 'Pogled na 4 države',
+    'activity.vinarium.desc': 'Popnite se na 54 metra visoki vidikovac i uživajte u zapanjujućem 360° pogledu na Sloveniju, Mađarsku, Hrvatsku i Austriju. Zipline za hrabre!',
+    'activity.vinarium.highlight': 'Adrenalinski zipline',
+    'activity.bukovnisko.title': 'Bukovniško jezero',
+    'activity.bukovnisko.subtitle': 'Energetske točke',
+    'activity.bukovnisko.desc': 'Tajanstveno jezero s 26 energetskih točaka, okruženo stoljetnom šumom. Idealno za meditaciju, šetnje i ribolov u apsolutnom miru prirode.',
+    'activity.bukovnisko.highlight': '26 energetskih točaka',
+    'activity.expano.title': 'Expano',
+    'activity.expano.subtitle': 'Vrata u Pomurje',
+    'activity.expano.desc': 'Suvremeni interaktivni paviljon uz Soboško jezero. Otkrijte priču Pomurja kroz inovativne prezentacije prirode, sporta, tradicije i kulinarstva.',
+    'activity.expano.highlight': 'Uz Soboško jezero',
+    'activity.grad.title': 'Dvorac Grad',
+    'activity.grad.subtitle': '365 soba, 1 dvorac',
+    'activity.grad.desc': 'Najveći barokni dvorac u Sloveniji s 365 soba — jedna za svaki dan u godini. Posjetite muzejske zbirke i otkrijte bogatu povijest Goričkog.',
+    'activity.grad.highlight': 'Najveći dvorac u SLO',
+    'activity.vulkanija.title': 'Park Vulkanija',
+    'activity.vulkanija.subtitle': 'Vulkanska avantura',
+    'activity.vulkanija.desc': 'Jeste li znali da je zadnji vulkan u Sloveniji eruptirao prije 3 milijuna godina? Doživite interaktivno iskustvo geološke povijesti za cijelu obitelj.',
+    'activity.vulkanija.highlight': 'Jedinstveno u Sloveniji',
+    'activity.orchids.title': 'Ocean Orchids',
+    'activity.orchids.subtitle': 'Tropski vrt',
+    'activity.orchids.desc': 'Putujte u tropske krajeve usred Prekmurja. Divite se orhidejama iz cijelog svijeta, egzotičnim biljkama i suptropskom ambijentu koji će vas očarati.',
+    'activity.orchids.highlight': 'Tropska oaza',
+    
+    // Culinary items
+    'culinary.rajh': 'Gostilna Rajh',
+    'culinary.rajhDesc': 'Četvrta generacija s prekmurskom tradicijom i suvremenim dojmom',
+    'culinary.kodila': 'Kodila - Meet Meat Eat',
+    'culinary.kodilaDesc': 'Raj za ljubitelje mesa i izabranih odrezaka',
+    'culinary.passero': 'Čokoladnica Passero',
+    'culinary.passeroDesc': 'Prekmurski okusi u čokoladnim pralineima i sladoledu',
+    'culinary.gibanica': 'Hiša Gibanice',
+    'culinary.gibanicaDesc': 'Upoznajte tajne prave prekmurske gibanice',
+    
     // FAQ Section
     'faq.label': '❓ Česta pitanja',
     'faq.title': 'Imate Pitanja?',
     'faq.subtitle': 'Ovdje možete pronaći odgovore na najčešća pitanja naših gostiju',
-    'faq.winterBadge': '🎄 Zimska ponuda',
+    'faq.springBadge': '🌸 Proljetna ponuda',
+    'faq.q1': 'Što je uključeno u cijenu noćenja?',
+    'faq.a1': 'U cijenu noćenja uključene su 2 kupaoničke karte za termalni kompleks Terme 3000, korištenje 3 bicikla, dječje igračke, sportski rekviziti, potpuno opremljena kuhinja, LED ambijentalna rasvjeta, HI-FI sustav, vrhunski DORMEO ležajevi. WiFi je besplatno dostupan. U proljetnu ponudu dodatno su uključene dječje igračke i video rekorder s filmovima i crtićima.',
+    'faq.q2': 'Je li posteljina uključena?',
+    'faq.a2': 'Da. Posteljina je uključena, pripremljena da obučete krevete u kojima ćete spavati. U nekim slučajevima krevete ćemo već pripremiti za vas.',
+    'faq.q3': 'Koliko osoba može prenoćiti u La Vita kućici?',
+    'faq.a3': 'Kućica je dizajnirana za udoban smještaj do 6 osoba. Idealna je za obitelji s djecom, parove ili manje grupe prijatelja koji traže opuštajući odmor u prirodi.',
+    'faq.q4': 'Kakve su mogućnosti parkiranja?',
+    'faq.a4': 'Besplatno parkiralište dostupno je neposredno uz kućicu. Za svaku rezervaciju osigurano je parkirno mjesto.',
+    'faq.q5': 'Jesu li kućni ljubimci dozvoljeni?',
+    'faq.a5': 'Kućni ljubimci su dobrodošli! Mogu boraviti na velikoj natkritoj terasi iza kućice. Ako moraju boraviti unutra, molimo da ne idu na krevete. Doplata za kućne ljubimce je 5 € po noći.',
+    'faq.q6': 'Koji su uvjeti za rezervaciju i otkazivanje?',
+    'faq.a6': 'Pri rezervaciji potrebno je uplatiti aro u visini 30% ukupne cijene ili po dogovoru. Besplatno otkazivanje moguće je do 3 dana prije dolaska. U slučaju otkazivanja izdajemo poklon bon u vrijednosti uplaćene are.',
+    'faq.q7': 'Kada je moguć dolazak i odlazak?',
+    'faq.a7': 'Dolazak je moguć već u 9 sati, kada možete koristiti kupanje u termalnom kompleksu. Smještaj u kućici moguć je od 13:30, a odlazak do 11:00. Ako je kućica sljedeći dan slobodna, moguće je produženje boravka.',
+    'faq.q8': 'Koliko su udaljene Terme 3000?',
+    'faq.a8': 'La Vita kućica se nalazi neposredno u Kampu Terme 3000, što znači da ste samo nekoliko koraka od svih termalnih iskustava i zabave.',
+    'faq.q9': 'Je li kuhinja potpuno opremljena?',
+    'faq.a9': 'Da! Posuđe, pribor za jelo, hladnjak sa zamrzivačem, ploča za kuhanje, mikrovalna pećnica, toster.',
+    'faq.q10': 'Nudite li popust za duži boravak?',
+    'faq.a10': 'Da, za boravke od 7 dana ili više odobravamo poseban popust. Pišite nam na rent@lavitaterme3000.com za više informacija.',
     
     // Testimonials Section
     'testimonials.badge': '⭐ 100% preporučuju (9+ ocjena)',
@@ -954,83 +1290,71 @@ const translations: Record<Language, Record<string, string>> = {
     // Promo Banner Section
     'promo.summerBanner': 'LJETNA AKCIJA 110€ po noći s dvije kupaoničke karte + 3x Bicikli + Sportski Rekviziti',
     'promo.h2': 'Uključene 2× kupaoničke karte i 3× besplatni bicikli',
+    'promo.tickets': '2x KUPAONIČKE KARTE UKLJUČENE',
+    'promo.tv': 'TV + Video rekorder s filmovima i crtićima',
+    'promo.suitable': 'Prikladno za parove, obitelji, prijatelje',
+    'promo.camping': 'Prijatelji mogu kampirati odmah uz kućicu',
+    'promo.teambuilding': 'Team Building',
+    'promo.creative': 'Kreativan Prostor',
+    'promo.nature': 'Uređena Okolina',
+    'promo.cozy': 'Domaćinstvo i Toplina',
+    'promo.wood': 'Toplina Drva',
+    'promo.unique': 'Jedinstveno preuređeni prostori',
+    'promo.bikes': '3x BESPLATNI BICIKLI',
+    'promo.hifi': 'HI-FI sustav za opuštenu i zabavnu atmosferu',
+    'promo.dormeo': 'DORMEO vrhunski ležajevi',
+    'promo.led': 'LED ambijentalna rasvjeta',
+    'promo.kitchen': 'Potpuno opremljena kuhinja',
+    'promo.size': '50m² Velika kućica s dvije terase',
   },
 };
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
-const LANGUAGE_STORAGE_KEY = 'la-vita-language';
-const LANGUAGE_AUTO_DETECTED_KEY = 'la-vita-language-auto-detected';
-
-const isValidLanguage = (lang: string): lang is Language => {
-  return ['sl', 'en', 'de', 'hr'].includes(lang);
-};
-
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const [language, setLanguageState] = useState<Language>('en');
+  const [language, setLanguageState] = useState<Language>(() => {
+    const saved = localStorage.getItem('lavita-language');
+    return (saved as Language) || 'sl';
+  });
   const [isAutoDetected, setIsAutoDetected] = useState(false);
-  const [isInitialized, setIsInitialized] = useState(false);
 
-  // Initialize language on mount
   useEffect(() => {
-    const initializeLanguage = async () => {
-      // Check if user has manually set language before
-      const savedLanguage = localStorage.getItem(LANGUAGE_STORAGE_KEY);
-      const wasAutoDetected = localStorage.getItem(LANGUAGE_AUTO_DETECTED_KEY);
+    const detectLanguage = async () => {
+      const hasAutoDetected = localStorage.getItem('lavita-language-auto-detected');
+      const hasManuallySet = localStorage.getItem('lavita-language');
       
-      if (savedLanguage && isValidLanguage(savedLanguage)) {
-        // User has a saved preference, use it
-        setLanguageState(savedLanguage);
-        setIsAutoDetected(wasAutoDetected === 'true');
-        setIsInitialized(true);
-        return;
-      }
+      if (hasAutoDetected || hasManuallySet) return;
 
-      // No saved preference - try to auto-detect
       try {
-        const response = await supabase.functions.invoke('detect-language');
-        
-        if (response.data?.language && isValidLanguage(response.data.language)) {
-          const detectedLang = response.data.language as Language;
-          console.log('Auto-detected language:', detectedLang, 'from country:', response.data.country);
-          setLanguageState(detectedLang);
-          setIsAutoDetected(true);
-          localStorage.setItem(LANGUAGE_STORAGE_KEY, detectedLang);
-          localStorage.setItem(LANGUAGE_AUTO_DETECTED_KEY, 'true');
-        } else {
-          // Default to English if detection fails
-          setLanguageState('en');
-          localStorage.setItem(LANGUAGE_STORAGE_KEY, 'en');
+        const { data, error } = await supabase.functions.invoke('detect-language');
+        if (!error && data?.language) {
+          const detectedLang = data.language as Language;
+          if (['sl', 'en', 'de', 'hr'].includes(detectedLang)) {
+            setLanguageState(detectedLang);
+            setIsAutoDetected(true);
+            localStorage.setItem('lavita-language-auto-detected', 'true');
+          }
         }
-      } catch (error) {
-        console.error('Language detection failed:', error);
-        // Default to English on error
-        setLanguageState('en');
-        localStorage.setItem(LANGUAGE_STORAGE_KEY, 'en');
+      } catch (e) {
+        console.log('Language detection failed, using default');
       }
-      
-      setIsInitialized(true);
     };
 
-    initializeLanguage();
+    detectLanguage();
   }, []);
 
-  // Update document language and save to storage when language changes
   useEffect(() => {
-    if (isInitialized) {
-      document.documentElement.lang = language;
-    }
-  }, [language, isInitialized]);
+    document.documentElement.lang = language;
+  }, [language]);
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
+    localStorage.setItem('lavita-language', lang);
     setIsAutoDetected(false);
-    localStorage.setItem(LANGUAGE_STORAGE_KEY, lang);
-    localStorage.setItem(LANGUAGE_AUTO_DETECTED_KEY, 'false');
   };
 
   const t = (key: string): string => {
-    return translations[language][key] || translations['en'][key] || key;
+    return translations[language]?.[key] || translations.en?.[key] || key;
   };
 
   return (

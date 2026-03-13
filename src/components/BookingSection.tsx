@@ -47,21 +47,14 @@ export const BookingSection = () => {
   const [currentOffer, setCurrentOffer] = useState(0);
 
   // Localized features
-  const winterFeatures = [
-    t('booking.winterOffer') === 'Zimska ponudba' ? "2x kopalni karti vključeni" : 
-    t('booking.winterOffer') === 'Winterangebot' ? "2x Spa-Tickets inklusive" : "2x spa tickets included",
-    t('booking.winterOffer') === 'Zimska ponudba' ? "Polno opremljena kuhinja" :
-    t('booking.winterOffer') === 'Winterangebot' ? "Voll ausgestattete Küche" : "Fully equipped kitchen",
-    t('booking.winterOffer') === 'Zimska ponudba' ? "Brezplačno parkiranje" :
-    t('booking.winterOffer') === 'Winterangebot' ? "Kostenloses Parken" : "Free parking",
-    t('booking.winterOffer') === 'Zimska ponudba' ? "WiFi vključen" :
-    t('booking.winterOffer') === 'Winterangebot' ? "WLAN inklusive" : "WiFi included",
-    t('booking.winterOffer') === 'Zimska ponudba' ? "Možnost eno dnevne nočitve" :
-    t('booking.winterOffer') === 'Winterangebot' ? "Einzelübernachtung möglich" : "Single night stay possible",
-    t('booking.winterOffer') === 'Zimska ponudba' ? "Posteljnina vključena" :
-    t('booking.winterOffer') === 'Winterangebot' ? "Bettwäsche inklusive" : "Bed linen included",
-    t('booking.winterOffer') === 'Zimska ponudba' ? "Končno čiščenje vključeno" :
-    t('booking.winterOffer') === 'Winterangebot' ? "Endreinigung inklusive" : "Final cleaning included",
+  const springFeatures = [
+    language === 'sl' ? "2x kopalni karti vključeni" : language === 'de' ? "2x Spa-Tickets inklusive" : language === 'hr' ? "2x kupaoničke karte uključene" : "2x spa tickets included",
+    language === 'sl' ? "Polno opremljena kuhinja" : language === 'de' ? "Voll ausgestattete Küche" : language === 'hr' ? "Potpuno opremljena kuhinja" : "Fully equipped kitchen",
+    language === 'sl' ? "Brezplačno parkiranje" : language === 'de' ? "Kostenloses Parken" : language === 'hr' ? "Besplatno parkiranje" : "Free parking",
+    language === 'sl' ? "WiFi vključen" : language === 'de' ? "WLAN inklusive" : language === 'hr' ? "WiFi uključen" : "WiFi included",
+    language === 'sl' ? "Možnost eno dnevne nočitve" : language === 'de' ? "Einzelübernachtung möglich" : language === 'hr' ? "Mogućnost jedne noći" : "Single night stay possible",
+    language === 'sl' ? "Posteljnina vključena" : language === 'de' ? "Bettwäsche inklusive" : language === 'hr' ? "Posteljina uključena" : "Bed linen included",
+    language === 'sl' ? "Končno čiščenje vključeno" : language === 'de' ? "Endreinigung inklusive" : language === 'hr' ? "Završno čišćenje uključeno" : "Final cleaning included",
   ];
 
   const summerFeatures = [

@@ -1,5 +1,4 @@
-import { motion } from "framer-motion";
-import { useInView } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import {
   Accordion,
@@ -7,54 +6,25 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-
-const faqs = [
-  {
-    question: "Kaj je vključeno v ceno nočitve?",
-    answer: "V ceno nočitve sta vključeni 2 kopalni karti za termalni kompleks Terme 3000, uporaba 3 koles, otroške igrače, športni rekviziti, popolnoma opremljena kuhinja, LED ambientna osvetlitev, HI-FI sistem, vrhunska DORMEO ležišča. WiFi je na voljo brezplačno. V zimsko ponudbo so dodatno vključene otroške igrače ter videorekorder s filmi in risankami.",
-    highlight: true,
-  },
-  {
-    question: "Ali je posteljnina vključena?",
-    answer: "Da. Posteljnina je vključena, pripravljena, da oblečete postelje, kjer boste spali. V nekaterih primerih bomo postelje že oblekli in pripravili za vas.",
-  },
-  {
-    question: "Koliko oseb lahko prenočuje v La Vita Hiški?",
-    answer: "Hiška je zasnovana za udobno nastanitev do 6 oseb. Idealna je za družine z otroki, pare ali manjše skupine prijateljev, ki iščejo sproščen oddih v naravi.",
-  },
-  {
-    question: "Kakšne so možnosti parkiranja?",
-    answer: "Brezplačno parkirišče je na voljo neposredno ob hiški. Za vsako rezervacijo je zagotovljeno parkirno mesto.",
-  },
-  {
-    question: "Ali je dovoljeno prinesti hišne ljubljenčke?",
-    answer: "Hišni ljubljenčki so dobrodošli! Lahko bivajo na veliki pokriti terasi za hiško. V kolikor morajo bivati v hiški, vas prosimo, da ne hodijo po posteljah. Doplačilo za hišne ljubljenčke je 5 € na noč.",
-  },
-  {
-    question: "Kakšni so pogoji za rezervacijo in odpoved?",
-    answer: "Ob rezervaciji je potrebno nakazati aro v višini 30 % skupne cene ali po dogovoru. Brezplačna odpoved je možna do 3 dni pred prihodom. V primeru odpovedi vam izdamo darilni bon v vrednosti vplačane are.",
-  },
-  {
-    question: "Kdaj je možen prihod in odhod?",
-    answer: "Prihod je možen že ob 9. uri, ko lahko že koristite kopanje v termalnem kompleksu. Namestitev v hiški je možna od 13:30 naprej, odhod pa do 11:00. V primeru, da je hiška naslednji dan prosta, je možno podaljšanje bivanja.",
-  },
-  {
-    question: "Kako daleč so Terme 3000?",
-    answer: "La Vita Hiška se nahaja neposredno v Kampu Terme 3000, kar pomeni, da ste le nekaj korakov stran od vseh termalnih doživetij in zabave.",
-  },
-  {
-    question: "Ali je kuhinja polno opremljena?",
-    answer: "Da! Posoda, pribor, hladilnik z zamrzovalnikom, kuhalna plošča, mikrovalovna pečica, toaster.",
-  },
-  {
-    question: "Ali nudite popust za daljša bivanja?",
-    answer: "Da, za večdnevna bivanja (7 dni ali več) odobrimo poseben popust. Pišite nam na rent@lavitaterme3000.com za več informacij.",
-  },
-];
+import { useLanguage } from "@/contexts/LanguageContext";
 
 export const FAQSection = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true });
+  const { t } = useLanguage();
+
+  const faqs = [
+    { qKey: 'faq.q1', aKey: 'faq.a1', highlight: true },
+    { qKey: 'faq.q2', aKey: 'faq.a2' },
+    { qKey: 'faq.q3', aKey: 'faq.a3' },
+    { qKey: 'faq.q4', aKey: 'faq.a4' },
+    { qKey: 'faq.q5', aKey: 'faq.a5' },
+    { qKey: 'faq.q6', aKey: 'faq.a6' },
+    { qKey: 'faq.q7', aKey: 'faq.a7' },
+    { qKey: 'faq.q8', aKey: 'faq.a8' },
+    { qKey: 'faq.q9', aKey: 'faq.a9' },
+    { qKey: 'faq.q10', aKey: 'faq.a10' },
+  ];
 
   return (
     <section id="faq" className="py-20 bg-lavita-cream">
@@ -67,13 +37,13 @@ export const FAQSection = () => {
           className="text-center max-w-2xl mx-auto mb-16"
         >
           <span className="inline-block text-primary font-medium text-sm tracking-wide uppercase mb-4">
-            ❓ Pogosta vprašanja
+            {t('faq.label')}
           </span>
           <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">
-            Imate Vprašanja?
+            {t('faq.title')}
           </h2>
           <p className="text-muted-foreground text-lg">
-            Tukaj najdete odgovore na najpogostejša vprašanja naših gostov
+            {t('faq.subtitle')}
           </p>
         </motion.div>
 
@@ -89,19 +59,19 @@ export const FAQSection = () => {
                 key={index}
                 value={`item-${index}`}
                 className={`bg-card border rounded-xl px-6 shadow-lavita hover:shadow-lavita-card transition-shadow ${
-                  (faq as any).highlight ? 'border-primary/50 ring-2 ring-primary/20' : 'border-border/50'
+                  faq.highlight ? 'border-primary/50 ring-2 ring-primary/20' : 'border-border/50'
                 }`}
               >
                 <AccordionTrigger className="text-left font-display text-lg font-semibold hover:text-primary transition-colors py-5">
-                  {faq.question}
-                  {(faq as any).highlight && (
+                  {t(faq.qKey)}
+                  {faq.highlight && (
                     <span className="ml-2 text-xs bg-primary/20 text-primary px-2 py-1 rounded-full font-body">
-                      🎄 Zimska ponudba
+                      {t('faq.springBadge')}
                     </span>
                   )}
                 </AccordionTrigger>
                 <AccordionContent className="text-muted-foreground font-body leading-relaxed pb-5">
-                  {faq.answer}
+                  {t(faq.aKey)}
                 </AccordionContent>
               </AccordionItem>
             ))}

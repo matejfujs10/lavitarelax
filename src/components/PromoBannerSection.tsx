@@ -1,31 +1,33 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLanguage } from "@/contexts/LanguageContext";
 
-const promoTexts = [
-  { icon: "🎫", text: "2x KOPALNI KARTI VKLJUČENI" },
-  { icon: "📺", text: "TV + Videorekorder s Filmi in Risankami" },
-  { icon: "💑", text: "Primerno za pare, družine, prijatelje" },
-  { icon: "⛺", text: "Možnost kampiranja prijateljev takoj ob hiški" },
-  { icon: "🤝", text: "Team Buildingi" },
-  { icon: "✨", text: "Kreativen Prostor" },
-  { icon: "🌳", text: "Urejena Okolica" },
-  { icon: "🏠", text: "Domačnost in Toplina" },
-  { icon: "🪵", text: "Toplina Lesa" },
-  { icon: "🎨", text: "Unikatno preurejeni prostori" },
-  { icon: "🚲", text: "3x BREZPLAČNA KOLESA" },
-  { icon: "🎵", text: "HI-FI sistem za sproščeno in zabavno vzdušje" },
-  { icon: "🛏️", text: "DORMEO vrhunska ležišča" },
-  { icon: "💡", text: "LED ambientna osvetlitev" },
-  { icon: "🍳", text: "Polno opremljena kuhinja" },
-  { icon: "📐", text: "50m² Velika hiška z dvema terasama" },
+const promoKeys = [
+  { icon: "🎫", key: "promo.tickets" },
+  { icon: "📺", key: "promo.tv" },
+  { icon: "💑", key: "promo.suitable" },
+  { icon: "⛺", key: "promo.camping" },
+  { icon: "🤝", key: "promo.teambuilding" },
+  { icon: "✨", key: "promo.creative" },
+  { icon: "🌳", key: "promo.nature" },
+  { icon: "🏠", key: "promo.cozy" },
+  { icon: "🪵", key: "promo.wood" },
+  { icon: "🎨", key: "promo.unique" },
+  { icon: "🚲", key: "promo.bikes" },
+  { icon: "🎵", key: "promo.hifi" },
+  { icon: "🛏️", key: "promo.dormeo" },
+  { icon: "💡", key: "promo.led" },
+  { icon: "🍳", key: "promo.kitchen" },
+  { icon: "📐", key: "promo.size" },
 ];
 
 export const PromoBannerSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const { t } = useLanguage();
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % promoTexts.length);
+      setCurrentIndex((prev) => (prev + 1) % promoKeys.length);
     }, 3000);
     return () => clearInterval(interval);
   }, []);
@@ -35,7 +37,7 @@ export const PromoBannerSection = () => {
       <div className="container mx-auto px-4">
         <div className="text-center">
           {/* H2 for SEO */}
-          <h2 className="sr-only">Vključeni 2× kopalni karti in 3× brezplačna kolesa</h2>
+          <h2 className="sr-only">{t('promo.h2')}</h2>
           
           {/* Summer Offer Banner */}
           <motion.div
@@ -46,7 +48,7 @@ export const PromoBannerSection = () => {
           >
             <span className="text-xl">☀️</span>
             <span className="font-display text-lg md:text-xl font-semibold">
-              POLETNA AKCIJA 110€ na noč z dvema kopalnima kartama + 3x Kolesi + Športni Rekviziti
+              {t('promo.summerBanner')}
             </span>
             <span className="text-xl">☀️</span>
           </motion.div>
@@ -62,9 +64,9 @@ export const PromoBannerSection = () => {
                 transition={{ duration: 0.4 }}
                 className="flex items-center justify-center gap-3 px-8 py-4 bg-card/80 backdrop-blur-sm rounded-2xl shadow-lavita-card border border-border/50"
               >
-                <span className="text-3xl">{promoTexts[currentIndex].icon}</span>
+                <span className="text-3xl">{promoKeys[currentIndex].icon}</span>
                 <span className="font-body text-xl text-foreground font-medium">
-                  {promoTexts[currentIndex].text}
+                  {t(promoKeys[currentIndex].key)}
                 </span>
               </motion.div>
             </AnimatePresence>
@@ -72,7 +74,7 @@ export const PromoBannerSection = () => {
 
           {/* Progress Dots */}
           <div className="flex justify-center gap-1.5">
-            {promoTexts.map((_, index) => (
+            {promoKeys.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentIndex(index)}

@@ -167,8 +167,8 @@ export const HeroSection = () => {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="font-display text-5xl md:text-7xl lg:text-8xl font-bold mb-6"
             >
-              <span className="text-card drop-shadow-lg">Hiška La Vita</span>{" "}
-              <span className="text-gradient-primary drop-shadow-lg">– Kamp Terme 3000</span>
+              <span className="text-card drop-shadow-lg">{t('hero.title.main')}</span>{" "}
+              <span className="text-gradient-primary drop-shadow-lg">{t('hero.title.sub')}</span>
             </motion.h1>
 
             {/* Subtitle */}
@@ -190,10 +190,10 @@ export const HeroSection = () => {
             >
               <div className="bg-card/95 backdrop-blur-sm px-6 py-4 rounded-2xl shadow-lavita-card border border-border/30">
                 <div className="flex items-center gap-2">
-                  <span className="text-2xl">❄️</span>
+                  <span className="text-2xl">🌸</span>
                   <div className="text-left">
-                    <p className="text-sm text-muted-foreground font-medium">{t('hero.winterAction')}</p>
-                    <p className="text-2xl font-display font-bold text-primary">80€<span className="text-base font-normal text-muted-foreground">{t('hero.perNight')}</span></p>
+                    <p className="text-sm text-muted-foreground font-medium">{t('hero.springAction')}</p>
+                    <p className="text-2xl font-display font-bold text-primary">85€<span className="text-base font-normal text-muted-foreground">{t('hero.perNight')}</span></p>
                   </div>
                 </div>
               </div>

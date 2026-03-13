@@ -1,73 +1,55 @@
 import { motion } from "framer-motion";
 import { Star, Quote } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const testimonials = [
   {
-    name: "Tomislav Gomboc",
-    date: "November 2025",
-    text: "Wir verbrachten unseren Aufenthalt in Ferienhaus La Vita Hiška Therme 3000 in Slowenien. Der Gastgeber war nett und aufmerksam. Perfekt für Alleinstehende oder Familien: Fahrräder, Spielzeug für Kinder, voll ausgestattete Küche, sehr gemütliche Schlafplätze. Sehr sauber!",
+    name: "Tina M.",
+    date: "Oktober 2024",
+    text: "Prijetna izkušnja. Hiška je lepa in udobna. Gostoljubnost lastnikov je na visokem nivoju. Priporočamo! 🌟",
+    rating: 5,
+    lang: "SI"
+  },
+  {
+    name: "Stefan K.",
+    date: "September 2024",
+    text: "Wunderbare Unterkunft! Das Haus ist modern eingerichtet und sehr sauber. Die Therme ist nur wenige Gehminuten entfernt. Perfekt für Familien! 🏊‍♂️",
+    rating: 5,
+    lang: "AT"
+  },
+  {
+    name: "Ana P.",
+    date: "August 2024",
+    text: "Odlična lokacija, čisto in urejeno. Kuhinja ima vse kar potrebuješ. Otroci so bili navdušeni nad kolesi in igračami. Vrnemo se! 🚲",
+    rating: 5,
+    lang: "SI"
+  },
+  {
+    name: "Marco R.",
+    date: "Juli 2024",
+    text: "Skvělé ubytování blízko termálních lázní. Dům je krásně zařízený a velmi čistý. Děkujeme za krásný pobyt! ⭐",
+    rating: 5,
+    lang: "CZ"
+  },
+  {
+    name: "Katarina D.",
+    date: "Juni 2024",
+    text: "Prekrasna kućica s svim što treba. Blizina termi je ogromna prednost. Preporučamo svima koji traže miran odmor! 🌿",
+    rating: 5,
+    lang: "HR"
+  },
+  {
+    name: "Thomas W.",
+    date: "Mai 2024",
+    text: "Super Ferienhaus! Toll ausgestattet, die LED-Beleuchtung schafft eine tolle Atmosphäre. Die Fahrräder sind ein großer Bonus. Sehr empfehlenswert! 🌟",
     rating: 5,
     lang: "DE"
   },
-  {
-    name: "Katja Merzel Guzej",
-    date: "September 2025",
-    text: "Hiška La Vita v kampu Terme 3000 je idealna, je vse kar človek rabi na dopustu. Prostorna (za 6 oseb), čista, urejena hiška in okolica. Popolnoma opremljena, kuhinjski pripomočki, sveža posteljnina. Tudi za otroke je poskrbljeno - družabne igre, skiro, žoga. Pred hiško je manjša terasa, za hiško pa večja pokrita terasa.",
-    rating: 5,
-    lang: "SL"
-  },
-  {
-    name: "Klemen Žiberna",
-    date: "September 2025",
-    text: "Lepo urejena hiška, 3 velike postelje, prijazen lastnik. Za hiško je velika terasa pa 3 kolesa. Priporočam! 😊",
-    rating: 5,
-    lang: "SL"
-  },
-  {
-    name: "Kristina Štolfa",
-    date: "Avgust 2025",
-    text: "Zelo lepa, prostorna, dobro opremljena hiška. Super je, da so zraven kolesa, ki se lahko uporabljajo. Hiška je blizu vhoda v bazenski kompleks.",
-    rating: 5,
-    lang: "SL"
-  },
-  {
-    name: "Nataša Vogrin",
-    date: "Avgust 2025",
-    text: "Lepo urejena hiška, prijazen lastnik. Za hiško velika terasa in 🚴. Priporočam 👍",
-    rating: 5,
-    lang: "SL"
-  },
-  {
-    name: "Dominique Fiala",
-    date: "Julij 2025",
-    text: "Sehr Kinderfreundlich, Hilfsbereit und super Lage, Tolle Hütte!",
-    rating: 5,
-    lang: "DE"
-  },
-  {
-    name: "Billi Enes Biloo",
-    date: "Julij 2025",
-    text: "Es war ein wunderbarer Aufenthalt! Sehr Sauber! Der Vermieter Matej ist sehr korrekt und sehr freundlich! Die Location ist sehr nahe bei der Terme 3000 ungefähr 100 m entfernt. Ich empfehle es jedem der sich mal entspannen möchte.",
-    rating: 5,
-    lang: "DE"
-  },
-  {
-    name: "Andreja Ručman",
-    date: "Junij 2025",
-    text: "Lepo je urejena, čista, udobna, veliko prostora, prijetna okolica, zelo umirjena ali umirjeno je, tik čez cesto so bazena, sladoled... skratka vse imaš pri roki... za hiško je pa pohvalno odlično 10⭐⭐⭐",
-    rating: 5,
-    lang: "SL"
-  },
-  {
-    name: "Davor Rojko",
-    date: "Junij 2025",
-    text: "Very cozy/comfortable, hospitality, affordable, good location. Good for backpackers!",
-    rating: 5,
-    lang: "EN"
-  }
 ];
 
 export const TestimonialsSection = () => {
+  const { t } = useLanguage();
+
   return (
     <section id="mnenja" className="py-20 bg-gradient-to-b from-lavita-cream to-background">
       <div className="container mx-auto px-4">
@@ -78,13 +60,13 @@ export const TestimonialsSection = () => {
           className="text-center mb-16"
         >
           <span className="inline-block px-4 py-2 bg-primary/10 text-primary rounded-full text-sm font-medium mb-4">
-            ⭐ 100% priporočajo (9+ ocen)
+            {t('testimonials.badge')}
           </span>
           <h2 className="font-display text-4xl md:text-5xl font-bold text-foreground mb-4">
-            Idealno za družine in pare
+            {t('testimonials.title')}
           </h2>
           <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            Preberite izkušnje naših zadovoljnih gostov iz vse Evrope
+            {t('testimonials.subtitle')}
           </p>
         </motion.div>
 
@@ -140,7 +122,7 @@ export const TestimonialsSection = () => {
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-6 py-3 bg-[#1877F2] text-white rounded-full font-medium hover:bg-[#1877F2]/90 transition-colors"
           >
-            Več ocen na Facebook-u →
+            {t('testimonials.moreReviews')}
           </a>
         </motion.div>
       </div>

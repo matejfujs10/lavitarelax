@@ -262,7 +262,7 @@ export const BookingSection = () => {
                   >
                     <span className="inline-flex items-center gap-2 bg-primary-foreground/20 px-4 py-2 rounded-full text-sm font-medium mb-4">
                       <Ticket className="w-4 h-4" />
-                      {t('booking.winterOffer')}
+                      {t('booking.springOffer')}
                     </span>
                     <div className="flex items-baseline gap-2 mb-4">
                       <span className="font-display text-5xl font-bold">80€</span>

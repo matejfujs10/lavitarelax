@@ -182,7 +182,7 @@ const cookiesContent = {
 
 export const CookiesModal = ({ trigger }: CookiesModalProps) => {
   const { language } = useLanguage();
-  const content = cookiesContent[language];
+  const content = cookiesContent[language as keyof typeof cookiesContent] || cookiesContent.en;
 
   return (
     <Dialog>

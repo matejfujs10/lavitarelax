@@ -296,7 +296,7 @@ const termsContent = {
 
 export const TermsModal = ({ trigger }: TermsModalProps) => {
   const { language } = useLanguage();
-  const content = termsContent[language];
+  const content = termsContent[language as keyof typeof termsContent] || termsContent.en;
 
   return (
     <Dialog>

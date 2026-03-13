@@ -281,7 +281,7 @@ const privacyContent = {
 
 export const PrivacyModal = ({ trigger }: PrivacyModalProps) => {
   const { language } = useLanguage();
-  const content = privacyContent[language];
+  const content = privacyContent[language as keyof typeof privacyContent] || privacyContent.en;
 
   return (
     <Dialog>

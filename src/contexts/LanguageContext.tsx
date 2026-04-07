@@ -1288,7 +1288,7 @@ const translations: Record<Language, Record<string, string>> = {
     'testimonials.moreReviews': 'Više recenzija na Facebooku →',
     
     // Promo Banner Section
-    'promo.summerBanner': 'LJETNA AKCIJA 110€ po noći s dvije kupaoničke karte + 3x Bicikli + Sportski Rekviziti',
+    'promo.summerBanner': 'LJETNA AKCIJA 115€ po noći s dvije kupaoničke karte + 3x Bicikli + Sportski Rekviziti',
     'promo.h2': 'Uključene 2× kupaoničke karte i 3× besplatni bicikli',
     'promo.tickets': '2x KUPAONIČKE KARTE UKLJUČENE',
     'promo.tv': 'TV + Video rekorder s filmovima i crtićima',

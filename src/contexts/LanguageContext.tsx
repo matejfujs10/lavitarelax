@@ -316,7 +316,7 @@ const translations: Record<Language, Record<string, string>> = {
     'testimonials.moreReviews': 'Več ocen na Facebook-u →',
     
     // Promo Banner Section
-    'promo.summerBanner': 'POLETNA AKCIJA 110€ na noč z dvema kopalnima kartama + 3x Kolesi + Športni Rekviziti',
+    'promo.summerBanner': 'POLETNA AKCIJA 115€ na noč z dvema kopalnima kartama + 3x Kolesi + Športni Rekviziti',
     'promo.h2': 'Vključeni 2× kopalni karti in 3× brezplačna kolesa',
     'promo.tickets': '2x KOPALNI KARTI VKLJUČENI',
     'promo.tv': 'TV + Videorekorder s Filmi in Risankami',
@@ -640,7 +640,7 @@ const translations: Record<Language, Record<string, string>> = {
     'testimonials.moreReviews': 'More reviews on Facebook →',
     
     // Promo Banner Section
-    'promo.summerBanner': 'SUMMER SPECIAL €110 per night with two spa tickets + 3x Bicycles + Sports Equipment',
+    'promo.summerBanner': 'SUMMER SPECIAL €115 per night with two spa tickets + 3x Bicycles + Sports Equipment',
     'promo.h2': 'Included 2× spa tickets and 3× free bicycles',
     'promo.tickets': '2x SPA TICKETS INCLUDED',
     'promo.tv': 'TV + Video Recorder with Movies and Cartoons',
@@ -964,7 +964,7 @@ const translations: Record<Language, Record<string, string>> = {
     'testimonials.moreReviews': 'Mehr Bewertungen auf Facebook →',
     
     // Promo Banner Section
-    'promo.summerBanner': 'SOMMERANGEBOT 110€ pro Nacht mit zwei Spa-Tickets + 3x Fahrräder + Sportausrüstung',
+    'promo.summerBanner': 'SOMMERANGEBOT 115€ pro Nacht mit zwei Spa-Tickets + 3x Fahrräder + Sportausrüstung',
     'promo.h2': 'Inklusive 2× Spa-Tickets und 3× kostenlose Fahrräder',
     'promo.tickets': '2x SPA-TICKETS INKLUSIVE',
     'promo.tv': 'TV + Videorekorder mit Filmen und Zeichentrickfilmen',
@@ -1288,7 +1288,7 @@ const translations: Record<Language, Record<string, string>> = {
     'testimonials.moreReviews': 'Više recenzija na Facebooku →',
     
     // Promo Banner Section
-    'promo.summerBanner': 'LJETNA AKCIJA 110€ po noći s dvije kupaoničke karte + 3x Bicikli + Sportski Rekviziti',
+    'promo.summerBanner': 'LJETNA AKCIJA 115€ po noći s dvije kupaoničke karte + 3x Bicikli + Sportski Rekviziti',
     'promo.h2': 'Uključene 2× kupaoničke karte i 3× besplatni bicikli',
     'promo.tickets': '2x KUPAONIČKE KARTE UKLJUČENE',
     'promo.tv': 'TV + Video rekorder s filmovima i crtićima',

@@ -201,7 +201,7 @@ export const HeroSection = () => {
                   <span className="text-2xl">☀️</span>
                   <div className="text-left">
                     <p className="text-sm text-primary-foreground/80 font-medium">{t('hero.summerAction')}</p>
-                    <p className="text-2xl font-display font-bold text-primary-foreground">110€<span className="text-base font-normal text-primary-foreground/80">{t('hero.perNight')}</span></p>
+                    <p className="text-2xl font-display font-bold text-primary-foreground">115€<span className="text-base font-normal text-primary-foreground/80">{t('hero.perNight')}</span></p>
                   </div>
                 </div>
               </div>

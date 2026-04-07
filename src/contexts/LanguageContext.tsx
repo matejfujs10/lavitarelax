@@ -964,7 +964,7 @@ const translations: Record<Language, Record<string, string>> = {
     'testimonials.moreReviews': 'Mehr Bewertungen auf Facebook →',
     
     // Promo Banner Section
-    'promo.summerBanner': 'SOMMERANGEBOT 110€ pro Nacht mit zwei Spa-Tickets + 3x Fahrräder + Sportausrüstung',
+    'promo.summerBanner': 'SOMMERANGEBOT 115€ pro Nacht mit zwei Spa-Tickets + 3x Fahrräder + Sportausrüstung',
     'promo.h2': 'Inklusive 2× Spa-Tickets und 3× kostenlose Fahrräder',
     'promo.tickets': '2x SPA-TICKETS INKLUSIVE',
     'promo.tv': 'TV + Videorekorder mit Filmen und Zeichentrickfilmen',

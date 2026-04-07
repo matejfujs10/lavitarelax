@@ -483,7 +483,7 @@ const translations: Record<Language, Record<string, string>> = {
     'voucherSuccess.backHome': 'Back to home page',
     
     // Booking
-    'booking.springOffer': 'Spring special',
+    'booking.springOffer': '5+ nights 100€/night',
     'booking.summerOffer': 'Summer offer',
     'booking.formTitle': 'Booking Form',
     'booking.nameLabel': 'Full Name',

@@ -640,7 +640,7 @@ const translations: Record<Language, Record<string, string>> = {
     'testimonials.moreReviews': 'More reviews on Facebook →',
     
     // Promo Banner Section
-    'promo.summerBanner': 'SUMMER SPECIAL €110 per night with two spa tickets + 3x Bicycles + Sports Equipment',
+    'promo.summerBanner': 'SUMMER SPECIAL €115 per night with two spa tickets + 3x Bicycles + Sports Equipment',
     'promo.h2': 'Included 2× spa tickets and 3× free bicycles',
     'promo.tickets': '2x SPA TICKETS INCLUDED',
     'promo.tv': 'TV + Video Recorder with Movies and Cartoons',

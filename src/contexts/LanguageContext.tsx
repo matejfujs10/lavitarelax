@@ -674,7 +674,7 @@ const translations: Record<Language, Record<string, string>> = {
     'hero.title.main': 'La Vita Haus',
     'hero.title.sub': '– Camp Terme 3000',
     'hero.subtitle': 'Ihre Ecke der Entspannung und Natur in Terme 3000',
-    'hero.springAction': '5+ Nächte 100€/Nacht',
+    'hero.springAction': 'FRÜHLINGSANGEBOT',
     'hero.summerAction': 'Sommerangebot',
     'hero.perNight': '/Nacht',
     'hero.bookNow': 'Jetzt buchen',

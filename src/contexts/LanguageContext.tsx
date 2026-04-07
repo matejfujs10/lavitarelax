@@ -1131,7 +1131,7 @@ const translations: Record<Language, Record<string, string>> = {
     'voucherSuccess.backHome': 'Natrag na početnu stranicu',
     
     // Booking
-    'booking.springOffer': 'Proljetna akcija',
+    'booking.springOffer': '5+ noćenja 100€/noć',
     'booking.summerOffer': 'Ljetna ponuda',
     'booking.formTitle': 'Obrazac za Rezervaciju',
     'booking.nameLabel': 'Ime i Prezime',

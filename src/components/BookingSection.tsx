@@ -264,8 +264,11 @@ export const BookingSection = () => {
                       <Ticket className="w-4 h-4" />
                       {t('booking.springOffer')}
                     </span>
+                    <div className="flex items-baseline gap-2 mb-1">
+                      <span className="font-display text-2xl text-primary-foreground/60 line-through">165€</span>
+                    </div>
                     <div className="flex items-baseline gap-2 mb-4">
-                      <span className="font-display text-5xl font-bold">85€</span>
+                      <span className="font-display text-5xl font-bold">100€</span>
                       <span className="text-primary-foreground/80 text-lg">{t('booking.perNight')}</span>
                     </div>
                     <ul className="space-y-2 mb-4">
@@ -300,6 +303,9 @@ export const BookingSection = () => {
                       <Ticket className="w-4 h-4" />
                       {t('booking.summerOffer')}
                     </span>
+                    <div className="flex items-baseline gap-2 mb-1">
+                      <span className="font-display text-2xl text-primary-foreground/60 line-through">165€</span>
+                    </div>
                     <div className="flex items-baseline gap-2 mb-4">
                       <span className="font-display text-5xl font-bold">115€</span>
                       <span className="text-primary-foreground/80 text-lg">{t('booking.perNight')}</span>

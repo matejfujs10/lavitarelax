@@ -159,7 +159,7 @@ const translations: Record<Language, Record<string, string>> = {
     'voucherSuccess.backHome': 'Nazaj na domačo stran',
     
     // Booking
-    'booking.springOffer': '5+ nočitev 100€/noč',
+    'booking.springOffer': 'SPOMLADANSKA AKCIJA',
     'booking.summerOffer': 'Poletna ponudba',
     'booking.formTitle': 'Rezervacijski Obrazec',
     'booking.nameLabel': 'Ime in Priimek',
@@ -483,7 +483,7 @@ const translations: Record<Language, Record<string, string>> = {
     'voucherSuccess.backHome': 'Back to home page',
     
     // Booking
-    'booking.springOffer': '5+ nights 100€/night',
+    'booking.springOffer': 'SPRING SPECIAL',
     'booking.summerOffer': 'Summer offer',
     'booking.formTitle': 'Booking Form',
     'booking.nameLabel': 'Full Name',
@@ -807,7 +807,7 @@ const translations: Record<Language, Record<string, string>> = {
     'voucherSuccess.backHome': 'Zurück zur Startseite',
     
     // Booking
-    'booking.springOffer': '5+ Nächte 100€/Nacht',
+    'booking.springOffer': 'FRÜHLINGSANGEBOT',
     'booking.summerOffer': 'Sommerangebot',
     'booking.formTitle': 'Buchungsformular',
     'booking.nameLabel': 'Vollständiger Name',
@@ -1131,7 +1131,7 @@ const translations: Record<Language, Record<string, string>> = {
     'voucherSuccess.backHome': 'Natrag na početnu stranicu',
     
     // Booking
-    'booking.springOffer': '5+ noćenja 100€/noć',
+    'booking.springOffer': 'PROLJETNA AKCIJA',
     'booking.summerOffer': 'Ljetna ponuda',
     'booking.formTitle': 'Obrazac za Rezervaciju',
     'booking.nameLabel': 'Ime i Prezime',

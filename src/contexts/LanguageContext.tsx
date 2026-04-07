@@ -350,7 +350,7 @@ const translations: Record<Language, Record<string, string>> = {
     'hero.title.main': 'La Vita House',
     'hero.title.sub': '– Camp Terme 3000',
     'hero.subtitle': 'Your corner of relaxation and nature at Terme 3000',
-    'hero.springAction': '5+ nights 100€/night',
+    'hero.springAction': 'SPRING SPECIAL',
     'hero.summerAction': 'Summer special',
     'hero.perNight': '/night',
     'hero.bookNow': 'Book now',

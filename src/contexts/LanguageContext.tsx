@@ -316,7 +316,7 @@ const translations: Record<Language, Record<string, string>> = {
     'testimonials.moreReviews': 'Več ocen na Facebook-u →',
     
     // Promo Banner Section
-    'promo.summerBanner': 'POLETNA AKCIJA 110€ na noč z dvema kopalnima kartama + 3x Kolesi + Športni Rekviziti',
+    'promo.summerBanner': 'POLETNA AKCIJA 115€ na noč z dvema kopalnima kartama + 3x Kolesi + Športni Rekviziti',
     'promo.h2': 'Vključeni 2× kopalni karti in 3× brezplačna kolesa',
     'promo.tickets': '2x KOPALNI KARTI VKLJUČENI',
     'promo.tv': 'TV + Videorekorder s Filmi in Risankami',

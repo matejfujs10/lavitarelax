@@ -26,7 +26,7 @@ const translations: Record<Language, Record<string, string>> = {
     'hero.title.main': 'Hiška La Vita',
     'hero.title.sub': '– Kamp Terme 3000',
     'hero.subtitle': 'Vaš kotiček sprostitve in narave v Termah 3000',
-    'hero.springAction': '5+ nočitev 100€/noč',
+    'hero.springAction': 'SPOMLADANSKA AKCIJA',
     'hero.summerAction': 'Poletna akcija',
     'hero.perNight': '/noč',
     'hero.bookNow': 'Rezerviraj zdaj',

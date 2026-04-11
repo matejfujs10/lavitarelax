@@ -268,7 +268,7 @@ export const BookingSection = () => {
                       <span className="font-display text-2xl text-primary-foreground/60 line-through">165€</span>
                     </div>
                     <div className="flex items-baseline gap-2 mb-4">
-                      <span className="font-display text-5xl font-bold">100€</span>
+                      <span className="font-display text-5xl font-bold">70€</span>
                       <span className="text-primary-foreground/80 text-lg">{t('booking.perNight')}</span>
                     </div>
                     <ul className="space-y-2 mb-4">
@@ -306,10 +306,11 @@ export const BookingSection = () => {
                     <div className="flex items-baseline gap-2 mb-1">
                       <span className="font-display text-2xl text-primary-foreground/60 line-through">165€</span>
                     </div>
-                    <div className="flex items-baseline gap-2 mb-4">
-                      <span className="font-display text-5xl font-bold">115€</span>
+                    <div className="flex items-baseline gap-2 mb-2">
+                      <span className="font-display text-5xl font-bold">100€</span>
                       <span className="text-primary-foreground/80 text-lg">{t('booking.perNight')}</span>
                     </div>
+                    <p className="text-sm text-primary-foreground/60 font-medium mb-4">{t('booking.summerExtra')}</p>
                     <ul className="space-y-2 mb-4">
                       {summerFeatures.map((feature, idx) => (
                         <li key={idx} className="flex items-center gap-3 text-sm">

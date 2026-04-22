@@ -11,3 +11,6 @@ verify_jwt = false
 
 [functions.detect-language]
 verify_jwt = false
+
+[functions.sync-ical]
+verify_jwt = false

@@ -4,60 +4,61 @@
 
 @layer base {
   :root {
-    /* La Vita - Fresh & Bright Nature Palette */
-    --background: 120 30% 98%;
-    --foreground: 150 30% 12%;
+    /* La Vita - Spa & Nature: Forest Green + Warm Sand + Clean White */
+    --background: 0 0% 100%;
+    --foreground: 110 30% 12%;
 
     --card: 0 0% 100%;
-    --card-foreground: 150 30% 12%;
+    --card-foreground: 110 30% 12%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 150 30% 12%;
+    --popover-foreground: 110 30% 12%;
 
-    /* Fresh Light Mint Green - Main Brand Color */
-    --primary: 145 55% 52%;
+    /* Deep Forest Green - Main Brand Color (#2D5A27 ≈ hsl 113 38% 25%) */
+    --primary: 113 38% 25%;
     --primary-foreground: 0 0% 100%;
 
-    /* Soft Cream White */
-    --secondary: 48 50% 97%;
-    --secondary-foreground: 150 30% 15%;
+    /* Warm Sand / Cream */
+    --secondary: 36 38% 94%;
+    --secondary-foreground: 110 30% 15%;
 
-    /* Very Light Sage */
-    --muted: 130 20% 95%;
-    --muted-foreground: 150 15% 40%;
+    /* Soft Sand Muted */
+    --muted: 36 25% 95%;
+    --muted-foreground: 110 12% 38%;
 
-    /* Warm Sunny Yellow - Lighter */
-    --accent: 48 95% 72%;
-    --accent-foreground: 45 90% 15%;
+    /* Warm Wood Accent */
+    --accent: 32 55% 55%;
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84.2% 60.2%;
+    --destructive: 0 75% 50%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 140 25% 90%;
-    --input: 140 25% 90%;
-    --ring: 145 55% 52%;
+    --border: 36 20% 88%;
+    --input: 36 20% 88%;
+    --ring: 113 38% 25%;
 
     --radius: 0.75rem;
 
-    /* Custom La Vita Colors */
-    --lavita-mint: 145 55% 52%;
-    --lavita-mint-light: 145 50% 95%;
-    --lavita-cream: 48 60% 98%;
-    --lavita-sun: 48 95% 72%;
-    --lavita-sun-glow: 45 100% 80%;
-    --lavita-forest: 155 40% 28%;
-    --lavita-wood: 30 35% 30%;
+    /* Custom La Vita Colors - Spa & Nature */
+    --lavita-mint: 113 38% 25%;
+    --lavita-mint-light: 113 30% 92%;
+    --lavita-cream: 36 45% 96%;
+    --lavita-sun: 32 60% 65%;
+    --lavita-sun-glow: 32 70% 75%;
+    --lavita-forest: 113 42% 18%;
+    --lavita-wood: 28 35% 45%;
+    --lavita-sand: 36 38% 88%;
 
     /* Gradients */
-    --gradient-hero: linear-gradient(135deg, hsl(145 55% 52% / 0.08), hsl(48 95% 58% / 0.12));
-    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%), hsl(120 30% 98%));
-    --gradient-accent: linear-gradient(135deg, hsl(145 55% 52%), hsl(145 60% 60%));
-    --gradient-sun: linear-gradient(135deg, hsl(48 95% 58%), hsl(45 100% 68%));
+    --gradient-hero: linear-gradient(135deg, hsl(113 38% 25% / 0.10), hsl(32 55% 55% / 0.10));
+    --gradient-card: linear-gradient(180deg, hsl(0 0% 100%), hsl(36 30% 98%));
+    --gradient-accent: linear-gradient(135deg, hsl(113 38% 25%), hsl(113 42% 35%));
+    --gradient-sun: linear-gradient(135deg, hsl(32 55% 55%), hsl(32 70% 65%));
 
     /* Shadows */
-    --shadow-soft: 0 4px 25px -5px hsl(145 40% 30% / 0.12);
-    --shadow-card: 0 10px 40px -10px hsl(145 40% 30% / 0.18);
-    --shadow-glow: 0 0 50px hsl(48 95% 58% / 0.35);
+    --shadow-soft: 0 4px 25px -5px hsl(113 38% 18% / 0.10);
+    --shadow-card: 0 10px 40px -10px hsl(113 38% 18% / 0.18);
+    --shadow-glow: 0 0 50px hsl(32 60% 60% / 0.30);
 
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;

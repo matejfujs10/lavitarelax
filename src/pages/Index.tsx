@@ -10,6 +10,7 @@ import { AboutSection } from "@/components/AboutSection";
 import { Footer } from "@/components/Footer";
 import { ActivitiesSection } from "@/components/ActivitiesSection";
 import { CookieConsent } from "@/components/CookieConsent";
+import { StickyMobileBar } from "@/components/StickyMobileBar";
 
 const Index = () => {
   return (
@@ -51,6 +52,7 @@ const Index = () => {
 
       <Footer />
       <CookieConsent />
+      <StickyMobileBar />
     </div>
   );
 };

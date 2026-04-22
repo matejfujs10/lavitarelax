@@ -24,13 +24,13 @@ const translations: Record<Language, Record<string, string>> = {
     
     // Hero Section
     'hero.title.main': 'Hiška La Vita',
-    'hero.title.sub': '– Kamp Terme 3000',
-    'hero.subtitle': 'Vaš kotiček sprostitve in narave v Termah 3000',
+    'hero.title.sub': '– Vaš kotiček sprostitve v Termah 3000',
+    'hero.subtitle': 'Udobna 50m² hiška sredi narave Kampa Terme 3000',
     'hero.springAction': 'APRIL AKCIJA',
     'hero.summerAction': 'POLETNA AKCIJA JULIJ, AVGUST',
     'hero.summerExtra': '4+ nočitev dodatna akcija',
     'hero.perNight': '/noč',
-    'hero.bookNow': 'Rezerviraj zdaj',
+    'hero.bookNow': 'Rezerviraj svoj oddih',
     'hero.discoverActivities': 'Odkrijte aktivnosti',
     'hero.discoverMore': 'Odkrijte več',
     'hero.badge.tickets': '🎫 2x Kopalni karti vključeni',
@@ -75,6 +75,10 @@ const translations: Record<Language, Record<string, string>> = {
     'features.linenDesc': 'Sveža posteljnina in brisače za vaše udobje',
     'features.terrace': '2x Terasa',
     'features.terraceDesc': 'Ena majhna spredaj in ena velika zasebna za hiško',
+    'features.toys': 'Otroške Igrače',
+    'features.toysDesc': 'Raznolike igrače za zabavno preživljanje časa otrok',
+    'features.wifitv': 'Brezplačen WiFi & TV',
+    'features.wifitvDesc': 'Hiter internet in televizija za vaše udobje',
     
     // About Section
     'about.label': '🏡 O nas',
@@ -350,13 +354,13 @@ const translations: Record<Language, Record<string, string>> = {
     
     // Hero Section
     'hero.title.main': 'La Vita House',
-    'hero.title.sub': '– Camp Terme 3000',
-    'hero.subtitle': 'Your corner of relaxation and nature at Terme 3000',
+    'hero.title.sub': '– Your relaxation corner at Terme 3000',
+    'hero.subtitle': 'Comfortable 50m² house in the heart of Camp Terme 3000',
     'hero.springAction': 'APRIL SPECIAL',
     'hero.summerAction': 'SUMMER SPECIAL JULY, AUGUST',
     'hero.summerExtra': '4+ nights extra deal',
     'hero.perNight': '/night',
-    'hero.bookNow': 'Book now',
+    'hero.bookNow': 'Book your stay',
     'hero.discoverActivities': 'Discover activities',
     'hero.discoverMore': 'Discover more',
     'hero.badge.tickets': '🎫 2x Spa tickets included',
@@ -401,6 +405,10 @@ const translations: Record<Language, Record<string, string>> = {
     'features.linenDesc': 'Fresh bedding and towels for your comfort',
     'features.terrace': '2x Terrace',
     'features.terraceDesc': 'One small in front and one large private behind the house',
+    'features.toys': "Children's Toys",
+    'features.toysDesc': 'Variety of toys for children to enjoy their time',
+    'features.wifitv': 'Free WiFi & TV',
+    'features.wifitvDesc': 'Fast internet and TV for your comfort',
     
     // About Section
     'about.label': '🏡 About us',
@@ -676,13 +684,13 @@ const translations: Record<Language, Record<string, string>> = {
     
     // Hero Section
     'hero.title.main': 'La Vita Haus',
-    'hero.title.sub': '– Camp Terme 3000',
-    'hero.subtitle': 'Ihre Ecke der Entspannung und Natur in Terme 3000',
+    'hero.title.sub': '– Ihre Erholungsecke in Terme 3000',
+    'hero.subtitle': 'Komfortables 50m² Haus inmitten der Natur des Camps Terme 3000',
     'hero.springAction': 'APRIL AKTION',
     'hero.summerAction': 'SOMMERAKTION JULI, AUGUST',
     'hero.summerExtra': '4+ Nächte Zusatzangebot',
     'hero.perNight': '/Nacht',
-    'hero.bookNow': 'Jetzt buchen',
+    'hero.bookNow': 'Urlaub buchen',
     'hero.discoverActivities': 'Aktivitäten entdecken',
     'hero.discoverMore': 'Mehr entdecken',
     'hero.badge.tickets': '🎫 2x Spa-Tickets inklusive',
@@ -727,6 +735,10 @@ const translations: Record<Language, Record<string, string>> = {
     'features.linenDesc': 'Frische Bettwäsche und Handtücher für Ihren Komfort',
     'features.terrace': '2x Terrasse',
     'features.terraceDesc': 'Eine kleine vorne und eine große private hinter dem Haus',
+    'features.toys': 'Kinderspielzeug',
+    'features.toysDesc': 'Vielfältiges Spielzeug für Kinder zum Spaß haben',
+    'features.wifitv': 'Kostenloses WiFi & TV',
+    'features.wifitvDesc': 'Schnelles Internet und Fernsehen für Ihren Komfort',
     
     // About Section
     'about.label': '🏡 Über uns',
@@ -1002,13 +1014,13 @@ const translations: Record<Language, Record<string, string>> = {
     
     // Hero Section
     'hero.title.main': 'La Vita Kućica',
-    'hero.title.sub': '– Kamp Terme 3000',
-    'hero.subtitle': 'Vaš kutak opuštanja i prirode u Termama 3000',
+    'hero.title.sub': '– Vaš kutak opuštanja u Termama 3000',
+    'hero.subtitle': 'Udobna 50m² kućica usred prirode Kampa Terme 3000',
     'hero.springAction': 'TRAVANJSKA AKCIJA',
     'hero.summerAction': 'LJETNA AKCIJA SRPANJ, KOLOVOZ',
     'hero.summerExtra': '4+ noćenja dodatna akcija',
     'hero.perNight': '/noć',
-    'hero.bookNow': 'Rezervirajte sada',
+    'hero.bookNow': 'Rezervirajte odmor',
     'hero.discoverActivities': 'Otkrijte aktivnosti',
     'hero.discoverMore': 'Otkrijte više',
     'hero.badge.tickets': '🎫 2x Kupaoničke karte uključene',
@@ -1053,6 +1065,10 @@ const translations: Record<Language, Record<string, string>> = {
     'features.linenDesc': 'Svježa posteljina i ručnici za vašu udobnost',
     'features.terrace': '2x Terasa',
     'features.terraceDesc': 'Jedna mala sprijeda i jedna velika privatna iza kućice',
+    'features.toys': 'Dječje Igračke',
+    'features.toysDesc': 'Raznovrsne igračke za zabavu djece',
+    'features.wifitv': 'Besplatan WiFi & TV',
+    'features.wifitvDesc': 'Brzi internet i televizija za vaš komfor',
     
     // About Section
     'about.label': '🏡 O nama',

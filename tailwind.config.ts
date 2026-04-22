@@ -14,8 +14,8 @@ export default {
     },
     extend: {
       fontFamily: {
-        display: ['"Playfair Display"', 'Georgia', 'serif'],
-        body: ['"Quicksand"', 'system-ui', 'sans-serif'],
+        display: ['"Montserrat"', '"Inter"', 'system-ui', 'sans-serif'],
+        body: ['"Montserrat"', '"Inter"', 'system-ui', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -59,6 +59,7 @@ export default {
           "sun-glow": "hsl(var(--lavita-sun-glow))",
           forest: "hsl(var(--lavita-forest))",
           wood: "hsl(var(--lavita-wood))",
+          sand: "hsl(var(--lavita-sand))",
         },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",

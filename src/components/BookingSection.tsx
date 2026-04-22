@@ -16,6 +16,9 @@ import laVitaLogoNew from "@/assets/la-vita-logo-new.png";
 
 import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useBookedDates } from "@/hooks/useBookedDates";
+import { isDateBooked } from "@/lib/pricing";
+import { PriceSummary } from "@/components/PriceSummary";
 
 interface Guest {
   name: string;

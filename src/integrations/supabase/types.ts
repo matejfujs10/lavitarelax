@@ -14,6 +14,42 @@ export type Database = {
   }
   public: {
     Tables: {
+      booked_dates: {
+        Row: {
+          created_at: string
+          end_date: string
+          external_uid: string | null
+          id: string
+          last_synced_at: string
+          source: string
+          start_date: string
+          summary: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          end_date: string
+          external_uid?: string | null
+          id?: string
+          last_synced_at?: string
+          source?: string
+          start_date: string
+          summary?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          end_date?: string
+          external_uid?: string | null
+          id?: string
+          last_synced_at?: string
+          source?: string
+          start_date?: string
+          summary?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
       gift_vouchers: {
         Row: {
           admin_email_sent: boolean
@@ -101,6 +137,33 @@ export type Database = {
           updated_at?: string
           valid_until?: string | null
           voucher_generated?: boolean
+        }
+        Relationships: []
+      }
+      ical_sync_log: {
+        Row: {
+          created_at: string
+          duration_ms: number | null
+          error_message: string | null
+          id: string
+          reservations_count: number | null
+          status: string
+        }
+        Insert: {
+          created_at?: string
+          duration_ms?: number | null
+          error_message?: string | null
+          id?: string
+          reservations_count?: number | null
+          status: string
+        }
+        Update: {
+          created_at?: string
+          duration_ms?: number | null
+          error_message?: string | null
+          id?: string
+          reservations_count?: number | null
+          status?: string
         }
         Relationships: []
       }

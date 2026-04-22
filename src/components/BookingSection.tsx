@@ -16,6 +16,9 @@ import laVitaLogoNew from "@/assets/la-vita-logo-new.png";
 
 import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useBookedDates } from "@/hooks/useBookedDates";
+import { isDateBooked } from "@/lib/pricing";
+import { PriceSummary } from "@/components/PriceSummary";
 
 interface Guest {
   name: string;
@@ -27,7 +30,8 @@ export const BookingSection = () => {
   const isInView = useInView(ref, { once: true });
   const { toast } = useToast();
   const { language, t } = useLanguage();
-  
+  const { ranges: bookedRanges } = useBookedDates();
+
   // Get the appropriate date locale
   const dateLocale = language === 'sl' ? sl : language === 'de' ? de : enUS;
   
@@ -398,7 +402,9 @@ export const BookingSection = () => {
                             mode="single"
                             selected={arrivalDate}
                             onSelect={setArrivalDate}
-                            disabled={(date) => date < new Date()}
+                            disabled={(date) =>
+                              date < new Date() || isDateBooked(date, bookedRanges)
+                            }
                             initialFocus
                             className="p-3 pointer-events-auto"
                           />
@@ -426,7 +432,10 @@ export const BookingSection = () => {
                             mode="single"
                             selected={departureDate}
                             onSelect={setDepartureDate}
-                            disabled={(date) => date < (arrivalDate || new Date())}
+                            disabled={(date) =>
+                              date < (arrivalDate || new Date()) ||
+                              isDateBooked(date, bookedRanges)
+                            }
                             initialFocus
                             className="p-3 pointer-events-auto"
                           />
@@ -434,6 +443,16 @@ export const BookingSection = () => {
                       </Popover>
                     </div>
                   </div>
+
+                  {/* Price Summary - dynamic discount */}
+                  <PriceSummary checkIn={arrivalDate} checkOut={departureDate} />
+
+                  {/* Calendar legend */}
+                  {bookedRanges.length > 0 && (
+                    <p className="text-xs text-muted-foreground -mt-2">
+                      ℹ️ {t('pricing.calendarLegend')}
+                    </p>
+                  )}
 
                   {/* Arrival Time */}
                   <div className="space-y-2">

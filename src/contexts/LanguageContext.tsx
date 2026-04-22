@@ -1065,6 +1065,10 @@ const translations: Record<Language, Record<string, string>> = {
     'features.linenDesc': 'Svježa posteljina i ručnici za vašu udobnost',
     'features.terrace': '2x Terasa',
     'features.terraceDesc': 'Jedna mala sprijeda i jedna velika privatna iza kućice',
+    'features.toys': 'Dječje Igračke',
+    'features.toysDesc': 'Raznovrsne igračke za zabavu djece',
+    'features.wifitv': 'Besplatan WiFi & TV',
+    'features.wifitvDesc': 'Brzi internet i televizija za vaš komfor',
     
     // About Section
     'about.label': '🏡 O nama',

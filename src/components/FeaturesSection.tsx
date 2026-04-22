@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { useInView } from "framer-motion";
 import { useRef } from "react";
-import { Home, Users, UtensilsCrossed, Lightbulb, Music, Bed, Bike, Ticket, Maximize, Dumbbell, BedDouble, LayoutGrid, LucideIcon } from "lucide-react";
+import { Ticket, Bike, Maximize, Wifi, LayoutGrid, ToyBrick, Dumbbell, BedDouble, LucideIcon } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 interface Feature {
@@ -10,19 +10,16 @@ interface Feature {
   descKey: string;
 }
 
+// 8 key features displayed in a 4x2 (desktop) / 2x4 (mobile) grid
 const featuresList: Feature[] = [
-  { icon: Home, titleKey: "features.space", descKey: "features.spaceDesc" },
-  { icon: Users, titleKey: "features.guests", descKey: "features.guestsDesc" },
-  { icon: UtensilsCrossed, titleKey: "features.kitchen", descKey: "features.kitchenDesc" },
-  { icon: Lightbulb, titleKey: "features.led", descKey: "features.ledDesc" },
-  { icon: Music, titleKey: "features.hifi", descKey: "features.hifiDesc" },
-  { icon: Bed, titleKey: "features.dormeo", descKey: "features.dormeoDesc" },
-  { icon: Bike, titleKey: "features.bikes", descKey: "features.bikesDesc" },
   { icon: Ticket, titleKey: "features.tickets", descKey: "features.ticketsDesc" },
-  { icon: Maximize, titleKey: "features.area", descKey: "features.areaDesc" },
-  { icon: Dumbbell, titleKey: "features.sports", descKey: "features.sportsDesc" },
-  { icon: BedDouble, titleKey: "features.linen", descKey: "features.linenDesc" },
+  { icon: Bike, titleKey: "features.bikes", descKey: "features.bikesDesc" },
+  { icon: Maximize, titleKey: "features.space", descKey: "features.spaceDesc" },
+  { icon: Wifi, titleKey: "features.wifitv", descKey: "features.wifitvDesc" },
   { icon: LayoutGrid, titleKey: "features.terrace", descKey: "features.terraceDesc" },
+  { icon: ToyBrick, titleKey: "features.toys", descKey: "features.toysDesc" },
+  { icon: Dumbbell, titleKey: "features.sports", descKey: "features.sportsDesc" },
+  { icon: BedDouble, titleKey: "features.dormeo", descKey: "features.dormeoDesc" },
 ];
 
 const FeatureCard = ({ feature, index }: { feature: Feature; index: number }) => {

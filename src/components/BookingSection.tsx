@@ -402,7 +402,9 @@ export const BookingSection = () => {
                             mode="single"
                             selected={arrivalDate}
                             onSelect={setArrivalDate}
-                            disabled={(date) => date < new Date()}
+                            disabled={(date) =>
+                              date < new Date() || isDateBooked(date, bookedRanges)
+                            }
                             initialFocus
                             className="p-3 pointer-events-auto"
                           />
@@ -430,7 +432,10 @@ export const BookingSection = () => {
                             mode="single"
                             selected={departureDate}
                             onSelect={setDepartureDate}
-                            disabled={(date) => date < (arrivalDate || new Date())}
+                            disabled={(date) =>
+                              date < (arrivalDate || new Date()) ||
+                              isDateBooked(date, bookedRanges)
+                            }
                             initialFocus
                             className="p-3 pointer-events-auto"
                           />
@@ -438,6 +443,16 @@ export const BookingSection = () => {
                       </Popover>
                     </div>
                   </div>
+
+                  {/* Price Summary - dynamic discount */}
+                  <PriceSummary checkIn={arrivalDate} checkOut={departureDate} />
+
+                  {/* Calendar legend */}
+                  {bookedRanges.length > 0 && (
+                    <p className="text-xs text-muted-foreground -mt-2">
+                      ℹ️ {t('pricing.calendarLegend')}
+                    </p>
+                  )}
 
                   {/* Arrival Time */}
                   <div className="space-y-2">

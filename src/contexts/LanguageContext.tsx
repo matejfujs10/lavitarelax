@@ -75,6 +75,10 @@ const translations: Record<Language, Record<string, string>> = {
     'features.linenDesc': 'Sveža posteljnina in brisače za vaše udobje',
     'features.terrace': '2x Terasa',
     'features.terraceDesc': 'Ena majhna spredaj in ena velika zasebna za hiško',
+    'features.toys': 'Otroške Igrače',
+    'features.toysDesc': 'Raznolike igrače za zabavno preživljanje časa otrok',
+    'features.wifitv': 'Brezplačen WiFi & TV',
+    'features.wifitvDesc': 'Hiter internet in televizija za vaše udobje',
     
     // About Section
     'about.label': '🏡 O nas',
@@ -401,6 +405,10 @@ const translations: Record<Language, Record<string, string>> = {
     'features.linenDesc': 'Fresh bedding and towels for your comfort',
     'features.terrace': '2x Terrace',
     'features.terraceDesc': 'One small in front and one large private behind the house',
+    'features.toys': "Children's Toys",
+    'features.toysDesc': 'Variety of toys for children to enjoy their time',
+    'features.wifitv': 'Free WiFi & TV',
+    'features.wifitvDesc': 'Fast internet and TV for your comfort',
     
     // About Section
     'about.label': '🏡 About us',
@@ -727,6 +735,10 @@ const translations: Record<Language, Record<string, string>> = {
     'features.linenDesc': 'Frische Bettwäsche und Handtücher für Ihren Komfort',
     'features.terrace': '2x Terrasse',
     'features.terraceDesc': 'Eine kleine vorne und eine große private hinter dem Haus',
+    'features.toys': 'Kinderspielzeug',
+    'features.toysDesc': 'Vielfältiges Spielzeug für Kinder zum Spaß haben',
+    'features.wifitv': 'Kostenloses WiFi & TV',
+    'features.wifitvDesc': 'Schnelles Internet und Fernsehen für Ihren Komfort',
     
     // About Section
     'about.label': '🏡 Über uns',

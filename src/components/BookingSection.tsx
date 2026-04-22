@@ -30,7 +30,8 @@ export const BookingSection = () => {
   const isInView = useInView(ref, { once: true });
   const { toast } = useToast();
   const { language, t } = useLanguage();
-  
+  const { ranges: bookedRanges } = useBookedDates();
+
   // Get the appropriate date locale
   const dateLocale = language === 'sl' ? sl : language === 'de' ? de : enUS;
   

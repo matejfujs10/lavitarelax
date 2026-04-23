@@ -101,7 +101,7 @@ export const Navbar = () => {
               />
               <div className="flex flex-col">
                 <span className="font-display text-xl font-bold text-foreground leading-tight">House La Vita</span>
-                <span className="text-[10px] tracking-[0.2em] text-muted-foreground font-medium uppercase leading-tight">Enjoy · Relax · Refresh</span>
+                <span className="text-[8px] tracking-[0.15em] text-muted-foreground font-medium uppercase leading-tight whitespace-nowrap">Enjoy · Relax · Refresh</span>
               </div>
             </motion.div>
           </a>

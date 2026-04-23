@@ -17,9 +17,10 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.booking': 'REZERVIRAJ ODDIH',
     'nav.vouchers': 'DARILNI BONI',
     'nav.activities': 'AKTIVNOSTI',
-    'nav.reviews': 'MNENJA GOSTOV',
-    'nav.faq': 'POGOSTA VPRAŠANJA',
+    'nav.reviews': 'MNENJA',
+    'nav.faq': 'FAQ',
     'nav.about': 'O NAS',
+    'nav.blog': 'BLOG',
     'nav.tagline': 'Enjoy · Relax · Refresh',
     
     // Hero Section
@@ -366,9 +367,10 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.booking': 'BOOK YOUR STAY',
     'nav.vouchers': 'GIFT VOUCHERS',
     'nav.activities': 'ACTIVITIES',
-    'nav.reviews': 'GUEST REVIEWS',
+    'nav.reviews': 'REVIEWS',
     'nav.faq': 'FAQ',
-    'nav.about': 'ABOUT US',
+    'nav.about': 'ABOUT',
+    'nav.blog': 'BLOG',
     'nav.tagline': 'Enjoy · Relax · Refresh',
     
     // Hero Section
@@ -715,9 +717,10 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.booking': 'AUFENTHALT BUCHEN',
     'nav.vouchers': 'GESCHENKGUTSCHEINE',
     'nav.activities': 'AKTIVITÄTEN',
-    'nav.reviews': 'GÄSTEBEWERTUNGEN',
+    'nav.reviews': 'BEWERTUNGEN',
     'nav.faq': 'FAQ',
     'nav.about': 'ÜBER UNS',
+    'nav.blog': 'BLOG',
     'nav.tagline': 'Enjoy · Relax · Refresh',
     
     // Hero Section
@@ -1064,9 +1067,10 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.booking': 'REZERVIRAJTE ODMOR',
     'nav.vouchers': 'POKLON BONOVI',
     'nav.activities': 'AKTIVNOSTI',
-    'nav.reviews': 'RECENZIJE GOSTIJU',
-    'nav.faq': 'ČESTA PITANJA',
+    'nav.reviews': 'RECENZIJE',
+    'nav.faq': 'FAQ',
     'nav.about': 'O NAMA',
+    'nav.blog': 'BLOG',
     'nav.tagline': 'Enjoy · Relax · Refresh',
     
     // Hero Section

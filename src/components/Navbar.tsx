@@ -17,6 +17,7 @@ export const Navbar = () => {
     { label: t('nav.booking'), href: "#rezervacija", isExternal: false },
     { label: t('nav.vouchers'), href: "/gift-voucher", isExternal: true },
     { label: t('nav.activities'), href: "#aktivnosti", isExternal: false },
+    { label: t('nav.blog'), href: "/blog", isExternal: true },
     { label: t('nav.reviews'), href: "#mnenja", isExternal: false },
     { label: t('nav.faq'), href: "#faq", isExternal: false },
     { label: t('nav.about'), href: "#onas", isExternal: false },
@@ -87,9 +88,9 @@ export const Navbar = () => {
           isScrolled ? "top-0 glass-effect shadow-lavita py-2" : "top-10 bg-transparent py-4"
         }`}
       >
-        <div className="container mx-auto px-4 flex items-center justify-between">
+        <div className="container mx-auto px-4 flex items-center justify-between gap-4">
           {/* Logo - Text Based with Arrow and Tagline */}
-          <a href="#domov" className="flex items-center gap-2 group">
+          <a href="#domov" className="flex items-center gap-2 group flex-shrink-0">
             <motion.div
               whileHover={{ scale: 1.02 }}
               className="flex items-center gap-2"
@@ -97,23 +98,23 @@ export const Navbar = () => {
               <img
                 src={lavitaLogo}
                 alt="House La Vita logo"
-                className="h-12 md:h-14 w-auto object-contain"
+                className="h-10 md:h-12 w-auto object-contain"
               />
               <div className="flex flex-col">
-                <span className="font-display text-xl font-bold text-foreground leading-tight">House La Vita</span>
-                <span className="text-[8px] tracking-[0.15em] text-muted-foreground font-medium uppercase leading-tight whitespace-nowrap">Enjoy · Relax · Refresh</span>
+                <span className="font-display text-base md:text-lg font-bold text-foreground leading-tight whitespace-nowrap">House La Vita</span>
+                <span className="text-[7px] md:text-[8px] tracking-[0.15em] text-muted-foreground font-medium uppercase leading-tight whitespace-nowrap">Enjoy · Relax · Refresh</span>
               </div>
             </motion.div>
           </a>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-1">
+          <div className="hidden lg:flex items-center gap-0.5 xl:gap-1 flex-wrap justify-end">
             {navItems.map((item, index) => (
               item.isExternal ? (
                 <motion.div key={item.href}>
                   <Link
                     to={item.href}
-                    className="px-3 py-2 text-sm font-medium text-foreground/80 hover:text-primary transition-colors relative group"
+                    className="px-2 xl:px-3 py-2 text-xs xl:text-sm font-medium text-foreground/80 hover:text-primary transition-colors relative group whitespace-nowrap"
                   >
                     {item.label}
                     <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-primary group-hover:w-3/4 transition-all duration-300 rounded-full" />
@@ -126,7 +127,7 @@ export const Navbar = () => {
                   initial={{ opacity: 0, y: -20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: index * 0.1 }}
-                  className="px-3 py-2 text-sm font-medium text-foreground/80 hover:text-primary transition-colors relative group"
+                  className="px-2 xl:px-3 py-2 text-xs xl:text-sm font-medium text-foreground/80 hover:text-primary transition-colors relative group whitespace-nowrap"
                 >
                   {item.label}
                   <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-primary group-hover:w-3/4 transition-all duration-300 rounded-full" />

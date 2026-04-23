@@ -19,7 +19,7 @@ export const Footer = () => {
               <img
                 src={lavitaLogo}
                 alt="House La Vita logo"
-                className="w-10 h-10 object-contain"
+                className="h-16 md:h-20 w-auto object-contain"
               />
               <span className="font-display text-xl font-bold">House La Vita</span>
             </div>

@@ -97,7 +97,7 @@ export const Navbar = () => {
               <img
                 src={lavitaLogo}
                 alt="House La Vita logo"
-                className="w-10 h-10 object-contain"
+                className="h-12 md:h-14 w-auto object-contain"
               />
               <div className="flex flex-col">
                 <span className="font-display text-xl font-bold text-foreground leading-tight">House La Vita</span>

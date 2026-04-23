@@ -21,7 +21,10 @@ export const Footer = () => {
                 alt="House La Vita logo"
                 className="h-16 md:h-20 w-auto object-contain"
               />
-              <span className="font-display text-xl font-bold">House La Vita</span>
+              <div className="flex flex-col">
+                <span className="font-display text-xl font-bold leading-tight">House La Vita</span>
+                <span className="text-[8px] tracking-[0.15em] text-primary-foreground/70 font-medium uppercase leading-tight whitespace-nowrap">Enjoy · Relax · Refresh</span>
+              </div>
             </div>
             <p className="text-primary-foreground/70 leading-relaxed">
               {t('footer.tagline')}

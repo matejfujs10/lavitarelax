@@ -1,9 +1,10 @@
-import { MapPin, Phone, Mail, Heart, ArrowRight } from "lucide-react";
+import { MapPin, Phone, Mail, Heart } from "lucide-react";
 import { TermsModal } from "./TermsModal";
 import { PrivacyModal } from "./PrivacyModal";
 import { CookiesModal } from "./CookiesModal";
 import { openCookieSettings } from "./CookieConsent";
 import { useLanguage } from "@/contexts/LanguageContext";
+import lavitaLogo from "@/assets/lavita-logo.png";
 
 export const Footer = () => {
   const { t } = useLanguage();
@@ -14,9 +15,13 @@ export const Footer = () => {
         <div className="grid md:grid-cols-3 gap-8 lg:gap-12 mb-12">
           {/* Logo & About */}
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <ArrowRight className="w-6 h-6 text-accent" />
-              <span className="font-display text-xl font-bold">Hiška La Vita</span>
+            <div className="flex items-center gap-3 mb-4">
+              <img
+                src={lavitaLogo}
+                alt="House La Vita logo"
+                className="w-10 h-10 object-contain"
+              />
+              <span className="font-display text-xl font-bold">House La Vita</span>
             </div>
             <p className="text-primary-foreground/70 leading-relaxed">
               {t('footer.tagline')}

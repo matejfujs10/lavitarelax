@@ -1,4 +1,5 @@
 import { MapPin, Phone, Mail, Heart } from "lucide-react";
+import { Link } from "react-router-dom";
 import { TermsModal } from "./TermsModal";
 import { PrivacyModal } from "./PrivacyModal";
 import { CookiesModal } from "./CookiesModal";
@@ -49,6 +50,11 @@ export const Footer = () => {
                 <a href="#aktivnosti" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors">
                   {t('footer.activities')}
                 </a>
+              </li>
+              <li>
+                <Link to="/blog" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors">
+                  {t('nav.blog')}
+                </Link>
               </li>
               <li>
                 <a href="#mnenja" className="text-primary-foreground/70 hover:text-primary-foreground transition-colors">

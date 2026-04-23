@@ -23,7 +23,7 @@ const translations: Record<Language, Record<string, string>> = {
     'nav.tagline': 'Enjoy · Relax · Refresh',
     
     // Hero Section
-    'hero.title.main': 'Hiška La Vita',
+    'hero.title.main': 'House La Vita',
     'hero.title.sub': '– Vaš kotiček sprostitve v Termah 3000',
     'hero.subtitle': 'Udobna 50m² hiška sredi narave Kampa Terme 3000',
     'hero.springAction': 'APRIL AKCIJA',

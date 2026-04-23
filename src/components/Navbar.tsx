@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Facebook, Instagram, ArrowRight } from "lucide-react";
+import { Menu, X, Facebook, Instagram } from "lucide-react";
 import { Link, useLocation } from "react-router-dom";
 import { useLanguage, Language } from "@/contexts/LanguageContext";
+import lavitaLogo from "@/assets/lavita-logo.png";
 
 const languages: Language[] = ["sl", "en", "de", "hr"];
 
@@ -93,9 +94,13 @@ export const Navbar = () => {
               whileHover={{ scale: 1.02 }}
               className="flex items-center gap-2"
             >
-              <ArrowRight className="w-6 h-6 text-accent" />
+              <img
+                src={lavitaLogo}
+                alt="House La Vita logo"
+                className="w-10 h-10 object-contain"
+              />
               <div className="flex flex-col">
-                <span className="font-display text-xl font-bold text-foreground leading-tight">Hiška La Vita</span>
+                <span className="font-display text-xl font-bold text-foreground leading-tight">House La Vita</span>
                 <span className="text-[10px] tracking-[0.2em] text-muted-foreground font-medium uppercase leading-tight">Enjoy · Relax · Refresh</span>
               </div>
             </motion.div>

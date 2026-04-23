@@ -1,6 +1,6 @@
 import blogPrekmurje from "@/assets/blog/blog-prekmurje.jpg";
 import blogThermalWater from "@/assets/blog/blog-thermal-water.jpg";
-import blogHouseLavita from "@/assets/blog/blog-house-lavita.jpg";
+import blogHouseLavita from "@/assets/blog/blog-house-lavita.png";
 
 export interface BlogSection {
   heading?: string;

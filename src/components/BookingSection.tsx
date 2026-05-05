@@ -17,7 +17,7 @@ import laVitaLogoNew from "@/assets/la-vita-logo-new.png";
 import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useBookedDates } from "@/hooks/useBookedDates";
-import { isDateBooked } from "@/lib/pricing";
+import { isDateBooked, computePrice, formatEur } from "@/lib/pricing";
 import { PriceSummary } from "@/components/PriceSummary";
 
 interface Guest {
@@ -145,6 +145,9 @@ export const BookingSection = () => {
     setIsSubmitting(true);
 
     try {
+      // Compute price breakdown for guest summary
+      const breakdown = computePrice(arrivalDate, departureDate);
+
       // Build extra info for the message field
       const extraParts: string[] = [];
       if (arrivalTime) extraParts.push(`Okvirni čas prihoda: ${arrivalTime}`);
@@ -156,6 +159,18 @@ export const BookingSection = () => {
           .join(", ");
         if (guestNames) extraParts.push(`Gostje: ${guestNames}`);
       }
+      if (breakdown) {
+        extraParts.push(
+          `--- IZRAČUN CENE ---`,
+          `Število nočitev: ${breakdown.nights}`,
+          `Cena/noč: ${formatEur(breakdown.basePerNight)}`,
+          `Osnovni znesek: ${formatEur(breakdown.baseTotal)}`,
+          breakdown.discountAmount > 0
+            ? `Popust (${Math.round(breakdown.discountPct * 100)}%): -${formatEur(breakdown.discountAmount)}`
+            : `Popust: 0€`,
+          `KONČNA CENA: ${formatEur(breakdown.finalTotal)}`,
+        );
+      }
 
       const payload = {
         name: fullName,
@@ -165,6 +180,9 @@ export const BookingSection = () => {
         checkOut: format(departureDate, "yyyy-MM-dd"),
         guests: String(guests.length),
         message: extraParts.join("\n"),
+        priceTotal: breakdown ? breakdown.finalTotal : null,
+        priceNights: breakdown ? breakdown.nights : null,
+        pricePerNight: breakdown ? breakdown.basePerNight : null,
       };
 
       const resp = await fetch("/api/reservation", {

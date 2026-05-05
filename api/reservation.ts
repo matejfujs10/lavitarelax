@@ -38,10 +38,13 @@ export default async function handler(req: any, res: any) {
     const name = body.name;
     const email = body.email;
     const phone = body.phone;
-    const checkIn = body.checkIn;     // IMPORTANT: checkIn
-    const checkOut = body.checkOut;   // IMPORTANT: checkOut
+    const checkIn = body.checkIn;
+    const checkOut = body.checkOut;
     const guests = body.guests;
     const message = body.message;
+    const priceTotal = body.priceTotal;
+    const priceNights = body.priceNights;
+    const pricePerNight = body.pricePerNight;
 
     if (!name || !email || !checkIn || !checkOut) {
       return res.status(400).json({
@@ -50,7 +53,23 @@ export default async function handler(req: any, res: any) {
       });
     }
 
-    const subject = `Nova rezervacija: ${name} (${checkIn} → ${checkOut})`;
+    const priceLine =
+      priceTotal != null
+        ? ` | Cena: ${priceTotal}€`
+        : "";
+
+    const subject = `Nova rezervacija: ${name} (${checkIn} → ${checkOut})${priceLine}`;
+
+    const priceBlock =
+      priceTotal != null
+        ? `
+      <hr/>
+      <h3>Izračun cene</h3>
+      <p><b>Število nočitev:</b> ${escapeHtml(priceNights)}</p>
+      <p><b>Cena na noč:</b> ${escapeHtml(pricePerNight)}€</p>
+      <p style="font-size:18px"><b>Končna cena: ${escapeHtml(priceTotal)}€</b></p>
+    `
+        : "";
 
     const html = `
       <h2>Nova rezervacija (La Vita Terme 3000)</h2>
@@ -61,6 +80,7 @@ export default async function handler(req: any, res: any) {
       <p><b>Odhod:</b> ${escapeHtml(checkOut)}</p>
       <p><b>Št. oseb:</b> ${escapeHtml(guests ?? "-")}</p>
       <p><b>Sporočilo:</b><br/>${escapeHtml(message || "-").replace(/\n/g, "<br/>")}</p>
+      ${priceBlock}
       <hr/>
       <p>Poslano iz obrazca na lavitaterme3000.com</p>
     `;

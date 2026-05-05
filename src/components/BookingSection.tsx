@@ -17,7 +17,7 @@ import laVitaLogoNew from "@/assets/la-vita-logo-new.png";
 import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useBookedDates } from "@/hooks/useBookedDates";
-import { isDateBooked } from "@/lib/pricing";
+import { isDateBooked, computePrice, formatEur } from "@/lib/pricing";
 import { PriceSummary } from "@/components/PriceSummary";
 
 interface Guest {
@@ -145,6 +145,9 @@ export const BookingSection = () => {
     setIsSubmitting(true);
 
     try {
+      // Compute price breakdown for guest summary
+      const breakdown = computePrice(arrivalDate, departureDate);
+
       // Build extra info for the message field
       const extraParts: string[] = [];
       if (arrivalTime) extraParts.push(`Okvirni čas prihoda: ${arrivalTime}`);
@@ -156,6 +159,18 @@ export const BookingSection = () => {
           .join(", ");
         if (guestNames) extraParts.push(`Gostje: ${guestNames}`);
       }
+      if (breakdown) {
+        extraParts.push(
+          `--- IZRAČUN CENE ---`,
+          `Število nočitev: ${breakdown.nights}`,
+          `Cena/noč: ${formatEur(breakdown.basePerNight)}`,
+          `Osnovni znesek: ${formatEur(breakdown.baseTotal)}`,
+          breakdown.discountAmount > 0
+            ? `Popust (${Math.round(breakdown.discountPct * 100)}%): -${formatEur(breakdown.discountAmount)}`
+            : `Popust: 0€`,
+          `KONČNA CENA: ${formatEur(breakdown.finalTotal)}`,
+        );
+      }
 
       const payload = {
         name: fullName,
@@ -165,6 +180,9 @@ export const BookingSection = () => {
         checkOut: format(departureDate, "yyyy-MM-dd"),
         guests: String(guests.length),
         message: extraParts.join("\n"),
+        priceTotal: breakdown ? breakdown.finalTotal : null,
+        priceNights: breakdown ? breakdown.nights : null,
+        pricePerNight: breakdown ? breakdown.basePerNight : null,
       };
 
       const resp = await fetch("/api/reservation", {
@@ -269,12 +287,13 @@ export const BookingSection = () => {
                       {t('booking.springOffer')}
                     </span>
                     <div className="flex items-baseline gap-2 mb-1">
-                      <span className="font-display text-2xl text-primary-foreground/60 line-through">165€</span>
+                      <span className="font-display text-2xl text-primary-foreground/60 line-through">165 €</span>
                     </div>
-                    <div className="flex items-baseline gap-2 mb-4">
-                      <span className="font-display text-5xl font-bold">70€</span>
+                    <div className="flex items-baseline gap-2 mb-2">
+                      <span className="font-display text-5xl font-bold">75 €</span>
                       <span className="text-primary-foreground/80 text-lg">{t('booking.perNight')}</span>
                     </div>
+                    <p className="text-sm text-primary-foreground/60 font-medium mb-4">{t('booking.springExtra')}</p>
                     <ul className="space-y-2 mb-4">
                       {springFeatures.map((feature, idx) => (
                         <li key={idx} className="flex items-center gap-3 text-sm">
@@ -308,10 +327,10 @@ export const BookingSection = () => {
                       {t('booking.summerOffer')}
                     </span>
                     <div className="flex items-baseline gap-2 mb-1">
-                      <span className="font-display text-2xl text-primary-foreground/60 line-through">165€</span>
+                      <span className="font-display text-2xl text-primary-foreground/60 line-through">165 €</span>
                     </div>
                     <div className="flex items-baseline gap-2 mb-2">
-                      <span className="font-display text-5xl font-bold">100€</span>
+                      <span className="font-display text-5xl font-bold">100 €</span>
                       <span className="text-primary-foreground/80 text-lg">{t('booking.perNight')}</span>
                     </div>
                     <p className="text-sm text-primary-foreground/60 font-medium mb-4">{t('booking.summerExtra')}</p>

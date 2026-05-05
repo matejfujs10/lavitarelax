@@ -193,8 +193,9 @@ export const HeroSection = () => {
                   <span className="text-2xl">🌸</span>
                   <div className="text-left">
                     <p className="text-sm text-muted-foreground font-medium">{t('hero.springAction')}</p>
-                    <p className="text-lg text-muted-foreground line-through">165€</p>
-                    <p className="text-2xl font-display font-bold text-primary">70€<span className="text-base font-normal text-muted-foreground">{t('hero.perNight')}</span></p>
+                    <p className="text-lg text-muted-foreground line-through">165 €</p>
+                    <p className="text-2xl font-display font-bold text-primary">75 €<span className="text-base font-normal text-muted-foreground">{t('hero.perNight')}</span></p>
+                    <p className="text-xs text-primary/80 font-medium mt-1">{t('hero.springExtra')}</p>
                   </div>
                 </div>
               </div>
@@ -203,8 +204,8 @@ export const HeroSection = () => {
                   <span className="text-2xl">☀️</span>
                   <div className="text-left">
                     <p className="text-sm text-primary-foreground/80 font-medium">{t('hero.summerAction')}</p>
-                    <p className="text-lg text-primary-foreground/60 line-through">165€</p>
-                    <p className="text-2xl font-display font-bold text-primary-foreground">100€<span className="text-base font-normal text-primary-foreground/80">{t('hero.perNight')}</span></p>
+                    <p className="text-lg text-primary-foreground/60 line-through">165 €</p>
+                    <p className="text-2xl font-display font-bold text-primary-foreground">100 €<span className="text-base font-normal text-primary-foreground/80">{t('hero.perNight')}</span></p>
                     <p className="text-xs text-primary-foreground/60 font-medium mt-1">{t('hero.summerExtra')}</p>
                   </div>
                 </div>

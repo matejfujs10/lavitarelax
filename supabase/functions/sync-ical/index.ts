@@ -11,8 +11,7 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type",
 };
 
-const ICAL_URL =
-  "https://ical.booking.com/v1/export?t=2d947bac-8178-46ef-952f-e5015f212b00";
+const ICAL_URL = Deno.env.get("ICAL_BOOKING_URL");
 
 interface IcalEvent {
   uid: string;

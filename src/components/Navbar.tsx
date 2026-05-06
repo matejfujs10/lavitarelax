@@ -96,7 +96,7 @@ export const Navbar = () => {
         animate={{ y: 0 }}
         transition={{ duration: 0.6 }}
         className={`fixed left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled ? "top-0 glass-effect shadow-lavita py-2" : "top-10 bg-transparent py-4"
+          isScrolled ? "top-0 glass-effect shadow-lavita py-2" : "top-[76px] bg-transparent py-4"
         }`}
       >
         <div className="container mx-auto px-4 flex items-center justify-between gap-4">

@@ -33,9 +33,20 @@ export const Navbar = () => {
 
   return (
     <>
+      {/* Promo Announcement Banner */}
+      <div className={`fixed top-0 left-0 right-0 z-[60] transition-all duration-300 ${
+        isScrolled ? "h-0 opacity-0 overflow-hidden" : "h-9 opacity-100"
+      } bg-gradient-to-r from-lavita-gold via-accent to-lavita-gold text-lavita-forest`}>
+        <div className="container mx-auto px-4 h-full flex items-center justify-center">
+          <p className="text-[11px] md:text-sm font-display font-bold tracking-wide text-center uppercase">
+            ✨ Zadnja priložnost za rezervacijo po akcijskih cenah 2026! ✨
+          </p>
+        </div>
+      </div>
+
       {/* Top Bar with Languages and Social */}
-      <div className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled ? "h-0 opacity-0 overflow-hidden" : "h-10 opacity-100"
+      <div className={`fixed left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled ? "top-0 h-0 opacity-0 overflow-hidden" : "top-9 h-10 opacity-100"
       } bg-lavita-forest text-white`}>
         <div className="container mx-auto px-4 h-full flex items-center justify-between">
           {/* Language Buttons */}

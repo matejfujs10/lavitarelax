@@ -150,7 +150,15 @@ serve(async (req) => {
       throw new Error("Failed to create voucher record");
     }
 
-    const origin = req.headers.get("origin") || "https://www.lavitaterme3000.com";
+    const ALLOWED_ORIGINS = [
+      "https://www.lavitaterme3000.com",
+      "https://lavitaterme3000.com",
+      "https://lavitarelax.lovable.app",
+    ];
+    const rawOrigin = req.headers.get("origin") || "";
+    const origin = ALLOWED_ORIGINS.includes(rawOrigin)
+      ? rawOrigin
+      : "https://www.lavitaterme3000.com";
     
     const productName = isBathCards 
       ? "2x kopalne karte - La Vita Hiška"

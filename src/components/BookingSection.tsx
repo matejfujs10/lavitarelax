@@ -290,7 +290,7 @@ export const BookingSection = () => {
                       <span className="font-display text-2xl text-primary-foreground/60 line-through">165 €</span>
                     </div>
                     <div className="flex items-baseline gap-2 mb-2">
-                      <span className="font-display text-5xl font-bold">75 €</span>
+                      <span className="font-display text-5xl font-bold">77 €</span>
                       <span className="text-primary-foreground/80 text-lg">{t('booking.perNight')}</span>
                     </div>
                     <p className="text-sm text-primary-foreground/60 font-medium mb-4">{t('booking.springExtra')}</p>

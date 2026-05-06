@@ -87,6 +87,9 @@ Deno.serve(async (req) => {
   const supabase = createClient(supabaseUrl, serviceKey);
 
   try {
+    if (!ICAL_URL) {
+      throw new Error("ICAL_BOOKING_URL secret is not configured");
+    }
     // 1. Fetch iCal feed
     const resp = await fetch(ICAL_URL, {
       headers: { "User-Agent": "LaVitaHouse-Sync/1.0" },

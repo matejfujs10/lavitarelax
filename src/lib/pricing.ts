@@ -28,12 +28,12 @@ export function getNightlyRate(checkIn: Date): { rate: number; season: PriceBrea
   if (month >= 5 && month <= 7) {
     return { rate: 100, season: "summer" };
   }
-  // April = 3, May = 4 → spring (May special: 75€)
+  // April = 3, May = 4 → spring (May special: 77€)
   if (month === 3 || month === 4) {
-    return { rate: 75, season: "spring" };
+    return { rate: 77, season: "spring" };
   }
-  // Default off-season: keep 75 (same as spring)
-  return { rate: 75, season: "off" };
+  // Default off-season: keep 77 (same as spring)
+  return { rate: 77, season: "off" };
 }
 
 /**

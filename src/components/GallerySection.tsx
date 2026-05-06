@@ -8,7 +8,6 @@ import slide1 from "@/assets/slide-1.jpg";
 import slide2 from "@/assets/slide-2.jpg";
 import slide3 from "@/assets/slide-3.jpg";
 import slide4 from "@/assets/slide-4.jpg";
-import slide5 from "@/assets/slide-5.jpg";
 import slide6 from "@/assets/slide-6.jpg";
 import slide7 from "@/assets/slide-7.jpg";
 import slide8 from "@/assets/slide-8.jpg";
@@ -16,6 +15,11 @@ import slide9 from "@/assets/slide-9.jpg";
 import slide10 from "@/assets/slide-10.jpg";
 import slide11 from "@/assets/slide-11.jpg";
 import kitchenDetail from "@/assets/kitchen-detail.jpg";
+import galleryBedroom2 from "@/assets/gallery-bedroom-2.jpg";
+import galleryKitchenLed from "@/assets/gallery-kitchen-led.jpg";
+import galleryBikes from "@/assets/gallery-bikes.jpg";
+import galleryTerraceEvening from "@/assets/gallery-terrace-evening.jpg";
+import galleryTerraceTable from "@/assets/gallery-terrace-table.jpg";
 
 const images = [
   { src: slide8, alt: "Notranjost hiške Hiška La Vita Moravske Toplice – spalnica z LED osvetlitvijo", title: "Topel ambient z LED lučkami" },
@@ -24,7 +28,11 @@ const images = [
   { src: slide2, alt: "Otroške igrače v počitniški hiški Hiška La Vita", title: "Zabava za najmlajše" },
   { src: slide3, alt: "Opremljena kuhinja v hiški Hiška La Vita Moravske Toplice", title: "Opremljena kuhinja" },
   { src: slide4, alt: "Udobna spalnica v počitniški hiški Hiška La Vita", title: "Udobna spalnica" },
-  { src: slide5, alt: "Prostorne spalnice v hiški Hiška La Vita Kamp Terme 3000", title: "Prostorne spalnice" },
+  { src: galleryBedroom2, alt: "Druga spalnica v počitniški hiški Hiška La Vita Kamp Terme 3000", title: "Dodatna spalnica" },
+  { src: galleryKitchenLed, alt: "Kuhinja z LED ambient osvetlitvijo Hiška La Vita Moravske Toplice", title: "Kuhinja z LED osvetlitvijo" },
+  { src: galleryTerraceEvening, alt: "Terasa hiške La Vita zvečer – Kamp Terme 3000", title: "Večerna terasa" },
+  { src: galleryTerraceTable, alt: "Terasa z mizo in klopmi pred hiško La Vita", title: "Zunanji jedilni kotiček" },
+  { src: galleryBikes, alt: "Kolesa za izposojo pred hiško La Vita Kamp Terme 3000", title: "Kolesa na razpolago" },
   { src: slide6, alt: "Polno opremljena kuhinja Hiška La Vita Moravske Toplice", title: "Polno opremljena kuhinja" },
   { src: slide7, alt: "Vhodni prostor počitniške hiške Hiška La Vita", title: "Urejen vhod" },
   { src: slide9, alt: "Jedilnica z LED osvetlitvijo v hiški Hiška La Vita", title: "Prijetna jedilnica" },

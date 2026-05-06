@@ -11,8 +11,7 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type",
 };
 
-const ICAL_URL =
-  "https://ical.booking.com/v1/export?t=2d947bac-8178-46ef-952f-e5015f212b00";
+const ICAL_URL = Deno.env.get("ICAL_BOOKING_URL");
 
 interface IcalEvent {
   uid: string;
@@ -88,6 +87,9 @@ Deno.serve(async (req) => {
   const supabase = createClient(supabaseUrl, serviceKey);
 
   try {
+    if (!ICAL_URL) {
+      throw new Error("ICAL_BOOKING_URL secret is not configured");
+    }
     // 1. Fetch iCal feed
     const resp = await fetch(ICAL_URL, {
       headers: { "User-Agent": "LaVitaHouse-Sync/1.0" },

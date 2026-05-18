@@ -3,11 +3,11 @@ import { Resend } from "resend";
 // Prevent broken HTML / injection
 function escapeHtml(input: unknown) {
   return String(input ?? "")
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
+    .split("&").join("&amp;")
+    .split("<").join("&lt;")
+    .split(">").join("&gt;")
+    .split('"').join("&quot;")
+    .split("'").join("&#039;");
 }
 
 type Lang = "sl" | "en" | "de" | "hr";

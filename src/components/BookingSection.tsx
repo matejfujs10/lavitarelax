@@ -183,6 +183,7 @@ export const BookingSection = () => {
         priceTotal: breakdown ? breakdown.finalTotal : null,
         priceNights: breakdown ? breakdown.nights : null,
         pricePerNight: breakdown ? breakdown.basePerNight : null,
+        language,
       };
 
       const resp = await fetch("/api/reservation", {

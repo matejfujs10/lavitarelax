@@ -26,7 +26,7 @@ const basePayload = {
   message: "Test",
   priceTotal: 154,
   priceNights: 2,
-  pricePerNight: 77,
+  pricePerNight: 95,
 };
 
 describe("/api/reservation – pošiljanje emailov", () => {
@@ -53,7 +53,7 @@ describe("/api/reservation – pošiljanje emailov", () => {
     expect(ownerCall.subject).toContain("Janez Novak");
     expect(ownerCall.html).toContain("guest@example.com");
     expect(ownerCall.html).toContain("154");
-    expect(ownerCall.html).toContain("77");
+    expect(ownerCall.html).toContain("95");
     expect(ownerCall.html).toContain("2026-05-10");
   });
 

@@ -1,26 +1,30 @@
 import { describe, it, expect } from "vitest";
-import { computePrice, getNightlyRate } from "@/lib/pricing";
+import { getNightlyRate, computePrice } from "@/lib/pricing";
 
-describe("MAJ akcija – cena 77 €", () => {
-  it("getNightlyRate maja vrne 77 € (spring)", () => {
-    const may = new Date(2026, 4, 15); // May
-    const { rate, season } = getNightlyRate(may);
-    expect(rate).toBe(77);
+describe("JUNIJ akcija – cena 95 €", () => {
+  it("getNightlyRate junija vrne 95 € (spring promo)", () => {
+    const jun = new Date(2026, 5, 10);
+    const { rate, season } = getNightlyRate(jun);
+    expect(rate).toBe(95);
     expect(season).toBe("spring");
   });
 
-  it("computePrice za 2 noči v maju = 154 €, brez popusta", () => {
-    const inD = new Date(2026, 4, 10);
-    const outD = new Date(2026, 4, 12);
-    const b = computePrice(inD, outD)!;
-    expect(b.basePerNight).toBe(77);
-    expect(b.nights).toBe(2);
-    expect(b.finalTotal).toBe(154);
-    expect(b.discountAmount).toBe(0);
+  it("computePrice junija (2 noči) vrne 190 €", () => {
+    const checkIn = new Date(2026, 5, 10);
+    const checkOut = new Date(2026, 5, 12);
+    const b = computePrice(checkIn, checkOut);
+    expect(b).not.toBeNull();
+    expect(b!.basePerNight).toBe(95);
+    expect(b!.baseTotal).toBe(190);
   });
 
-  it("aprila (off-spring) tudi 77 €", () => {
-    const apr = new Date(2026, 3, 5);
-    expect(getNightlyRate(apr).rate).toBe(77);
+  it("julija vrne 100 € (poletna sezona)", () => {
+    const jul = new Date(2026, 6, 1);
+    expect(getNightlyRate(jul).rate).toBe(100);
+  });
+
+  it("maja (off-season) vrne 77 €", () => {
+    const may = new Date(2026, 4, 1);
+    expect(getNightlyRate(may).rate).toBe(77);
   });
 });

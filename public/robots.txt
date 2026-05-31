@@ -12,5 +12,7 @@ Allow: /
 
 User-agent: *
 Allow: /
+Disallow: /voucher-preview
+Disallow: /gift-voucher/success
 
 Sitemap: https://www.lavitaterme3000.com/sitemap.xml

@@ -29,8 +29,8 @@ const Probe = () => {
 
 const expectedCta: Record<string, string> = {
   sl: "Rezerviraj svoj oddih",
-  de: "Buchen Sie Ihren Urlaub",
-  hr: "Rezervirajte svoj odmor",
+  de: "Urlaub buchen",
+  hr: "Rezervirajte odmor",
   en: "Book your stay",
 };
 

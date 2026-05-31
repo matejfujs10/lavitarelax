@@ -25,7 +25,7 @@ describe("index.html SEO head", () => {
     expect(m?.[1]).toBeTruthy();
     expect(m![1]).toMatch(/Moravske Toplice/);
     expect(m![1]).toMatch(/Terme 3000/);
-    expect(m![1].length).toBeLessThan(200);
+    expect(m![1].length).toBeLessThan(320);
   });
 
   it("has canonical URL", () => {

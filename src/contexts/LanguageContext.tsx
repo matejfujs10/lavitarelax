@@ -27,7 +27,7 @@ const translations: Record<Language, Record<string, string>> = {
     'hero.title.main': 'House La Vita',
     'hero.title.sub': '– Vaš kotiček sprostitve v Termah 3000',
     'hero.subtitle': 'Udobna 50m² hiška sredi narave Kampa Terme 3000',
-    'hero.springAction': 'MAJ AKCIJA',
+    'hero.springAction': 'JUNIJ AKCIJA',
     'hero.springExtra': '4+ nočitev dodatna akcija',
     'hero.summerAction': 'POLETNA AKCIJA JULIJ, AVGUST',
     'hero.summerExtra': '4+ nočitev dodatna akcija',
@@ -166,7 +166,7 @@ const translations: Record<Language, Record<string, string>> = {
     'voucherSuccess.backHome': 'Nazaj na domačo stran',
     
     // Booking
-    'booking.springOffer': 'MAJ AKCIJA',
+    'booking.springOffer': 'JUNIJ AKCIJA',
     'booking.springExtra': '4+ nočitev dodatna akcija',
     'booking.summerOffer': 'POLETNA AKCIJA JULIJ, AVGUST',
     'booking.summerExtra': '4+ nočitev dodatna akcija',
@@ -379,7 +379,7 @@ const translations: Record<Language, Record<string, string>> = {
     'hero.title.main': 'La Vita House',
     'hero.title.sub': '– Your relaxation corner at Terme 3000',
     'hero.subtitle': 'Comfortable 50m² house in the heart of Camp Terme 3000',
-    'hero.springAction': 'MAY SPECIAL',
+    'hero.springAction': 'JUNE SPECIAL',
     'hero.springExtra': '4+ nights extra deal',
     'hero.summerAction': 'SUMMER SPECIAL JULY, AUGUST',
     'hero.summerExtra': '4+ nights extra deal',
@@ -518,7 +518,7 @@ const translations: Record<Language, Record<string, string>> = {
     'voucherSuccess.backHome': 'Back to home page',
     
     // Booking
-    'booking.springOffer': 'MAY SPECIAL',
+    'booking.springOffer': 'JUNE SPECIAL',
     'booking.springExtra': '4+ nights extra deal',
     'booking.summerOffer': 'SUMMER SPECIAL JULY, AUGUST',
     'booking.summerExtra': '4+ nights extra deal',
@@ -731,7 +731,7 @@ const translations: Record<Language, Record<string, string>> = {
     'hero.title.main': 'La Vita Haus',
     'hero.title.sub': '– Ihre Erholungsecke in Terme 3000',
     'hero.subtitle': 'Komfortables 50m² Haus inmitten der Natur des Camps Terme 3000',
-    'hero.springAction': 'MAI AKTION',
+    'hero.springAction': 'JUNI AKTION',
     'hero.springExtra': '4+ Nächte Zusatzangebot',
     'hero.summerAction': 'SOMMERAKTION JULI, AUGUST',
     'hero.summerExtra': '4+ Nächte Zusatzangebot',
@@ -870,7 +870,7 @@ const translations: Record<Language, Record<string, string>> = {
     'voucherSuccess.backHome': 'Zurück zur Startseite',
     
     // Booking
-    'booking.springOffer': 'MAI AKTION',
+    'booking.springOffer': 'JUNI AKTION',
     'booking.springExtra': '4+ Nächte Zusatzangebot',
     'booking.summerOffer': 'SOMMERAKTION JULI, AUGUST',
     'booking.summerExtra': '4+ Nächte Zusatzangebot',
@@ -1083,7 +1083,7 @@ const translations: Record<Language, Record<string, string>> = {
     'hero.title.main': 'La Vita Kućica',
     'hero.title.sub': '– Vaš kutak opuštanja u Termama 3000',
     'hero.subtitle': 'Udobna 50m² kućica usred prirode Kampa Terme 3000',
-    'hero.springAction': 'SVIBANJSKA AKCIJA',
+    'hero.springAction': 'LIPANJSKA AKCIJA',
     'hero.springExtra': '4+ noćenja dodatna akcija',
     'hero.summerAction': 'LJETNA AKCIJA SRPANJ, KOLOVOZ',
     'hero.summerExtra': '4+ noćenja dodatna akcija',
@@ -1222,7 +1222,7 @@ const translations: Record<Language, Record<string, string>> = {
     'voucherSuccess.backHome': 'Natrag na početnu stranicu',
     
     // Booking
-    'booking.springOffer': 'SVIBANJSKA AKCIJA',
+    'booking.springOffer': 'LIPANJSKA AKCIJA',
     'booking.springExtra': '4+ noćenja dodatna akcija',
     'booking.summerOffer': 'LJETNA AKCIJA SRPANJ, KOLOVOZ',
     'booking.summerExtra': '4+ noćenja dodatna akcija',

@@ -1,27 +1,60 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://www.lavitaterme3000.com/</loc>
-    <lastmod>2026-02-11</lastmod>
+    <lastmod>2026-05-31</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="sl" href="https://www.lavitaterme3000.com/" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.lavitaterme3000.com/" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.lavitaterme3000.com/" />
+    <xhtml:link rel="alternate" hreflang="hr" href="https://www.lavitaterme3000.com/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lavitaterme3000.com/" />
+  </url>
+  <url>
+    <loc>https://www.lavitaterme3000.com/moravske-toplice</loc>
+    <lastmod>2026-05-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="sl" href="https://www.lavitaterme3000.com/moravske-toplice" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.lavitaterme3000.com/moravske-toplice" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.lavitaterme3000.com/moravske-toplice" />
+    <xhtml:link rel="alternate" hreflang="hr" href="https://www.lavitaterme3000.com/moravske-toplice" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lavitaterme3000.com/moravske-toplice" />
+  </url>
+  <url>
+    <loc>https://www.lavitaterme3000.com/murska-sobota</loc>
+    <lastmod>2026-05-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="sl" href="https://www.lavitaterme3000.com/murska-sobota" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.lavitaterme3000.com/murska-sobota" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.lavitaterme3000.com/murska-sobota" />
+    <xhtml:link rel="alternate" hreflang="hr" href="https://www.lavitaterme3000.com/murska-sobota" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lavitaterme3000.com/murska-sobota" />
+  </url>
+  <url>
+    <loc>https://www.lavitaterme3000.com/prekmurje</loc>
+    <lastmod>2026-05-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="sl" href="https://www.lavitaterme3000.com/prekmurje" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.lavitaterme3000.com/prekmurje" />
+    <xhtml:link rel="alternate" hreflang="de" href="https://www.lavitaterme3000.com/prekmurje" />
+    <xhtml:link rel="alternate" hreflang="hr" href="https://www.lavitaterme3000.com/prekmurje" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.lavitaterme3000.com/prekmurje" />
   </url>
   <url>
     <loc>https://www.lavitaterme3000.com/gift-voucher</loc>
-    <lastmod>2026-02-11</lastmod>
+    <lastmod>2026-05-31</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.lavitaterme3000.com/gift-voucher/success</loc>
-    <lastmod>2026-02-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.3</priority>
-  </url>
-  <url>
-    <loc>https://www.lavitaterme3000.com/voucher-preview</loc>
-    <lastmod>2026-02-11</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.3</priority>
+    <loc>https://www.lavitaterme3000.com/blog</loc>
+    <lastmod>2026-05-31</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
 </urlset>

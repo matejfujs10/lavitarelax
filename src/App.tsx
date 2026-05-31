@@ -11,6 +11,7 @@ import VoucherPreview from "./pages/VoucherPreview";
 import Blog from "./pages/Blog";
 import BlogPost from "./pages/BlogPost";
 import NotFound from "./pages/NotFound";
+import { LocationLanding, LOCATIONS } from "./pages/LocationLanding";
 
 const queryClient = new QueryClient();
 
@@ -28,6 +29,9 @@ const App = () => (
             <Route path="/voucher-preview" element={<VoucherPreview />} />
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:id" element={<BlogPost />} />
+            <Route path="/moravske-toplice" element={<LocationLanding meta={LOCATIONS["moravske-toplice"]} />} />
+            <Route path="/murska-sobota" element={<LocationLanding meta={LOCATIONS["murska-sobota"]} />} />
+            <Route path="/prekmurje" element={<LocationLanding meta={LOCATIONS["prekmurje"]} />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />
           </Routes>

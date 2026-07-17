@@ -171,7 +171,9 @@ export default async function handler(req: any, res: any) {
 
     // Rate limit by IP first (cheap check before parsing)
     const ip = getClientIp(req);
+    const ua = String(req.headers?.["user-agent"] ?? "");
     if (rateLimited(ip, ipHits, IP_MAX)) {
+      logSecurityEvent("reservation_rate_limit_ip", "warning", ip, ua, { limit: IP_MAX, window_ms: WINDOW_MS });
       return res.status(429).json({ ok: false, error: "Too many requests. Please try again later." });
     }
 
@@ -189,11 +191,19 @@ export default async function handler(req: any, res: any) {
 
     // Honeypot — pretend success to avoid signaling bots
     if (data.website || data.company) {
+      logSecurityEvent("reservation_honeypot_hit", "warning", ip, ua, {
+        website: !!data.website,
+        company: !!data.company,
+      });
       return res.status(200).json({ ok: true });
     }
 
     // Rate limit by email
     if (rateLimited(data.email.toLowerCase(), emailHits, EMAIL_MAX)) {
+      logSecurityEvent("reservation_rate_limit_email", "warning", ip, ua, {
+        email_hash: data.email.toLowerCase().length, // avoid PII in log
+        limit: EMAIL_MAX,
+      });
       return res.status(429).json({ ok: false, error: "Too many requests for this email. Please try again later." });
     }
 

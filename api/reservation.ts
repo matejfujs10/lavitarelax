@@ -43,6 +43,45 @@ function getClientIp(req: any): string {
   return req.headers?.["cf-connecting-ip"] || req.socket?.remoteAddress || "unknown";
 }
 
+// ---- Security event logging (structured logs + best-effort DB insert) ----
+async function logSecurityEvent(
+  event_type: string,
+  severity: "info" | "warning" | "critical",
+  ip: string,
+  ua: string,
+  details: Record<string, unknown>,
+) {
+  // Always emit a structured log — captured by the platform log stream.
+  console.warn(
+    `[security_event] ${JSON.stringify({ event_type, severity, source: "api/reservation", ip, ua, details })}`,
+  );
+  // Best-effort persist to Supabase if service creds are available at runtime.
+  const url = process.env.SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!url || !key) return;
+  try {
+    await fetch(`${url}/rest/v1/security_events`, {
+      method: "POST",
+      headers: {
+        apikey: key,
+        Authorization: `Bearer ${key}`,
+        "Content-Type": "application/json",
+        Prefer: "return=minimal",
+      },
+      body: JSON.stringify({
+        event_type,
+        severity,
+        source: "api/reservation",
+        ip,
+        user_agent: ua,
+        details,
+      }),
+    });
+  } catch (e) {
+    console.error("security_event persist failed:", e);
+  }
+}
+
 // ---- Input validation ----
 const reservationSchema = z.object({
   name: z.string().trim().min(2).max(100),

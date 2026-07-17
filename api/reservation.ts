@@ -95,9 +95,10 @@ const reservationSchema = z.object({
   priceNights: z.union([z.number(), z.string().max(20)]).optional().nullable(),
   pricePerNight: z.union([z.number(), z.string().max(20)]).optional().nullable(),
   language: z.enum(["sl", "en", "de", "hr"]).optional().default("sl"),
-  // Honeypot fields — real users leave these empty
-  website: z.string().max(0).optional().default(""),
-  company: z.string().max(0).optional().default(""),
+  // Honeypot fields — real users leave these empty. Accept any string so bots
+  // that fill them still reach the handler (which silently drops them).
+  website: z.string().max(255).optional().default(""),
+  company: z.string().max(255).optional().default(""),
 });
 
 function guestEmail(lang: Lang, name: string, checkIn: string, checkOut: string) {

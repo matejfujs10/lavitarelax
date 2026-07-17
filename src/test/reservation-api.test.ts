@@ -8,7 +8,12 @@ vi.mock("resend", () => ({
   })),
 }));
 
-import handler from "../../api/reservation";
+// Fresh handler per test so in-memory rate-limit maps reset.
+async function loadHandler() {
+  vi.resetModules();
+  const mod = await import("../../api/reservation");
+  return mod.default;
+}
 
 function mockRes() {
   const res: any = {};

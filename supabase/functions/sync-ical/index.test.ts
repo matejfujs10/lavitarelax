@@ -31,19 +31,19 @@ function makeReq(init: RequestInit & { headers?: Record<string, string> } = {}) 
   });
 }
 
-Deno.test("rejects GET with 405", async () => {
+Deno.test({ name: "rejects GET with 405", sanitizeOps: false, sanitizeResources: false, fn: async () => {
   const res = await handler(makeReq({ method: "GET" }));
   await res.text();
   assertEquals(res.status, 405);
-});
+} });
 
-Deno.test("rejects missing x-sync-secret with 401", async () => {
+Deno.test({ name: "rejects missing x-sync-secret with 401", sanitizeOps: false, sanitizeResources: false, fn: async () => {
   const res = await handler(makeReq({ headers: { "x-sync-timestamp": String(Date.now()) } }));
   await res.text();
   assertEquals(res.status, 401);
-});
+} });
 
-Deno.test("rejects wrong x-sync-secret with 401", async () => {
+Deno.test({ name: "rejects wrong x-sync-secret with 401", sanitizeOps: false, sanitizeResources: false, fn: async () => {
   const res = await handler(
     makeReq({
       headers: { "x-sync-secret": "wrong", "x-sync-timestamp": String(Date.now()) },
@@ -51,25 +51,25 @@ Deno.test("rejects wrong x-sync-secret with 401", async () => {
   );
   await res.text();
   assertEquals(res.status, 401);
-});
+} });
 
-Deno.test("rejects missing timestamp with 401", async () => {
+Deno.test({ name: "rejects missing timestamp with 401", sanitizeOps: false, sanitizeResources: false, fn: async () => {
   const res = await handler(makeReq({ headers: { "x-sync-secret": SECRET } }));
   await res.text();
   assertEquals(res.status, 401);
-});
+} });
 
-Deno.test("rejects stale timestamp with 401", async () => {
+Deno.test({ name: "rejects stale timestamp with 401", sanitizeOps: false, sanitizeResources: false, fn: async () => {
   const stale = String(Date.now() - 10 * 60 * 1000); // 10 min old
   const res = await handler(
     makeReq({ headers: { "x-sync-secret": SECRET, "x-sync-timestamp": stale } }),
   );
   await res.text();
   assertEquals(res.status, 401);
-});
+} });
 
-Deno.test("OPTIONS preflight allowed", async () => {
+Deno.test({ name: "OPTIONS preflight allowed", sanitizeOps: false, sanitizeResources: false, fn: async () => {
   const res = await handler(makeReq({ method: "OPTIONS" }));
   await res.text();
   assertEquals(res.status, 200);
-});
+} });

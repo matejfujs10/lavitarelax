@@ -1,0 +1,150 @@
+{
+  "version": 1,
+  "sdk_version": "0.23.0",
+  "path": "/functions/v1/mcp",
+  "auth": {
+    "type": "none"
+  },
+  "mcp": {
+    "server": {
+      "name": "house-la-vita-mcp",
+      "version": "0.1.0",
+      "title": "House La Vita – Terme 3000"
+    },
+    "tools": [
+      {
+        "name": "check_availability",
+        "title": "Check house availability",
+        "description": "Check whether House La Vita in Kamp Terme 3000 is available between the given check-in and check-out dates (YYYY-MM-DD). Returns available: true only if no booked range overlaps.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "checkIn": {
+              "type": "string",
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+              "description": "Check-in date, ISO YYYY-MM-DD"
+            },
+            "checkOut": {
+              "type": "string",
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+              "description": "Check-out date, ISO YYYY-MM-DD"
+            }
+          },
+          "required": [
+            "checkIn",
+            "checkOut"
+          ]
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "calculate_price",
+        "title": "Calculate stay price",
+        "description": "Calculate the price for a stay at House La Vita. Uses seasonal nightly rate (June 95€, July/August 100€, otherwise 77€) and long-stay discount (3-4 nights 5%, 5-6 nights 10%, 7-9 nights 15%, 10+ nights 20%). Pets add 5€/night.",
+        "annotations": {
+          "readOnlyHint": true,
+          "idempotentHint": true,
+          "openWorldHint": false
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "checkIn": {
+              "type": "string",
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+            },
+            "checkOut": {
+              "type": "string",
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+            },
+            "hasPet": {
+              "default": false,
+              "description": "Add 5€/night if a pet is included",
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "checkIn",
+            "checkOut"
+          ]
+        },
+        "outputSchema": null
+      },
+      {
+        "name": "submit_reservation_inquiry",
+        "title": "Submit reservation inquiry",
+        "description": "Send a reservation inquiry for House La Vita to the owner (rent@lavitaterme3000.com). Does NOT block the dates — the owner confirms after receiving a deposit. Guest also gets a localized thank-you email.",
+        "annotations": {
+          "readOnlyHint": false,
+          "destructiveHint": false,
+          "openWorldHint": true
+        },
+        "inputSchema": {
+          "$schema": "http://json-schema.org/draft-07/schema#",
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 2,
+              "maxLength": 120
+            },
+            "email": {
+              "type": "string",
+              "format": "email",
+              "pattern": "^(?!\\.)(?!.*\\.\\.)([A-Za-z0-9_'+\\-\\.]*)[A-Za-z0-9_+-]@([A-Za-z0-9][A-Za-z0-9\\-]*\\.)+[A-Za-z]{2,}$"
+            },
+            "phone": {
+              "type": "string",
+              "maxLength": 40
+            },
+            "checkIn": {
+              "type": "string",
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+            },
+            "checkOut": {
+              "type": "string",
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+            },
+            "guests": {
+              "type": "integer",
+              "minimum": 1,
+              "maximum": 20
+            },
+            "hasPet": {
+              "default": false,
+              "type": "boolean"
+            },
+            "message": {
+              "type": "string",
+              "maxLength": 2000
+            },
+            "language": {
+              "default": "en",
+              "type": "string",
+              "enum": [
+                "sl",
+                "en",
+                "de",
+                "hr"
+              ]
+            }
+          },
+          "required": [
+            "name",
+            "email",
+            "checkIn",
+            "checkOut"
+          ]
+        },
+        "outputSchema": null
+      }
+    ]
+  }
+}

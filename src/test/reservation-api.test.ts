@@ -8,7 +8,12 @@ vi.mock("resend", () => ({
   })),
 }));
 
-import handler from "../../api/reservation";
+// Fresh handler per test so in-memory rate-limit maps reset.
+async function loadHandler() {
+  vi.resetModules();
+  const mod = await import("../../api/reservation");
+  return mod.default;
+}
 
 function mockRes() {
   const res: any = {};
@@ -39,7 +44,7 @@ describe("/api/reservation – pošiljanje emailov", () => {
   it("pošlje vse podatke lastniku na rent@lavitaterme3000.com", async () => {
     const req: any = { method: "POST", body: { ...basePayload, language: "sl" } };
     const res = mockRes();
-    await handler(req, res);
+    const handler = await loadHandler(); await handler(req, res);
 
     expect(res._status).toBe(200);
     expect(res._body.ok).toBe(true);
@@ -60,7 +65,7 @@ describe("/api/reservation – pošiljanje emailov", () => {
   it("pošlje personalizirano zahvalo gostu v SL", async () => {
     const req: any = { method: "POST", body: { ...basePayload, language: "sl" } };
     const res = mockRes();
-    await handler(req, res);
+    const handler = await loadHandler(); await handler(req, res);
 
     const guestCall = sendMock.mock.calls[1][0];
     expect(guestCall.to).toEqual(["guest@example.com"]);
@@ -73,7 +78,7 @@ describe("/api/reservation – pošiljanje emailov", () => {
   it("pošlje zahvalo v EN, ko je jezik 'en'", async () => {
     const req: any = { method: "POST", body: { ...basePayload, language: "en", name: "John Smith" } };
     const res = mockRes();
-    await handler(req, res);
+    const handler = await loadHandler(); await handler(req, res);
     const guestCall = sendMock.mock.calls[1][0];
     expect(guestCall.subject).toMatch(/Thank you/i);
     expect(guestCall.html).toContain("Dear John Smith");
@@ -82,7 +87,7 @@ describe("/api/reservation – pošiljanje emailov", () => {
   it("pošlje zahvalo v DE, ko je jezik 'de'", async () => {
     const req: any = { method: "POST", body: { ...basePayload, language: "de", name: "Hans Müller" } };
     const res = mockRes();
-    await handler(req, res);
+    const handler = await loadHandler(); await handler(req, res);
     const guestCall = sendMock.mock.calls[1][0];
     expect(guestCall.subject).toMatch(/Vielen Dank/i);
     expect(guestCall.html).toContain("Sehr geehrte/r Frau/Herr Hans M");
@@ -91,7 +96,7 @@ describe("/api/reservation – pošiljanje emailov", () => {
   it("pošlje zahvalo v HR, ko je jezik 'hr'", async () => {
     const req: any = { method: "POST", body: { ...basePayload, language: "hr", name: "Ivan Horvat" } };
     const res = mockRes();
-    await handler(req, res);
+    const handler = await loadHandler(); await handler(req, res);
     const guestCall = sendMock.mock.calls[1][0];
     expect(guestCall.subject).toMatch(/Hvala/i);
     expect(guestCall.html).toContain("Poštovani gospođo/gospodine Ivan Horvat");
@@ -100,7 +105,7 @@ describe("/api/reservation – pošiljanje emailov", () => {
   it("vrne 400, če manjkajo obvezna polja", async () => {
     const req: any = { method: "POST", body: { name: "X" } };
     const res = mockRes();
-    await handler(req, res);
+    const handler = await loadHandler(); await handler(req, res);
     expect(res._status).toBe(400);
   });
 });

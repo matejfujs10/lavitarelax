@@ -43,6 +43,45 @@ function getClientIp(req: any): string {
   return req.headers?.["cf-connecting-ip"] || req.socket?.remoteAddress || "unknown";
 }
 
+// ---- Security event logging (structured logs + best-effort DB insert) ----
+async function logSecurityEvent(
+  event_type: string,
+  severity: "info" | "warning" | "critical",
+  ip: string,
+  ua: string,
+  details: Record<string, unknown>,
+) {
+  // Always emit a structured log — captured by the platform log stream.
+  console.warn(
+    `[security_event] ${JSON.stringify({ event_type, severity, source: "api/reservation", ip, ua, details })}`,
+  );
+  // Best-effort persist to Supabase if service creds are available at runtime.
+  const url = process.env.SUPABASE_URL;
+  const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  if (!url || !key) return;
+  try {
+    await fetch(`${url}/rest/v1/security_events`, {
+      method: "POST",
+      headers: {
+        apikey: key,
+        Authorization: `Bearer ${key}`,
+        "Content-Type": "application/json",
+        Prefer: "return=minimal",
+      },
+      body: JSON.stringify({
+        event_type,
+        severity,
+        source: "api/reservation",
+        ip,
+        user_agent: ua,
+        details,
+      }),
+    });
+  } catch (e) {
+    console.error("security_event persist failed:", e);
+  }
+}
+
 // ---- Input validation ----
 const reservationSchema = z.object({
   name: z.string().trim().min(2).max(100),
@@ -56,9 +95,10 @@ const reservationSchema = z.object({
   priceNights: z.union([z.number(), z.string().max(20)]).optional().nullable(),
   pricePerNight: z.union([z.number(), z.string().max(20)]).optional().nullable(),
   language: z.enum(["sl", "en", "de", "hr"]).optional().default("sl"),
-  // Honeypot fields — real users leave these empty
-  website: z.string().max(0).optional().default(""),
-  company: z.string().max(0).optional().default(""),
+  // Honeypot fields — real users leave these empty. Accept any string so bots
+  // that fill them still reach the handler (which silently drops them).
+  website: z.string().max(255).optional().default(""),
+  company: z.string().max(255).optional().default(""),
 });
 
 function guestEmail(lang: Lang, name: string, checkIn: string, checkOut: string) {
@@ -132,7 +172,9 @@ export default async function handler(req: any, res: any) {
 
     // Rate limit by IP first (cheap check before parsing)
     const ip = getClientIp(req);
+    const ua = String(req.headers?.["user-agent"] ?? "");
     if (rateLimited(ip, ipHits, IP_MAX)) {
+      logSecurityEvent("reservation_rate_limit_ip", "warning", ip, ua, { limit: IP_MAX, window_ms: WINDOW_MS });
       return res.status(429).json({ ok: false, error: "Too many requests. Please try again later." });
     }
 
@@ -150,11 +192,19 @@ export default async function handler(req: any, res: any) {
 
     // Honeypot — pretend success to avoid signaling bots
     if (data.website || data.company) {
+      logSecurityEvent("reservation_honeypot_hit", "warning", ip, ua, {
+        website: !!data.website,
+        company: !!data.company,
+      });
       return res.status(200).json({ ok: true });
     }
 
     // Rate limit by email
     if (rateLimited(data.email.toLowerCase(), emailHits, EMAIL_MAX)) {
+      logSecurityEvent("reservation_rate_limit_email", "warning", ip, ua, {
+        email_hash: data.email.toLowerCase().length, // avoid PII in log
+        limit: EMAIL_MAX,
+      });
       return res.status(429).json({ ok: false, error: "Too many requests for this email. Please try again later." });
     }
 

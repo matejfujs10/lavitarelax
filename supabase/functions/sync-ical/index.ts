@@ -81,16 +81,15 @@ Deno.serve(async (req) => {
     return new Response(null, { headers: corsHeaders });
   }
 
-  // Auth guard: require shared secret to prevent abuse
+  // Auth guard: require shared secret to prevent abuse. Fail closed:
+  // if SYNC_SECRET is not provisioned, refuse all requests.
   const expectedSecret = Deno.env.get("SYNC_SECRET");
-  if (expectedSecret) {
-    const provided = req.headers.get("x-sync-secret");
-    if (provided !== expectedSecret) {
-      return new Response(JSON.stringify({ error: "Unauthorized" }), {
-        status: 401,
-        headers: { ...corsHeaders, "Content-Type": "application/json" },
-      });
-    }
+  const provided = req.headers.get("x-sync-secret");
+  if (!expectedSecret || provided !== expectedSecret) {
+    return new Response(JSON.stringify({ error: "Unauthorized" }), {
+      status: 401,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
   }
 
   const startTime = Date.now();

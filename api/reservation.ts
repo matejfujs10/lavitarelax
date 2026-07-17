@@ -1,4 +1,5 @@
 import { Resend } from "resend";
+import { z } from "zod";
 
 // Prevent broken HTML / injection
 function escapeHtml(input: unknown) {
@@ -12,11 +13,53 @@ function escapeHtml(input: unknown) {
 
 type Lang = "sl" | "en" | "de" | "hr";
 
-function pickLang(input: unknown): Lang {
-  const v = String(input ?? "sl").toLowerCase();
-  if (v === "en" || v === "de" || v === "hr" || v === "sl") return v as Lang;
-  return "sl";
+// ---- In-memory rate limiting (best-effort per serverless instance) ----
+const ipHits = new Map<string, { count: number; resetAt: number }>();
+const emailHits = new Map<string, { count: number; resetAt: number }>();
+const WINDOW_MS = 60 * 60 * 1000; // 1 hour
+const IP_MAX = 5;
+const EMAIL_MAX = 3;
+
+function rateLimited(
+  key: string,
+  store: Map<string, { count: number; resetAt: number }>,
+  max: number,
+): boolean {
+  const now = Date.now();
+  const rec = store.get(key);
+  if (!rec || now > rec.resetAt) {
+    store.set(key, { count: 1, resetAt: now + WINDOW_MS });
+    return false;
+  }
+  if (rec.count >= max) return true;
+  rec.count++;
+  return false;
 }
+
+function getClientIp(req: any): string {
+  const fwd = req.headers?.["x-forwarded-for"];
+  const raw = Array.isArray(fwd) ? fwd[0] : fwd;
+  if (typeof raw === "string" && raw.length) return raw.split(",")[0].trim();
+  return req.headers?.["cf-connecting-ip"] || req.socket?.remoteAddress || "unknown";
+}
+
+// ---- Input validation ----
+const reservationSchema = z.object({
+  name: z.string().trim().min(2).max(100),
+  email: z.string().trim().email().max(254),
+  phone: z.string().trim().max(40).optional().or(z.literal("")),
+  checkIn: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid checkIn date").max(20),
+  checkOut: z.string().regex(/^\d{4}-\d{2}-\d{2}$/, "Invalid checkOut date").max(20),
+  guests: z.union([z.string().max(20), z.number().int().min(1).max(50)]).optional(),
+  message: z.string().max(2000).optional().or(z.literal("")),
+  priceTotal: z.union([z.number(), z.string().max(20)]).optional().nullable(),
+  priceNights: z.union([z.number(), z.string().max(20)]).optional().nullable(),
+  pricePerNight: z.union([z.number(), z.string().max(20)]).optional().nullable(),
+  language: z.enum(["sl", "en", "de", "hr"]).optional().default("sl"),
+  // Honeypot fields — real users leave these empty
+  website: z.string().max(0).optional().default(""),
+  company: z.string().max(0).optional().default(""),
+});
 
 function guestEmail(lang: Lang, name: string, checkIn: string, checkOut: string) {
   const safeName = escapeHtml(name);
@@ -87,33 +130,47 @@ export default async function handler(req: any, res: any) {
       return res.status(500).json({ ok: false, error: "Missing RESEND_API_KEY on server" });
     }
 
-    const resend = new Resend(apiKey);
-    const body = req.body ?? {};
+    // Rate limit by IP first (cheap check before parsing)
+    const ip = getClientIp(req);
+    if (rateLimited(ip, ipHits, IP_MAX)) {
+      return res.status(429).json({ ok: false, error: "Too many requests. Please try again later." });
+    }
 
-    const name = body.name;
-    const email = body.email;
-    const phone = body.phone;
-    const checkIn = body.checkIn;
-    const checkOut = body.checkOut;
-    const guests = body.guests;
-    const message = body.message;
-    const priceTotal = body.priceTotal;
-    const priceNights = body.priceNights;
-    const pricePerNight = body.pricePerNight;
-    const language = pickLang(body.language);
-
-    if (!name || !email || !checkIn || !checkOut) {
+    const rawBody = req.body ?? {};
+    const parsed = reservationSchema.safeParse(rawBody);
+    if (!parsed.success) {
       return res.status(400).json({
         ok: false,
-        error: "Missing required fields (name, email, checkIn, checkOut)",
+        error: "Invalid input",
+        details: parsed.error.flatten().fieldErrors,
       });
     }
 
-    const priceLine = priceTotal != null ? ` | Cena: ${priceTotal}€` : "";
+    const data = parsed.data;
+
+    // Honeypot — pretend success to avoid signaling bots
+    if (data.website || data.company) {
+      return res.status(200).json({ ok: true });
+    }
+
+    // Rate limit by email
+    if (rateLimited(data.email.toLowerCase(), emailHits, EMAIL_MAX)) {
+      return res.status(429).json({ ok: false, error: "Too many requests for this email. Please try again later." });
+    }
+
+    // Validate date order
+    if (new Date(data.checkOut) <= new Date(data.checkIn)) {
+      return res.status(400).json({ ok: false, error: "checkOut must be after checkIn" });
+    }
+
+    const resend = new Resend(apiKey);
+    const { name, email, phone, checkIn, checkOut, guests, message, priceTotal, priceNights, pricePerNight, language } = data;
+
+    const priceLine = priceTotal != null && priceTotal !== "" ? ` | Cena: ${priceTotal}€` : "";
     const subject = `Nova rezervacija: ${name} (${checkIn} → ${checkOut})${priceLine}`;
 
     const priceBlock =
-      priceTotal != null
+      priceTotal != null && priceTotal !== ""
         ? `
       <hr/>
       <h3>Izračun cene</h3>
@@ -148,12 +205,12 @@ export default async function handler(req: any, res: any) {
     });
 
     if (error) {
-      return res.status(500).json({ ok: false, error });
+      return res.status(500).json({ ok: false, error: "Failed to send notification" });
     }
 
     // 2) Send thank-you to guest in their language (best-effort)
     try {
-      const { subject: gSub, html: gHtml } = guestEmail(language, String(name), String(checkIn), String(checkOut));
+      const { subject: gSub, html: gHtml } = guestEmail(language as Lang, String(name), String(checkIn), String(checkOut));
       await resend.emails.send({
         from: "Hiška La Vita <rent@lavitaterme3000.com>",
         to: [String(email)],
@@ -167,9 +224,7 @@ export default async function handler(req: any, res: any) {
 
     return res.status(200).json({ ok: true });
   } catch (err: any) {
-    return res.status(500).json({
-      ok: false,
-      error: err?.message ?? "Server error",
-    });
+    console.error("reservation error:", err);
+    return res.status(500).json({ ok: false, error: "Server error" });
   }
 }

@@ -51,7 +51,50 @@ var check_availability_default = defineTool({
 // src/lib/mcp/tools/calculate-price.ts
 import { defineTool as defineTool2 } from "npm:@lovable.dev/mcp-js@0.23.0";
 import { z as z2 } from "npm:zod@^4.4.3";
-import { computePrice } from "npm:@/lib/pricing";
+
+// src/lib/pricing.ts
+function getNightlyRate(checkIn) {
+  const month = checkIn.getMonth();
+  if (month === 5) {
+    return { rate: 95, season: "spring" };
+  }
+  if (month === 6 || month === 7) {
+    return { rate: 100, season: "summer" };
+  }
+  return { rate: 77, season: "off" };
+}
+function getLongStayDiscount(nights) {
+  if (nights >= 10) return 0.2;
+  if (nights >= 7) return 0.15;
+  if (nights >= 5) return 0.1;
+  if (nights >= 3) return 0.05;
+  return 0;
+}
+function nightsBetween(checkIn, checkOut) {
+  const ms = checkOut.getTime() - checkIn.getTime();
+  return Math.max(0, Math.round(ms / (1e3 * 60 * 60 * 24)));
+}
+function computePrice(checkIn, checkOut) {
+  if (!checkIn || !checkOut) return null;
+  const nights = nightsBetween(checkIn, checkOut);
+  if (nights <= 0) return null;
+  const { rate, season } = getNightlyRate(checkIn);
+  const baseTotal = rate * nights;
+  const discountPct = getLongStayDiscount(nights);
+  const discountAmount = Math.round(baseTotal * discountPct);
+  const finalTotal = baseTotal - discountAmount;
+  return {
+    nights,
+    basePerNight: rate,
+    baseTotal,
+    discountPct,
+    discountAmount,
+    finalTotal,
+    season
+  };
+}
+
+// src/lib/mcp/tools/calculate-price.ts
 var calculate_price_default = defineTool2({
   name: "calculate_price",
   title: "Calculate stay price",

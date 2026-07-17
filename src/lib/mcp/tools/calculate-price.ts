@@ -1,6 +1,6 @@
 import { defineTool } from "@lovable.dev/mcp-js";
 import { z } from "zod";
-import { computePrice } from "@/lib/pricing";
+import { computePrice } from "../../pricing";
 
 export default defineTool({
   name: "calculate_price",

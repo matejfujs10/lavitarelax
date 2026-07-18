@@ -151,9 +151,9 @@ export const blogPosts: BlogPost[] = [
       {
         heading: "Dodatne ugodnosti za goste",
         list: [
-          { title: "🎟️ Znižane karte", text: "21,90 € za 3. in vse naslednje osebe." },
+          { title: "🎟️ Znižane karte", text: "23,90 € za 3. in vse naslednje osebe." },
           { title: "👶 Otroci do 4,99 let", text: "GRATIS – brez doplačila za kopanje." },
-          { title: "🧒 Otroci 5–14,99 let", text: "Le 17,90 € za celodnevno kopanje." },
+          { title: "🧒 Otroci 5–14,99 let", text: "Le 19,90 € za celodnevno kopanje." },
           { title: "🚲 Brezplačna kolesa", text: "Za raziskovanje Prekmurja in okolice." },
           { title: "⚽ Športni rekviziti", text: "Za aktivne dni v naravi." },
           { title: "🧸 Otroške igrače", text: "Za nasmehe najmlajših gostov." },

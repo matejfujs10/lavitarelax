@@ -50,8 +50,8 @@ const termsContent = {
         content2: "V ceno sta vključeni dve kopalni karti za Terme 3000.",
         subtitle: "Dodatne kopalne karte:",
         items: [
-          "odrasli: 21,90 EUR na osebo na noč",
-          "otroci od 5 do 14,99 let: 17,90 EUR",
+          "odrasli: 23,90 EUR na osebo na noč",
+          "otroci od 5 do 14,99 let: 19,90 EUR",
           "otroci do 4,99 let: brezplačno"
         ],
         content3: "Dodatne kopalne karte se kupijo na recepciji kampa po znižani ceni."
@@ -143,8 +143,8 @@ const termsContent = {
         content2: "Two spa tickets for Terme 3000 are included in the price.",
         subtitle: "Additional spa tickets:",
         items: [
-          "adults: €21.90 per person per night",
-          "children 5 to 14.99 years: €17.90",
+          "adults: €23.90 per person per night",
+          "children 5 to 14.99 years: €19.90",
           "children up to 4.99 years: free"
         ],
         content3: "Additional spa tickets can be purchased at the camp reception at a reduced price."
@@ -236,8 +236,8 @@ const termsContent = {
         content2: "Zwei Spa-Tickets für Terme 3000 sind im Preis inbegriffen.",
         subtitle: "Zusätzliche Spa-Tickets:",
         items: [
-          "Erwachsene: 21,90 € pro Person/Nacht",
-          "Kinder von 5 bis 14,99 Jahre: 17,90 €",
+          "Erwachsene: 23,90 € pro Person/Nacht",
+          "Kinder von 5 bis 14,99 Jahre: 19,90 €",
           "Kinder bis 4,99 Jahre: kostenlos"
         ],
         content3: "Zusätzliche Spa-Tickets können an der Camp-Rezeption zu ermäßigten Preisen erworben werden."

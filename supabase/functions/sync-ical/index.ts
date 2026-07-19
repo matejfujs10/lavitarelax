@@ -100,9 +100,12 @@ async function authorize(req: Request): Promise<{ ok: true } | { ok: false; stat
   }
 
   const expectedSecret = Deno.env.get("SYNC_SECRET");
+  const cronToken = Deno.env.get("CRON_TRIGGER_TOKEN");
   const provided = req.headers.get("x-sync-secret");
-  if (!expectedSecret) return { ok: false, ...unauthorized("secret_not_configured") };
-  if (!provided || !timingSafeEqual(provided, expectedSecret)) {
+  if (!expectedSecret && !cronToken) return { ok: false, ...unauthorized("secret_not_configured") };
+  const matchesPrimary = expectedSecret && provided && timingSafeEqual(provided, expectedSecret);
+  const matchesCron = cronToken && provided && timingSafeEqual(provided, cronToken);
+  if (!matchesPrimary && !matchesCron) {
     return { ok: false, ...unauthorized("bad_secret") };
   }
 

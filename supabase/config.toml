@@ -14,3 +14,6 @@ verify_jwt = false
 
 [functions.sync-ical]
 verify_jwt = false
+
+[functions.sync-status]
+verify_jwt = false

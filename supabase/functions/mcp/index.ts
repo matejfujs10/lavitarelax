@@ -55,7 +55,7 @@ import { z as z2 } from "npm:zod@^4.4.3";
 // src/lib/pricing.ts
 function getNightlyRate(checkIn) {
   const month = checkIn.getMonth();
-  if (month === 5) {
+  if (month === 8) {
     return { rate: 95, season: "spring" };
   }
   if (month === 6 || month === 7) {

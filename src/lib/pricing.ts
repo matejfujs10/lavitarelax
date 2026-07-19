@@ -17,21 +17,21 @@ export interface PriceBreakdown {
 
 /**
  * Returns the base nightly rate based on a check-in date.
- * - June (June special promo): 95€
+ * - September (SEPTEMBER promo): 95€
  * - Summer (July, August): 100€
- * - Other months (off-season incl. April/May): 77€
+ * - Other months (off-season): 77€
  */
 export function getNightlyRate(checkIn: Date): { rate: number; season: PriceBreakdown["season"] } {
   const month = checkIn.getMonth(); // 0-indexed: 0 = Jan
-  // June = 5 → promotional "JUNIJ AKCIJA" 95€
-  if (month === 5) {
+  // September = 8 → promotional "SEPTEMBER AKCIJA" 95€
+  if (month === 8) {
     return { rate: 95, season: "spring" };
   }
   // July = 6, August = 7 → full summer
   if (month === 6 || month === 7) {
     return { rate: 100, season: "summer" };
   }
-  // Default off-season (incl. April, May): 77€
+  // Default off-season: 77€
   return { rate: 77, season: "off" };
 }
 

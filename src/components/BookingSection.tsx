@@ -422,6 +422,15 @@ export const BookingSection = () => {
                             mode="single"
                             selected={arrivalDate}
                             onSelect={setArrivalDate}
+                            onDayClick={(day) => {
+                              if (isDateBooked(day, bookedRanges)) {
+                                toast({
+                                  title: t('booking.error'),
+                                  description: t('pricing.dateBooked'),
+                                  variant: "destructive",
+                                });
+                              }
+                            }}
                             disabled={(date) =>
                               date < new Date() || isDateBooked(date, bookedRanges)
                             }
@@ -452,6 +461,15 @@ export const BookingSection = () => {
                             mode="single"
                             selected={departureDate}
                             onSelect={setDepartureDate}
+                            onDayClick={(day) => {
+                              if (isDateBooked(day, bookedRanges)) {
+                                toast({
+                                  title: t('booking.error'),
+                                  description: t('pricing.dateBooked'),
+                                  variant: "destructive",
+                                });
+                              }
+                            }}
                             disabled={(date) =>
                               date < (arrivalDate || new Date()) ||
                               isDateBooked(date, bookedRanges)
@@ -463,6 +481,7 @@ export const BookingSection = () => {
                       </Popover>
                     </div>
                   </div>
+
 
                   {/* Price Summary - dynamic discount */}
                   <PriceSummary checkIn={arrivalDate} checkOut={departureDate} />

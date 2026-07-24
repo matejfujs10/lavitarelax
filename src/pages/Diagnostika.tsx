@@ -23,11 +23,23 @@ const Diagnostika = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  const token =
+    typeof window !== "undefined"
+      ? new URLSearchParams(window.location.search).get("token") ?? ""
+      : "";
+
   const load = async () => {
+    if (!token) {
+      setError("Manjkajoč admin token. Dostop dovoljen le z ?token=…");
+      setLoading(false);
+      return;
+    }
     setLoading(true);
     setError(null);
     try {
-      const { data, error } = await supabase.functions.invoke("sync-status");
+      const { data, error } = await supabase.functions.invoke("sync-status", {
+        headers: { "x-admin-token": token },
+      });
       if (error) throw error;
       setData(data as SyncStatus);
     } catch (e: any) {
@@ -39,6 +51,7 @@ const Diagnostika = () => {
 
   useEffect(() => {
     load();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const lastSyncAgeMin = data?.lastSync

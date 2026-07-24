@@ -1,18 +1,38 @@
 // Edge function: sync-status
-// Public read-only diagnostic endpoint: last iCal sync, blocked-dates count,
-// and whether the ICAL_BOOKING_URL secret is configured.
+// Admin-only diagnostic endpoint. Requires a valid SYNC_SECRET token to be
+// passed via the `x-admin-token` header or `?token=` query param. Returns
+// generic 401 on mismatch (no info leakage).
 
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2.45.0";
 
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
-  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
-  "Access-Control-Allow-Methods": "GET, OPTIONS",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type, x-admin-token",
+  "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
 };
+
+function timingSafeEqual(a: string, b: string): boolean {
+  if (a.length !== b.length) return false;
+  let out = 0;
+  for (let i = 0; i < a.length; i++) out |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  return out === 0;
+}
 
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
+  }
+
+  const expected = Deno.env.get("SYNC_SECRET") ?? "";
+  const url = new URL(req.url);
+  const provided =
+    req.headers.get("x-admin-token") ?? url.searchParams.get("token") ?? "";
+
+  if (!expected || !provided || !timingSafeEqual(expected, provided)) {
+    return new Response(JSON.stringify({ error: "Unauthorized" }), {
+      status: 401,
+      headers: { ...corsHeaders, "Content-Type": "application/json" },
+    });
   }
 
   const supabase = createClient(

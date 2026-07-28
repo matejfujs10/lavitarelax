@@ -4,18 +4,13 @@ import { Ticket, ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useLanguage } from "@/contexts/LanguageContext";
 
-import heroHouseSide from "@/assets/new-house-exterior-side.png.asset.json";
-import heroPoolsSlides from "@/assets/new-terme-3000-slides.jpg.asset.json";
-import heroHouseFront from "@/assets/new-house-front.png.asset.json";
-import heroPoolsAerial from "@/assets/new-pools-aerial.jpg.asset.json";
-import heroTerraceBikes from "@/assets/new-terrace-bikes.jpg.asset.json";
 
 const heroSlides = [
-  { src: heroHouseSide.url, alt: "Hiška La Vita Kamp Terme 3000 Moravske Toplice – zunanjost" },
-  { src: heroPoolsSlides.url, alt: "Terme 3000 Moravske Toplice – tobogani in bazeni" },
-  { src: heroHouseFront.url, alt: "Počitniška hiška La Vita – pogled na vhod" },
-  { src: heroTerraceBikes.url, alt: "Terasa hiške La Vita z izposojo koles – Kamp Terme 3000" },
-  { src: heroPoolsAerial.url, alt: "Bazeni Terme 3000 – pogled iz višine" },
+  { src: "/gallery/new-house-exterior-side-1024.jpg", alt: "Hiška La Vita Kamp Terme 3000 Moravske Toplice – zunanjost" },
+  { src: "/gallery/new-terme-3000-slides-1600.jpg", alt: "Terme 3000 Moravske Toplice – tobogani in bazeni" },
+  { src: "/gallery/new-house-front-1024.jpg", alt: "Počitniška hiška La Vita – pogled na vhod" },
+  { src: "/gallery/new-terrace-bikes-1600.jpg", alt: "Terasa hiške La Vita z izposojo koles – Kamp Terme 3000" },
+  { src: "/gallery/new-pools-aerial-640.jpg", alt: "Bazeni Terme 3000 – pogled iz višine" },
 ];
 
 export const HeroSection = () => {

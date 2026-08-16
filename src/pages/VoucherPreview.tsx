@@ -35,7 +35,7 @@ const VoucherPreview = () => {
       <div className="flex justify-between items-center p-4 bg-black">
         <h1 className="text-white font-display text-lg">Predogled darilnega bona</h1>
         <Link to="/gift-voucher">
-          <Button variant="ghost" size="icon" className="text-white hover:bg-white/10">
+          <Button variant="ghost" size="icon" aria-label="Zapri predogled" className="text-white hover:bg-white/10">
             <X className="w-6 h-6" />
           </Button>
         </Link>

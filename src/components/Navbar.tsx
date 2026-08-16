@@ -150,6 +150,8 @@ export const Navbar = () => {
           {/* Mobile Menu Toggle */}
           <button
             onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label={isMobileMenuOpen ? "Zapri meni" : "Odpri meni"}
+            aria-expanded={isMobileMenuOpen}
             className="lg:hidden p-2 text-foreground hover:text-primary transition-colors"
           >
             {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}

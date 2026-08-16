@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
 import { ArrowRight, Calendar, Clock } from "lucide-react";
@@ -6,21 +5,16 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { blogPosts } from "@/data/blogPosts";
+import { SeoHead } from "@/components/SeoHead";
 
 const Blog = () => {
-  useEffect(() => {
-    document.title = "Blog | House La Vita Terme 3000 - Moravske Toplice";
-    const meta = document.querySelector('meta[name="description"]');
-    if (meta) {
-      meta.setAttribute(
-        "content",
-        "Blog House La Vita - nasveti za oddih v Moravskih Toplicah, Termah 3000 in odkrivanje Prekmurja. Izleti, wellness in počitniške ideje."
-      );
-    }
-  }, []);
-
   return (
     <div className="min-h-screen bg-background">
+      <SeoHead
+        title="Blog | Hiška La Vita Terme 3000 – Moravske Toplice"
+        description="Nasveti za oddih v Moravskih Toplicah in Termah 3000 ter ideje za odkrivanje Prekmurja – izleti, wellness in počitniški navdih."
+        path="/blog"
+      />
       <Navbar />
 
       {/* Hero */}

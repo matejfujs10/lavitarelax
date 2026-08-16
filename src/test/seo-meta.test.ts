@@ -28,8 +28,14 @@ describe("index.html SEO head", () => {
     expect(m![1].length).toBeLessThan(320);
   });
 
-  it("has canonical URL", () => {
-    expect(html).toMatch(/<link rel="canonical" href="https:\/\/www\.lavitaterme3000\.com/);
+  it("sets a self-referencing canonical per route via SeoHead", () => {
+    // Canonical moved out of index.html so each route owns its own (react-helmet-async).
+    expect(html).not.toMatch(/rel="canonical"/);
+    const index = readFileSync(resolve(process.cwd(), "src/pages/Index.tsx"), "utf-8");
+    expect(index).toMatch(/<SeoHead/);
+    const seoHead = readFileSync(resolve(process.cwd(), "src/components/SeoHead.tsx"), "utf-8");
+    expect(seoHead).toMatch(/rel="canonical"/);
+    expect(seoHead).toMatch(/https:\/\/www\.lavitaterme3000\.com/);
   });
 
   it("declares hreflang for sl, en, de, hr and x-default", () => {

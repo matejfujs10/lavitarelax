@@ -26,6 +26,7 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { SeoHead } from "@/components/SeoHead";
 
 import visaLogo from "@/assets/visa-logo.png";
 import mastercardLogo from "@/assets/mastercard-logo.png";
@@ -180,6 +181,11 @@ const GiftVoucher = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-lavita-cream to-background">
+      <SeoHead
+        title="Darilni bon | Hiška La Vita Terme 3000 Moravske Toplice"
+        description="Podarite oddih v hiški La Vita v Termah 3000 – darilni bon za nočitve ali 2 celodnevni kopalni karti. Takojšnja izdaja po plačilu."
+        path="/gift-voucher"
+      />
       {/* Header */}
       <div className="bg-lavita-forest text-white py-4">
         <div className="container mx-auto px-4">

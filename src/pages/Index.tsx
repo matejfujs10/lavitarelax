@@ -11,10 +11,16 @@ import { Footer } from "@/components/Footer";
 import { ActivitiesSection } from "@/components/ActivitiesSection";
 import { CookieConsent } from "@/components/CookieConsent";
 import { StickyMobileBar } from "@/components/StickyMobileBar";
+import { SeoHead } from "@/components/SeoHead";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
+      <SeoHead
+        title="Hiška La Vita Terme 3000 | Nastanitev Moravske Toplice, Pomurje"
+        description="Počitniška hiška La Vita v Termah 3000, Moravske Toplice – 50 m² hiška z 2x kopalnima kartama, 3x kolesi in zasebno teraso. Nastanitev v Prekmurju."
+        path="/"
+      />
       <Navbar />
       <HeroSection />
       <FeaturesSection />

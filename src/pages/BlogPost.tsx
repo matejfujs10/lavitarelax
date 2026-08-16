@@ -6,17 +6,13 @@ import { Navbar } from "@/components/Navbar";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { getBlogPostById, blogPosts } from "@/data/blogPosts";
+import { SeoHead, SITE_URL } from "@/components/SeoHead";
 
 const BlogPost = () => {
   const { id } = useParams<{ id: string }>();
   const post = id ? getBlogPostById(id) : undefined;
 
   useEffect(() => {
-    if (post) {
-      document.title = `${post.title} | Blog House La Vita`;
-      const meta = document.querySelector('meta[name="description"]');
-      if (meta) meta.setAttribute("content", post.excerpt);
-    }
     window.scrollTo(0, 0);
   }, [post]);
 
@@ -26,6 +22,24 @@ const BlogPost = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <SeoHead
+        title={`${post.title} | Blog Hiška La Vita`}
+        description={post.excerpt}
+        path={`/blog/${post.id}`}
+        type="article"
+        jsonLd={{
+          "@context": "https://schema.org",
+          "@type": "BlogPosting",
+          headline: post.title,
+          description: post.excerpt,
+          image: `${SITE_URL}${post.image}`,
+          datePublished: post.date,
+          articleSection: post.category,
+          mainEntityOfPage: `${SITE_URL}/blog/${post.id}`,
+          author: { "@type": "Organization", name: "Hiška La Vita" },
+          publisher: { "@type": "Organization", name: "Hiška La Vita" },
+        }}
+      />
       <Navbar />
 
       <article className="pt-28">

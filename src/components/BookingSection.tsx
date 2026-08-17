@@ -476,9 +476,13 @@ export const BookingSection = () => {
                               }
                             }}
                             disabled={(date) =>
-                              date < (arrivalDate || new Date()) ||
+                              date < (arrivalDate || new Date(new Date().setHours(0, 0, 0, 0))) ||
                               isDateBooked(date, bookedRanges)
                             }
+                            numberOfMonths={2}
+                            pagedNavigation
+                            showOutsideDays={false}
+                            defaultMonth={arrivalDate || departureDate}
                             initialFocus
                             className="p-3 pointer-events-auto"
                           />

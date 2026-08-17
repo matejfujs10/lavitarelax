@@ -108,6 +108,24 @@ export const PriceSummary = ({ checkIn, checkOut, className }: PriceSummaryProps
         )}
       </AnimatePresence>
 
+      {/* 4+ nights bonus: 2 all-day spa tickets for every night */}
+      <AnimatePresence>
+        {breakdown.nights >= 4 && (
+          <motion.div
+            initial={{ opacity: 0, height: 0 }}
+            animate={{ opacity: 1, height: "auto" }}
+            exit={{ opacity: 0, height: 0 }}
+            className="flex items-start gap-2 rounded-xl bg-accent/15 p-3 text-sm text-accent-foreground"
+            data-testid="bonus-4plus"
+          >
+            <Gift className="mt-0.5 h-4 w-4 shrink-0 text-accent" />
+            <span>{t("booking.springExtra")}</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+
+
       {/* Final total */}
       <div className="border-t border-border/60 pt-3 flex items-baseline justify-between">
         <span className="font-display font-semibold text-foreground">

@@ -28,3 +28,29 @@ describe("SEPTEMBER akcija – cena 95 €", () => {
     expect(getNightlyRate(jun).rate).toBe(77);
   });
 });
+
+describe("4+ nights bonus stays intact", () => {
+  it("keeps the long-stay discount for 4-night stays in August and September", () => {
+    const aug = computePrice(new Date(2026, 7, 29), new Date(2026, 8, 2));
+    expect(aug?.nights).toBe(4);
+    expect(aug?.basePerNight).toBe(100);
+    expect(aug?.discountPct).toBe(0.05);
+    expect(aug?.finalTotal).toBe(380);
+
+    const sep = computePrice(new Date(2026, 8, 1), new Date(2026, 8, 5));
+    expect(sep?.nights).toBe(4);
+    expect(sep?.basePerNight).toBe(95);
+    expect(sep?.discountPct).toBe(0.05);
+    expect(sep?.finalTotal).toBe(361);
+  });
+
+  it("never drops below the 4-night discount as the stay grows", () => {
+    let prev = 0;
+    for (let n = 4; n <= 14; n++) {
+      const b = computePrice(new Date(2026, 8, 1), new Date(2026, 8, 1 + n))!;
+      expect(b.discountPct).toBeGreaterThanOrEqual(0.05);
+      expect(b.discountPct).toBeGreaterThanOrEqual(prev);
+      prev = b.discountPct;
+    }
+  });
+});

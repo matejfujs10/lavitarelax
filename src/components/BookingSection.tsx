@@ -10,7 +10,7 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { Calendar as CalendarComponent } from "@/components/ui/calendar";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { format } from "date-fns";
-import { sl, de, enUS } from "date-fns/locale";
+import { sl, de, enUS, hr } from "date-fns/locale";
 import { cn } from "@/lib/utils";
 import laVitaLogoNew from "@/assets/la-vita-logo-new.png";
 
@@ -33,7 +33,7 @@ export const BookingSection = () => {
   const { ranges: bookedRanges } = useBookedDates();
 
   // Get the appropriate date locale
-  const dateLocale = language === 'sl' ? sl : language === 'de' ? de : enUS;
+  const dateLocale = language === 'sl' ? sl : language === 'de' ? de : language === 'hr' ? hr : enUS;
   
   // Form state
   const [fullName, setFullName] = useState("");
@@ -435,6 +435,8 @@ export const BookingSection = () => {
                               date < new Date(new Date().setHours(0, 0, 0, 0)) ||
                               isDateBooked(date, bookedRanges)
                             }
+                            locale={dateLocale}
+
                             numberOfMonths={2}
                             pagedNavigation
                             showOutsideDays={false}
@@ -479,6 +481,8 @@ export const BookingSection = () => {
                               date < (arrivalDate || new Date(new Date().setHours(0, 0, 0, 0))) ||
                               isDateBooked(date, bookedRanges)
                             }
+                            locale={dateLocale}
+
                             numberOfMonths={2}
                             pagedNavigation
                             showOutsideDays={false}

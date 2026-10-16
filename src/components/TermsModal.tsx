@@ -73,9 +73,9 @@ const termsContent = {
       },
       {
         title: "5. Prijava in odjava (Check-in / Check-out)",
-        content: "Prihod je možen že ob 9. uri, ko lahko že koristite kopanje v termalnem kompleksu. Namestitev v hiški je možna od 13:30 naprej, odhod pa do 11:00. V primeru, da je hiška naslednji dan prosta, je možno podaljšanje bivanja.",
+        content: "Prihod je možen ob 12. uri naprej, ko lahko že koristite kopanje v termalnem kompleksu. Namestitev v hiški je možna od 14:00 ure naprej, odhod pa do 11:00. V primeru, da je hiška naslednji dan prosta, je možno podaljšanje bivanja.",
         items: [
-          "prijava (check-in): od 13:30 dalje",
+          "prijava (check-in): od 14:00 dalje",
           "odjava (check-out): do 11:00 ali po dogovoru"
         ],
         content2: "Ob prihodu na recepciji Kampa Terme 3000 ob predložitvi izpolnjene napotnice prejmete ključe hiške in zapestnice. V hiški so gostom na voljo posteljnina in kuhinjske krpe."
@@ -166,9 +166,9 @@ const termsContent = {
       },
       {
         title: "5. Check-in / Check-out",
-        content: "Arrival is possible from 9:00 AM, when you can already use the thermal complex. Accommodation in the house is available from 1:30 PM, and departure by 11:00 AM. If the house is available the next day, extended stay is possible.",
+        content: "Arrival is possible from 12:00 noon, when you can already use the thermal complex. Check-in at the house is possible from 2:00 PM, and departure by 11:00 AM. If the house is available the next day, extended stay is possible.",
         items: [
-          "check-in: from 1:30 PM onwards",
+          "check-in: from 2:00 PM onwards",
           "check-out: by 11:00 AM or by agreement"
         ],
         content2: "Upon arrival at the Camp Terme 3000 reception, upon presenting the completed referral, you will receive house keys and wristbands. Bed linen and kitchen towels are available for guests in the house."
@@ -259,9 +259,9 @@ const termsContent = {
       },
       {
         title: "5. Check-in / Check-out",
-        content: "Die Anreise ist ab 9:00 Uhr möglich, wenn Sie bereits den Thermalkomplex nutzen können. Die Unterkunft im Haus ist ab 13:30 Uhr verfügbar, die Abreise bis 11:00 Uhr. Wenn das Haus am nächsten Tag frei ist, ist eine Verlängerung möglich.",
+        content: "Die Anreise ist ab 12:00 Uhr möglich, wenn Sie bereits den Thermalkomplex nutzen können. Der Bezug des Hauses ist ab 14:00 Uhr möglich, die Abreise bis 11:00 Uhr. Wenn das Haus am nächsten Tag frei ist, ist eine Verlängerung möglich.",
         items: [
-          "Check-in: ab 13:30 Uhr",
+          "Check-in: ab 14:00 Uhr",
           "Check-out: bis 11:00 Uhr oder nach Vereinbarung"
         ],
         content2: "Bei Ankunft an der Rezeption des Camp Terme 3000 erhalten Sie bei Vorlage der ausgefüllten Überweisung die Hausschlüssel und Armbänder. Bettwäsche und Küchentücher stehen den Gästen im Haus zur Verfügung."

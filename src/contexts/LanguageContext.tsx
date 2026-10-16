@@ -1421,7 +1421,10 @@ const translations: Record<Language, Record<string, string>> = {
   },
 };
 
-const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
+// Keep a single context instance across hot reloads so provider and hook never mismatch.
+const globalKey = '__lavitaLanguageContext__';
+const g = globalThis as unknown as Record<string, React.Context<LanguageContextType | undefined> | undefined>;
+const LanguageContext = g[globalKey] ?? (g[globalKey] = createContext<LanguageContextType | undefined>(undefined));
 
 export const LanguageProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [language, setLanguageState] = useState<Language>(() => {
